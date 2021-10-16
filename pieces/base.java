@@ -53,11 +53,21 @@ public class base {
         return fake;
     }
 
-    private boolean knightCheck(base[][] board, int[] daKing) //STILL NEED TO WRITE FUNCTION
+    private boolean knightCheck(base[][] board, int[] daKing) //Looks better????? Figure out way of non hard coding????
     {
+        int kingY = daKing[0], kingX = daKing[1];
+        int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 2, kingX + 2}, {kingY + 2, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 2, kingX - 2}, {kingY + 2, kingX - 2}};
+
+        for (int i = 0; i < knightChecks.length; i++){
+            if (knightChecks[i][0] < 9 && knightChecks[i][0] >= 0 && knightChecks[i][1] < 9 && knightChecks[i][1] >= 0){
+                if (board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true;
+            }
+
+        }
         return false;
     }
-    private boolean pawnCheck(base[][] board, int[] daKing){ // NEED TO FIX THE FUNCTION
+
+    private boolean pawnCheck(base[][] board, int[] daKing){ // NEED TO FIX THE FUNCTION BROKEN RN BROKEN 
         if (this.color == "white"){
             int kingY = daKing[0], kingX = daKing[1];
 
