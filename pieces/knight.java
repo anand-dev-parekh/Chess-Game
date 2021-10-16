@@ -2,9 +2,9 @@ package pieces;
 
 public class knight extends base{
 
-    public knight(String color, int[] position)
+    public knight(String color, int[] position, String piece)
     {
-        super(color, position);
+        super(color, position, piece);
     }
     
 }

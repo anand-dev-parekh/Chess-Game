@@ -9,12 +9,13 @@ class chess{
 
 
 
-        king king1 = new king("White", test, false);
-        queen queen1 = new queen("White", test);
+        king king1 = new king("White", test, "king");
+        queen queen1 = new queen("White", test, "queen");
 
-        System.out.println(king1.inCheck);
-        System.out.println(queen1.color + " " + queen1.position);
+        System.out.println(queen1.color + " " + queen1.position + " " + king1.color);
 
-        
+
+
+
     }
 }

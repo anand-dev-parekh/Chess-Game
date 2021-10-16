@@ -2,9 +2,9 @@ package pieces;
 
 public class pond extends base{
 
-    public pond(String color, int[] position)
+    public pond(String color, int[] position, String piece)
     {
-        super(color, position);
+        super(color, position, piece);
     }
     
 }

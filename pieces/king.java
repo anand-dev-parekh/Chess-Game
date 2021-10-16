@@ -2,10 +2,15 @@ package pieces;
 
 public class king extends base{
 
-    public boolean inCheck;
-    public king(String color, int[] position, boolean inCheck)
+    public king(String color, int[] position,  String piece)
     {
-        super(color, position);
-        this.inCheck = inCheck;
+        super(color, position, piece);
+
+    }
+    
+
+    public boolean inCheck(base[] boardinp)
+    {
+        return true;
     }
 }
