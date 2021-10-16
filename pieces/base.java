@@ -13,5 +13,15 @@ public class base {
     }
 
 
+    public boolean validMove(base[][] board, int[] newPos)
+    {
+        return false;
+    }
+
+    public boolean inCheck(base[][] board){
+        return true;
+    }
+
+
 
 }

@@ -11,6 +11,6 @@ public class king extends base{
 
     public boolean inCheck(base[] boardinp)
     {
-        return true;
+        return false;
     }
 }
