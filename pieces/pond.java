@@ -6,5 +6,13 @@ public class pond extends base{
     {
         super(color, position, piece);
     }
+
+    public boolean validMove(base[][] board, int[] newPos) //FINISH LATER
+    {
+
+
+        return false;
+    }
+
     
 }
