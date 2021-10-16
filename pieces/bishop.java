@@ -8,15 +8,14 @@ public class bishop extends base{
     }
 
     public boolean validMove(base[][] board, int[] newPos){
-        
+
         if (this.toTopRight(board, newPos) || this.toBottomRight(board, newPos) || this.toBottomLeft(board, newPos) || this.toTopLeft(board, newPos)) return true;
         return false;
     }
 
     public boolean toTopRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0];
-        int x = this.position[1];
+        int y = this.position[0], x = this.position[1];
 
         while (x < 9 && y >= 0)
         {
@@ -30,8 +29,7 @@ public class bishop extends base{
     }
     public boolean toBottomRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0];
-        int x = this.position[1];
+        int y = this.position[0], x = this.position[1];
 
         while (x < 9 && y >= 0)
         {
@@ -45,8 +43,7 @@ public class bishop extends base{
     }
     public boolean toTopLeft(base[][] board, int[] newPos){
 
-        int y = this.position[0];
-        int x = this.position[1];
+        int y = this.position[0], x = this.position[1];
 
         while (x < 9 && y >= 0)
         {
@@ -61,8 +58,7 @@ public class bishop extends base{
     }
     public boolean toBottomLeft(base[][] board, int[] newPos){
 
-        int y = this.position[0];
-        int x = this.position[1];
+        int y = this.position[0], x = this.position[1];
 
         while (x < 9 && y >= 0)
         {

@@ -16,8 +16,7 @@ public class rook extends base{
 
     private boolean toRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0];
-        int x = this.position[1];
+        int y = this.position[0], x = this.position[1];
 
         while (x < 9){
             int[] rightPossible = {y, x};
@@ -32,8 +31,7 @@ public class rook extends base{
 
     private boolean toLeft(base[][] board, int[] newPos)
     {
-        int y = this.position[0];
-        int x = this.position[1];
+        int y = this.position[0], x = this.position[1];
 
         while (x >= 0){
             int[] leftPossible = {y, x};
@@ -48,8 +46,7 @@ public class rook extends base{
 
     private boolean toTop(base[][] board, int[] newPos)
     {
-        int x = this.position[1];
-        int y = this.position[0];
+        int x = this.position[1], y = this.position[0];
 
         while (y < 9)
         {
@@ -63,8 +60,7 @@ public class rook extends base{
     }
     private boolean toBottom(base[][] board, int[] newPos)
     {
-        int x = this.position[1];
-        int y = this.position[0];
+        int x = this.position[1], y = this.position[0];
 
         while (y >= 0)
         {
