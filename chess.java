@@ -14,5 +14,7 @@ class chess{
 
         System.out.println(king1.inCheck);
         System.out.println(queen1.color + " " + queen1.position);
+
+        
     }
 }
