@@ -31,7 +31,7 @@ public class base {
 
         int[] daKing = this.findKing(board);
 
-        if (this.knightCheck(board, daKing)) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
+        if (this.knightCheck(board, daKing) || this.pawnCheck(board, daKing)) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
 
         return false;
     }
@@ -55,12 +55,19 @@ public class base {
 
     private boolean knightCheck(base[][] board, int[] daKing) //STILL NEED TO WRITE FUNCTION
     {
-
-
-
         return false;
+    }
+    private boolean pawnCheck(base[][] board, int[] daKing){ // NEED TO FIX THE FUNCTION
+        if (this.color == "white"){
+            int kingY = daKing[0], kingX = daKing[1];
 
-
+            if (kingY != 0 && kingX != 8 && kingX != 0){
+                if ((board[--kingY][++kingX].piece == "pawn" && board[--kingY][++kingX].color != this.color) || (board[--kingY][--kingX].piece == "pawn" && board[--kingY][--kingX].color != this.color)) return true;
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
 
