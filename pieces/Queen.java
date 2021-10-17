@@ -8,11 +8,11 @@ public class Queen extends Base{
     }
 
 
-    public boolean validMove(Base[][] board, int newX, int newY){
+    public boolean validMove(Board board, int newX, int newY){
 
         if (this.x == newX && this.y == newY) return false; //Cant move to same spot
-        else if (this.x == newX || this.y == newY) return this.validRowColumn(board, newX, newY);
-        else return this.validDiagnols(board, newX, newY);
+        else if (this.x == newX || this.y == newY) return this.validRowColumn(board.matrix, newX, newY);
+        else return this.validDiagnols(board.matrix, newX, newY);
         
     }
 

@@ -27,7 +27,6 @@ class chess{
                                 }; 
 
 
-        System.out.println(board[5][5].validMove(board, 4, 7));
 
     }
 }
