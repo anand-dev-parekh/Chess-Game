@@ -20,9 +20,6 @@ public class Pawn extends Base{
 
 
         return false;
-        
-       
-    }
-
-    
+          
+    }    
 }
