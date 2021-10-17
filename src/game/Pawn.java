@@ -7,10 +7,10 @@ public class Pawn extends Base{
         super(color, x, y, piece);
     }
 
-    public boolean validMove(Board board, int newX, int newY) //NEED TO IMPLEMENT EN PEASSANT FIX Pond Color
+    public boolean validMove(Board board, int newX, int newY)
     {  
         
-        if (board.matrix[newY][newX].color == this.color) return false;
+        if (board.matrix[newY][newX] != null && board.matrix[newY][newX].color == this.color) return false; // Checks if move is occupied by piece of same color
 
         int decrement = 1;
         if (this.color == "white"){
@@ -29,12 +29,12 @@ public class Pawn extends Base{
         if (newX == this.x - 1){  // Checks that moved to left
 
             if(board.matrix[newY][newX] != null) return true; // Checks for taking on left
-            if (this.y == prevY && this.x - 1 == prevX && board.matrix[prevY][prevX].piece == "pawn" && board.matrix[prevY][prevX].color != this.color) return true; //Checks En peasant left
+            if (this.y == prevY && this.x - 1 == prevX && board.matrix[prevY][prevX].piece == "pawn") return true; //Checks En peasant left
         }
         if (newX == this.x + 1){ 
             
             if (board.matrix[newY][newX] != null) return true; // Checks for taking on right
-            if (this.y == prevY && this.x + 1 == prevX && board.matrix[prevY][prevX].piece == "pawn" && board.matrix[prevY][prevX].color != this.color) return true; //Checks En peasant right
+            if (this.y == prevY && this.x + 1 == prevX && board.matrix[prevY][prevX].piece == "pawn") return true; //Checks En peasant right
         }
 
         return false;  
