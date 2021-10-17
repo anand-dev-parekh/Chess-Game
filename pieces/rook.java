@@ -18,7 +18,7 @@ public class rook extends base{
     {
         int y = this.position[0], x = this.position[1] + 1;
 
-        while (x < 9){
+        while (x < 8){
             int[] rightPossible = {y, x};
     
             if (Arrays.equals(rightPossible, newPos)) return true;
@@ -47,7 +47,7 @@ public class rook extends base{
     {
         int x = this.position[1], y = this.position[0] + 1;
 
-        while (y < 9)
+        while (y < 8)
         {
             int[] topPossible = {y, x};
 

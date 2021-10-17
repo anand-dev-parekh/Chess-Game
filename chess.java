@@ -19,15 +19,15 @@ class chess{
         rook rook1 = new rook("black", rookLocation, "rook");
 
 
-        base[][] board = {{null, null, null, null, null, king1, queen1, null, null}, 
-                          {null, null, null, null, null, null, null, null, null}, 
-                          {null, null, null, null, null, null, null, null, null}, 
-                          {null, null, null, null, null, null, null, null, null},
-                          {rook1, null, null, null, null, null, null, null, null},
-                          {null, null, null, null, null, null, null, null, null},
-                          {null, null, null, null, null, null, null, null, null},
-                          {null, null, null, null, null, null, null, null, null},
-                          {null, null, null, null, null, null, null, null, null}
+        base[][] board = {{null, null, null, null, null, king1, queen1, null}, 
+                          {null, null, null, null, null, null, null, null}, 
+                          {null, null, null, null, null, null, null, null}, 
+                          {null, null, null, null, null, null, null, null},
+                          {rook1, null, null, null, null, null, null, null},
+                          {null, null, null, null, null, null, null, null},
+                          {null, null, null, null, null, null, null, null},
+                          {null, null, null, null, null, null, null, null},
+                          {null, null, null, null, null, null, null, null}
                                 }; 
         System.out.println(rook1.validMove(board, rightRookLocation));
 

@@ -18,7 +18,7 @@ public class bishop extends base{
     {
         int y = this.position[0] - 1, x = this.position[1] + 1;
 
-        while (x < 9 && y >= 0)
+        while (x < 8 && y >= 0)
         {
             int[] topRightPossible = {y, x};
             if (Arrays.equals(topRightPossible, newPos)) return true;
@@ -32,7 +32,7 @@ public class bishop extends base{
     {
         int y = this.position[0] + 1, x = this.position[1] + 1;
 
-        while (x < 9 && y >= 0)
+        while (x < 8 && y >= 0)
         {
             int[] bottomRightPossible = {y, x};
             if (Arrays.equals(bottomRightPossible, newPos)) return true;
@@ -46,7 +46,7 @@ public class bishop extends base{
 
         int y = this.position[0] - 1, x = this.position[1] - 1;
 
-        while (x < 9 && y >= 0)
+        while (x < 8 && y >= 0)
         {
             int[] topLeftPossible = {y, x};
             if (Arrays.equals(topLeftPossible, newPos)) return true;
@@ -61,7 +61,7 @@ public class bishop extends base{
 
         int y = this.position[0] + 1, x = this.position[1] - 1;
 
-        while (x < 9 && y >= 0)
+        while (x < 8 && y >= 0)
         {
             int[] bottomLeftPossible = {y, x};
             if (Arrays.equals(bottomLeftPossible, newPos)) return true;

@@ -59,7 +59,7 @@ public class base {
         int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 2, kingX + 2}, {kingY + 2, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 2, kingX - 2}, {kingY + 2, kingX - 2}};
 
         for (int i = 0; i < knightChecks.length; i++){
-            if (knightChecks[i][0] < 9 && knightChecks[i][0] >= 0 && knightChecks[i][1] < 9 && knightChecks[i][1] >= 0){
+            if (knightChecks[i][0] < 8 && knightChecks[i][0] >= 0 && knightChecks[i][1] < 8 && knightChecks[i][1] >= 0){
                 if (board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true;
             }
 
