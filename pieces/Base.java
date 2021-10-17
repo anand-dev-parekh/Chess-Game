@@ -15,22 +15,22 @@ public class Base {
     }
 
     //Base method for all pieces 
-    public boolean validMove(Base[][] board, int x, int y){
+    public boolean validMove(Board board, int x, int y){
         return false;
     }
 
 
 
-    public boolean inCheck(Base[][] board, int newX, int newY){ //Will check if king is in check after move has been played
+    public boolean inCheck(Board board, int newX, int newY){ //Will check if king is in check after move has been played
         int x = this.x;
         int y = this.y;
 
-        board[y][x] = null;
-        board[newY][newX] = this;
+        board.matrix[y][x] = null;
+        board.matrix[newY][newX] = this;
 
-        int[] daKing = this.findKing(board);
+        int[] daKing = this.findKing(board.matrix);
 
-        if (this.knightCheck(board, daKing[1], daKing[0]) || this.pawnCheck(board, daKing[1], daKing[0]) || this.rookQcheck(board, daKing[1], daKing[0]) || this.bishopQcheck(board, daKing[1], daKing[0])) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
+        if (this.knightCheck(board.matrix, daKing[1], daKing[0]) || this.pawnCheck(board.matrix, daKing[1], daKing[0]) || this.rookQcheck(board.matrix, daKing[1], daKing[0]) || this.bishopQcheck(board.matrix, daKing[1], daKing[0])) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
 
         return false;
     }
