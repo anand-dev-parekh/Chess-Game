@@ -7,7 +7,7 @@ public class Pawn extends Base{
         super(color, x, y, piece);
     }
 
-    public boolean validMove(Base[][] board, int newX, int newY) //NEED TO IMPLEMENT EN PEASSANT FIX THE POND MOVEMENT WITH SOME STUFFS
+    public boolean validMove(Base[][] board, int newX, int newY) //NEED TO IMPLEMENT EN PEASSANT FIX Pond Color
     {   
 
 
