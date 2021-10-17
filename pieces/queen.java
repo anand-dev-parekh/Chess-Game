@@ -1,5 +1,4 @@
 package pieces;
-import java.util.Arrays;
 
 public class Queen extends Base{
 
@@ -8,146 +7,48 @@ public class Queen extends Base{
         super(color, x, y, piece);
     }
 
-    //I DO NOT KNOW IF THERES SOME OOP THInG THAT WOULD MAKE THIS MORE CLEAN BUT WE CAN JUST COPY FUNCTIONS FROM BISHOP AND ROOK CLASS FOR VALID MOVE
 
-    public boolean validMove(Base[][] board, int[] newPos){
+    public boolean validMove(Base[][] board, int newX, int newY){
 
-        if (this.toRight(board, newPos) || this.toLeft(board, newPos) || this.toTop(board, newPos) || this.toBottom(board, newPos) || this.toTopRight(board, newPos) || this.toBottomRight(board, newPos) || this.toBottomLeft(board, newPos) || this.toTopLeft(board, newPos)) return true;
-
-        return false;
+        if (this.x == newX && this.y == newY) return false; //Cant move to same spot
+        else if (this.x == newX || this.y == newY) return this.validRowColumn(board, newX, newY);
+        else return this.validDiagnols(board, newX, newY);
+        
     }
 
+    private boolean validRowColumn(Base[][] board, int newX, int newY){ //This function checks the rows and columns for queen moves
 
-    private boolean toRight(Base[][] board, int[] newPos)
-    {
-        int y = this.y, x = this.x + 1;
+        if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; // Checks to make sure new position isnt occupied by piece of same color
+        
+        int x = this.x, y = this.y;
+        int xOffset = newX - x, yOffset = newY - y;
 
-        while (x < 8){
+        for (int i = 1; i < Math.max(xOffset, yOffset); i++)
+        {   
+            if (xOffset != 0) x += xOffset/Math.abs(xOffset);       //xOffset or yOffset will be 0 so must use if statment for the incrementing
+            else y += yOffset/Math.abs(yOffset);                    
 
-            int[] rightPossible = {y, x};
-
-            if (board[y][x] != null && board[y][x].color == this.color) return false;
-            else if (Arrays.equals(rightPossible, newPos)) return true;
-            else if (board[y][x] != null) return false;
-            x++;
+            if (board[y][x] != null) return false;                  //Returns false since piece blocking path
         }
-        return false;
+        return true;
     }
 
-    private boolean toLeft(Base[][] board, int[] newPos)
-    {
-        int y = this.y, x = this.x - 1;
+    private boolean validDiagnols(Base[][] board, int newX, int newY){
 
-        while (x >= 0){
-            int[] leftPossible = {y, x};
+        int x = this.x, y = this.y;                                     
+        int xOffset = newX - x, yOffset = newY - y;
 
-            if (board[y][x] != null && board[y][x].color == this.color) return false;
-            else if (Arrays.equals(leftPossible, newPos)) return true;
-            else if (board[y][x] != null) return false;
-            x--;
-        }
-        return false;
-    }
+        if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; // Checks to make sure new position isnt occupied by piece of same color
+        if (Math.abs(yOffset) != Math.abs(xOffset)) return false; //Checks to make sure piece is on SAME DIAGNOL
 
-    private boolean toTop(Base[][] board, int[] newPos)
-    {
-        int x = this.x, y = this.y + 1;
-
-        while (y < 8)
+        for (int i = 1; i < Math.abs(xOffset); i++)
         {
-            int[] topPossible = {y, x};
+            x += xOffset / Math.abs(xOffset);                    //This tells us what to increment/decrement the x and y by
+            y += yOffset / Math.abs(yOffset);
 
-            if (board[y][x] != null && board[y][x].color == this.color) return false;
-            else if (Arrays.equals(topPossible, newPos)) return true;
-            else if (board[y][x] != null) return false;
-            y++;
+            if (board[y][x] != null) return false;               //If there is something blocking the path return false
         }
-        return false;
+        return true;                                             //Return True because there is nothing blocking the path
     }
-    private boolean toBottom(Base[][] board, int[] newPos)
-    {
-        int x = this.x, y = this.y - 1;
-
-        while (y >= 0)
-        {
-            int[] bottomPossible = {y, x};
-            
-            if (board[y][x] != null && board[y][x].color == this.color) return false;
-            else if (Arrays.equals(bottomPossible, newPos)) return true;
-            else if (board[y][x] != null) return false;
-            y--;
-        }
-        return false;        
-    }
-
-    public boolean toTopRight(Base[][] board, int[] newPos)
-    {
-        int y = this.y - 1, x = this.x + 1;
-
-        while (x < 8 && y >= 0)
-        {
-            int[] topRightPossible = {y, x};
-            
-            if (board[y][x] != null && board[y][x].color == this.color) return false;
-            else if (Arrays.equals(topRightPossible, newPos)) return true;
-            else if (board[y][x] != null) return false;
-
-            x++; y--;
-        }
-        return false;
-    }
-    public boolean toBottomRight(Base[][] board, int[] newPos)
-    {
-        int y = this.y + 1, x = this.x + 1;
-
-        while (x < 8 && y >= 0)
-        {
-            int[] bottomRightPossible = {y, x};
-            
-            if (board[y][x] != null && board[y][x].color == this.color) return false;
-            else if (Arrays.equals(bottomRightPossible, newPos)) return true;
-            else if (board[y][x] != null) return false;
-
-            x++; y++;
-        }
-        return false;
-    }
-    public boolean toTopLeft(Base[][] board, int[] newPos){
-
-        int y = this.y - 1, x = this.x - 1;
-
-        while (x < 8 && y >= 0)
-        {
-            int[] topLeftPossible = {y, x};
-
-            if (board[y][x] != null && board[y][x].color == this.color) return false;
-            else if (Arrays.equals(topLeftPossible, newPos)) return true;
-            else if (board[y][x] != null) return false;
-
-            x--; y--;
-        }
-
-        return false;
-    }
-    public boolean toBottomLeft(Base[][] board, int[] newPos){
-
-        int y = this.y + 1, x = this.x - 1;
-
-        while (x >= 0 && y < 8)
-        {
-            int[] bottomLeftPossible = {y, x};
-
-            if (board[y][x] != null && board[y][x].color == this.color) return false;
-            else if (Arrays.equals(bottomLeftPossible, newPos)) return true;
-            else if (board[y][x] != null) return false;
-
-            x--; y++;
-        }
-
-        return false;
-    }
-
-
-
 
 }

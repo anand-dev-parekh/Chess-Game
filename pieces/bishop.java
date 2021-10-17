@@ -9,10 +9,12 @@ public class Bishop extends Base{
 
     public boolean validMove(Base[][] board, int newX, int newY){
         
-        int x = this.x, y = this.y;                                     
         int xOffset = newX - x, yOffset = newY - y;
-
+        
         if (Math.abs(yOffset) != Math.abs(xOffset)) return false; //Checks to make sure piece is on SAME DIAGNOL
+        if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; // Checks to make sure new position isnt occupied by piece of same color
+
+        int x = this.x, y = this.y;                                     
 
         for (int i = 1; i < Math.abs(xOffset); i++)
         {

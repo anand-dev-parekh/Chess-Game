@@ -7,14 +7,12 @@ public class Knight extends Base{
         super(color, x, y, piece);
     }
     
-    public boolean validMove(Base[][] board, int[] newPos)
+    public boolean validMove(Base[][] board, int newX, int newY)
     {
         int y = this.y, x = this.x;
-        int newY = newPos[0], newX = newPos[1];
 
-        if (board[newY][newX] != null && board[newY][newX].color == this.color) return false;
-        if ((newY - y) * (newY - y) + (newX - x) * (newX - x) == 5) return true;
-
+        if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; // Checks to make sure piece isnt capturing from its own color
+        if ((newY - y) * (newY - y) + (newX - x) * (newX - x) == 5) return true;              // Uses distance formula to find knights move
 
         return false;
     }

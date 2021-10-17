@@ -10,10 +10,9 @@ public class King extends Base{
     }
     
 
-    public boolean validMove(Base[][] board, int[] newPos)
+    public boolean validMove(Base[][] board, int newX, int newY)
     {
         int y = this.y, x = this.x;
-        int newY = newPos[0], newX = newPos[1];
 
         int changeY = Math.abs(newY - y),  changeX = Math.abs(newX - x);
 

@@ -15,7 +15,7 @@ public class Base {
     }
 
 
-    public boolean validMove(Base[][] board, int[] newPos)
+    public boolean validMove(Base[][] board, int x, int y)
     {
         return false;
     }

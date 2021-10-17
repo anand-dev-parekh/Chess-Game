@@ -30,8 +30,7 @@ class chess{
                                 }; 
 
 
-        int[] bishopMove = {2, 2};
-        System.out.println(board[5][5].validMove(board, bishopMove));
+        System.out.println(board[5][5].validMove(board, 2, 2));
 
     }
 }
