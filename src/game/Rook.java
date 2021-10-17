@@ -1,4 +1,4 @@
-package pieces;
+package game;
 
 public class Rook extends Base{
    
@@ -27,8 +27,4 @@ public class Rook extends Base{
         }
         return true;
     }
-
-
-
-
 }

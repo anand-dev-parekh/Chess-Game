@@ -1,4 +1,4 @@
-package pieces;
+package game;
 import java.lang.Math;
 
 public class King extends Base{

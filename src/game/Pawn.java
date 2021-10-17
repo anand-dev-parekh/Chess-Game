@@ -1,4 +1,4 @@
-package pieces;
+package game;
 
 public class Pawn extends Base{
 
