@@ -1,4 +1,4 @@
-package pieces;
+package game;
 
 public class Queen extends Base{
 

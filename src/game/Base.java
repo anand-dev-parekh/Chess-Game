@@ -1,6 +1,6 @@
-package pieces;
+package game;
 
-public class Base {
+public abstract class Base {
     //SETS the base attributes of all pieces
     final public String color;              
     public int x;
@@ -15,11 +15,7 @@ public class Base {
     }
 
     //Base method for all pieces 
-    public boolean validMove(Board board, int x, int y){
-        return false;
-    }
-
-
+    public abstract boolean validMove(Board board, int x, int y);
 
     public boolean inCheck(Board board, int newX, int newY){ //Will check if king is in check after move has been played
         int x = this.x;
@@ -88,6 +84,5 @@ public class Base {
 
         return false;
     }
-
 
 }

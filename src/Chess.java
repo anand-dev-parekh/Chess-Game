@@ -1,11 +1,11 @@
-import pieces.Base;
-import pieces.King;
-import pieces.Queen;
-import pieces.Rook;
-import pieces.Bishop;
-import pieces.Knight;
+import game.Base;
+import game.King;
+import game.Queen;
+import game.Rook;
+import game.Bishop;
+import game.Knight;
 
-class chess{
+class Chess{
     public static void main(String[] args)
     {
 
