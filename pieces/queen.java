@@ -123,7 +123,7 @@ public class queen extends base{
 
         int y = this.position[0] + 1, x = this.position[1] - 1;
 
-        while (x < 8 && y >= 0)
+        while (x >= 0 && y < 8)
         {
             int[] bottomLeftPossible = {y, x};
             if (Arrays.equals(bottomLeftPossible, newPos)) return true;
