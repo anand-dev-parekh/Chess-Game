@@ -3,9 +3,9 @@ import java.util.Arrays;
 
 public class queen extends base{
 
-    public queen(String color, int[] position, String piece)
+    public queen(String color, int x, int y, String piece)
     {
-        super(color, position, piece);
+        super(color, x, y, piece);
     }
 
     //I DO NOT KNOW IF THERES SOME OOP THInG THAT WOULD MAKE THIS MORE CLEAN BUT WE CAN JUST COPY FUNCTIONS FROM BISHOP AND ROOK CLASS FOR VALID MOVE
@@ -20,7 +20,7 @@ public class queen extends base{
 
     private boolean toRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1] + 1;
+        int y = this.y, x = this.x + 1;
 
         while (x < 8){
 
@@ -36,7 +36,7 @@ public class queen extends base{
 
     private boolean toLeft(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1] - 1;
+        int y = this.y, x = this.x - 1;
 
         while (x >= 0){
             int[] leftPossible = {y, x};
@@ -51,7 +51,7 @@ public class queen extends base{
 
     private boolean toTop(base[][] board, int[] newPos)
     {
-        int x = this.position[1], y = this.position[0] + 1;
+        int x = this.x, y = this.y + 1;
 
         while (y < 8)
         {
@@ -66,7 +66,7 @@ public class queen extends base{
     }
     private boolean toBottom(base[][] board, int[] newPos)
     {
-        int x = this.position[1], y = this.position[0] - 1;
+        int x = this.x, y = this.y - 1;
 
         while (y >= 0)
         {
@@ -82,7 +82,7 @@ public class queen extends base{
 
     public boolean toTopRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0] - 1, x = this.position[1] + 1;
+        int y = this.y - 1, x = this.x + 1;
 
         while (x < 8 && y >= 0)
         {
@@ -98,7 +98,7 @@ public class queen extends base{
     }
     public boolean toBottomRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0] + 1, x = this.position[1] + 1;
+        int y = this.y + 1, x = this.x + 1;
 
         while (x < 8 && y >= 0)
         {
@@ -114,7 +114,7 @@ public class queen extends base{
     }
     public boolean toTopLeft(base[][] board, int[] newPos){
 
-        int y = this.position[0] - 1, x = this.position[1] - 1;
+        int y = this.y - 1, x = this.x - 1;
 
         while (x < 8 && y >= 0)
         {
@@ -131,12 +131,12 @@ public class queen extends base{
     }
     public boolean toBottomLeft(base[][] board, int[] newPos){
 
-        int y = this.position[0] + 1, x = this.position[1] - 1;
+        int y = this.y + 1, x = this.x - 1;
 
         while (x >= 0 && y < 8)
         {
             int[] bottomLeftPossible = {y, x};
-            
+
             if (board[y][x] != null && board[y][x].color == this.color) return false;
             else if (Arrays.equals(bottomLeftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;

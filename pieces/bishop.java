@@ -3,9 +3,9 @@ import java.util.Arrays;
 
 public class bishop extends base{
 
-    public bishop(String color, int[] position, String piece)
+    public bishop(String color, int x, int y, String piece)
     {
-        super(color, position, piece);
+        super(color, x, y, piece);
     }
 
     public boolean validMove(base[][] board, int[] newPos){
@@ -16,7 +16,7 @@ public class bishop extends base{
 
     public boolean toTopRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0] - 1, x = this.position[1] + 1;
+        int y = this.y - 1, x = this.x + 1;
 
         while (x < 8 && y >= 0)
         {
@@ -32,7 +32,7 @@ public class bishop extends base{
     }
     public boolean toBottomRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0] + 1, x = this.position[1] + 1;
+        int y = this.y + 1, x = this.x + 1;
 
         while (x < 8 && y >= 0)
         {
@@ -48,7 +48,7 @@ public class bishop extends base{
     }
     public boolean toTopLeft(base[][] board, int[] newPos){
 
-        int y = this.position[0] - 1, x = this.position[1] - 1;
+        int y = this.y - 1, x = this.x - 1;
 
         while (x < 8 && y >= 0)
         {
@@ -65,7 +65,7 @@ public class bishop extends base{
     }
     public boolean toBottomLeft(base[][] board, int[] newPos){
 
-        int y = this.position[0] + 1, x = this.position[1] - 1;
+        int y = this.y + 1, x = this.x - 1;
 
         while (x >= 0 && y < 0)
         {

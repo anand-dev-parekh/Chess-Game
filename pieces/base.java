@@ -2,13 +2,15 @@ package pieces;
 
 public class base {
     public String color;
-    public int[] position;
+    public int x;
+    public int y;
     public String piece;
 
-    public base(String color, int[] position, String piece)
+    public base(String color, int x, int y, String piece)
     {
         this.color = color;
-        this.position = position;
+        this.x = x;
+        this.y = y;
         this.piece = piece;
     }
 
@@ -19,8 +21,8 @@ public class base {
     }
 
     public boolean inCheck(base[][] board, int[] newPos){
-        int x = this.position[1];
-        int y = this.position[0];
+        int x = this.x;
+        int y = this.y;
 
         int newX = newPos[1];
         int newY = newPos[0];

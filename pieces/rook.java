@@ -4,19 +4,20 @@ import java.util.Arrays;
 public class rook extends base{
    
 
-    public rook(String color, int[] position, String piece){
-        super(color, position, piece);
+    public rook(String color, int x, int y, String piece){
+        super(color, x, y, piece);
     }
 
-    public boolean validMove(base[][] board, int[] newPos)
+    public boolean validMove(base[][] board, int[] newPos) //THIS IS THE VALID METHOD
     {
+        //CHECKS IF NEW POSITION 
         if (this.toRight(board, newPos) || this.toLeft(board, newPos) || this.toTop(board, newPos) || this.toBottom(board, newPos)) return true;
         return false;
     }
 
-    private boolean toRight(base[][] board, int[] newPos)
+    private boolean toRight(base[][] board, int[] newPos) //
     {
-        int y = this.position[0], x = this.position[1] + 1;
+        int y = this.y, x = this.x + 1;
 
         while (x < 8){
             int[] rightPossible = {y, x};
@@ -31,7 +32,7 @@ public class rook extends base{
 
     private boolean toLeft(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1] - 1;
+        int y = this.y, x = this.x - 1;
 
         while (x >= 0){
             int[] leftPossible = {y, x};
@@ -46,7 +47,7 @@ public class rook extends base{
 
     private boolean toTop(base[][] board, int[] newPos)
     {
-        int x = this.position[1], y = this.position[0] + 1;
+        int x = this.x, y = this.y + 1;
 
         while (y < 8)
         {
@@ -61,7 +62,7 @@ public class rook extends base{
     }
     private boolean toBottom(base[][] board, int[] newPos)
     {
-        int x = this.position[1], y = this.position[0] - 1;
+        int x = this.x, y = this.y - 1;
 
         while (y >= 0)
         {

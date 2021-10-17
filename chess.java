@@ -9,17 +9,14 @@ class chess{
     public static void main(String[] args)
     {
 
-        int[] test = {0, 1};
-        int[] rookLocation = {4, 0};
-        int[] bishopLocation = {5, 5};
-        int[] knightLocation = {2, 2};
 
 
-        king king1 = new king("white", test, "king");
-        queen queen1 = new queen("white", test, "queen");
-        rook rook1 = new rook("black", rookLocation, "rook");
-        bishop bishop1 = new bishop("black", bishopLocation, "bishop");
-        knight knight1 = new knight("white", knightLocation, "knight");
+
+        king king1 = new king("white", 0, 5,"king");
+        queen queen1 = new queen("white", 4, 0, "queen");
+        rook rook1 = new rook("black", 5,  5,"rook");
+        bishop bishop1 = new bishop("black", 5, 5, "bishop");
+        knight knight1 = new knight("white", 2, 2, "knight");
 
 
         base[][] board = {{null, null, null, null, null, king1, queen1, null}, 

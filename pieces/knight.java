@@ -2,14 +2,14 @@ package pieces;
 
 public class knight extends base{
 
-    public knight(String color, int[] position, String piece)
+    public knight(String color, int x, int y, String piece)
     {
-        super(color, position, piece);
+        super(color, x, y, piece);
     }
     
     public boolean validMove(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1];
+        int y = this.y, x = this.x;
         int newY = newPos[0], newX = newPos[1];
 
         if (board[newY][newX] != null && board[newY][newX].color == this.color) return false;

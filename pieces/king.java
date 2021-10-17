@@ -3,17 +3,17 @@ import java.lang.Math;
 
 public class king extends base{
 
-    public king(String color, int[] position,  String piece)
+    public king(String color, int x, int y,  String piece)
     {
-        super(color, position, piece);
+        super(color, x, y, piece);
 
     }
     
 
     public boolean validMove(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1];
-        int newY = newPos[0], newX = this.position[1];
+        int y = this.y, x = this.x;
+        int newY = newPos[0], newX = newPos[1];
 
         int changeY = Math.abs(newY - y),  changeX = Math.abs(newX - x);
 
