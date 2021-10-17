@@ -17,21 +17,26 @@ public class Pawn extends Base{
             decrement = -1;
         }
 
-        if (newY != this.y + decrement) return false; // Makes sure moves go up 1 on y axis for white, and down 1 on y axis for black
-
-
-        if (this.x == newX && board.matrix[newY][newX] == null) return true; //Moves one up or down since x stays same. We return true.
+        // tests validity for single and double square forward moves
+        if (this.x == newX && board.matrix[newY][newX] == null){
+            if (newY == this.y + 2*decrement){
+                if (this.y == 1 || this.y == 7) return true;
+            }
+            else if (newY == this.y + decrement) return true;
+            else return false;
+        }
+        else return false; 
         
+        // Diagonal taking + En Pessant [NOT DONE]
         int prevX = board.prevMoves.get(1); // Gets the previous moves coordanites
-        int prevY = board.prevMoves.get(0);       
+        int prevY = board.prevMoves.get(0);
 
-        // En peassant for left and taking for left
         if (newX == this.x - 1){  // Checks that moved to left
 
             if(board.matrix[newY][newX] != null) return true; // Checks for taking on left
             if (this.y == prevY && this.x - 1 == prevX && board.matrix[prevY][prevX].piece == "pawn") return true; //Checks En peasant left
         }
-        if (newX == this.x + 1){ 
+        if (newX == this.x + 1){ // Checks that moved to right
             
             if (board.matrix[newY][newX] != null) return true; // Checks for taking on right
             if (this.y == prevY && this.x + 1 == prevX && board.matrix[prevY][prevX].piece == "pawn") return true; //Checks En peasant right
