@@ -1,16 +1,16 @@
 package pieces;
 import java.lang.Math;
 
-public class king extends base{
+public class King extends Base{
 
-    public king(String color, int x, int y,  String piece)
+    public King(String color, int x, int y,  String piece)
     {
         super(color, x, y, piece);
 
     }
     
 
-    public boolean validMove(base[][] board, int[] newPos)
+    public boolean validMove(Base[][] board, int[] newPos)
     {
         int y = this.y, x = this.x;
         int newY = newPos[0], newX = newPos[1];

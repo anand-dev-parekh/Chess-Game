@@ -1,20 +1,20 @@
 package pieces;
 import java.util.Arrays;
 
-public class bishop extends base{
+public class Bishop extends Base{
 
-    public bishop(String color, int x, int y, String piece)
+    public Bishop(String color, int x, int y, String piece)
     {
         super(color, x, y, piece);
     }
 
-    public boolean validMove(base[][] board, int[] newPos){
+    public boolean validMove(Base[][] board, int[] newPos){
 
         if (this.toTopRight(board, newPos) || this.toBottomRight(board, newPos) || this.toBottomLeft(board, newPos) || this.toTopLeft(board, newPos)) return true;
         return false;
     }
 
-    public boolean toTopRight(base[][] board, int[] newPos)
+    public boolean toTopRight(Base[][] board, int[] newPos)
     {
         int y = this.y - 1, x = this.x + 1;
 
@@ -30,7 +30,7 @@ public class bishop extends base{
         }
         return false;
     }
-    public boolean toBottomRight(base[][] board, int[] newPos)
+    public boolean toBottomRight(Base[][] board, int[] newPos)
     {
         int y = this.y + 1, x = this.x + 1;
 
@@ -46,7 +46,7 @@ public class bishop extends base{
         }
         return false;
     }
-    public boolean toTopLeft(base[][] board, int[] newPos){
+    public boolean toTopLeft(Base[][] board, int[] newPos){
 
         int y = this.y - 1, x = this.x - 1;
 
@@ -63,7 +63,7 @@ public class bishop extends base{
 
         return false;
     }
-    public boolean toBottomLeft(base[][] board, int[] newPos){
+    public boolean toBottomLeft(Base[][] board, int[] newPos){
 
         int y = this.y + 1, x = this.x - 1;
 

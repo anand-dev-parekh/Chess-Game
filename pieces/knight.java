@@ -1,13 +1,13 @@
 package pieces;
 
-public class knight extends base{
+public class Knight extends Base{
 
-    public knight(String color, int x, int y, String piece)
+    public Knight(String color, int x, int y, String piece)
     {
         super(color, x, y, piece);
     }
     
-    public boolean validMove(base[][] board, int[] newPos)
+    public boolean validMove(Base[][] board, int[] newPos)
     {
         int y = this.y, x = this.x;
         int newY = newPos[0], newX = newPos[1];

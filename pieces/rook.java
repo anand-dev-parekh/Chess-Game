@@ -1,21 +1,23 @@
 package pieces;
 import java.util.Arrays;
 
-public class rook extends base{
+public class Rook extends Base{
    
 
-    public rook(String color, int x, int y, String piece){
+    public Rook(String color, int x, int y, String piece){
         super(color, x, y, piece);
     }
 
-    public boolean validMove(base[][] board, int[] newPos) //THIS IS THE VALID METHOD
+    public boolean validMove(Base[][] board, int[] newPos) //THIS IS THE VALID METHOD
     {
+        if (this.x != newPos[1] || this.y != newPos[0]) return false;
+
         //CHECKS IF NEW POSITION 
         if (this.toRight(board, newPos) || this.toLeft(board, newPos) || this.toTop(board, newPos) || this.toBottom(board, newPos)) return true;
         return false;
     }
 
-    private boolean toRight(base[][] board, int[] newPos) //
+    private boolean toRight(Base[][] board, int[] newPos) 
     {
         int y = this.y, x = this.x + 1;
 
@@ -30,7 +32,7 @@ public class rook extends base{
         return false;
     }
 
-    private boolean toLeft(base[][] board, int[] newPos)
+    private boolean toLeft(Base[][] board, int[] newPos)
     {
         int y = this.y, x = this.x - 1;
 
@@ -45,7 +47,7 @@ public class rook extends base{
         return false;
     }
 
-    private boolean toTop(base[][] board, int[] newPos)
+    private boolean toTop(Base[][] board, int[] newPos)
     {
         int x = this.x, y = this.y + 1;
 
@@ -60,7 +62,7 @@ public class rook extends base{
         }
         return false;
     }
-    private boolean toBottom(base[][] board, int[] newPos)
+    private boolean toBottom(Base[][] board, int[] newPos)
     {
         int x = this.x, y = this.y - 1;
 

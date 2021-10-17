@@ -1,12 +1,12 @@
 package pieces;
 
-public class base {
-    public String color;
+public class Base {
+    final public String color;
     public int x;
     public int y;
     public String piece;
 
-    public base(String color, int x, int y, String piece)
+    public Base(String color, int x, int y, String piece)
     {
         this.color = color;
         this.x = x;
@@ -15,12 +15,12 @@ public class base {
     }
 
 
-    public boolean validMove(base[][] board, int[] newPos)
+    public boolean validMove(Base[][] board, int[] newPos)
     {
         return false;
     }
 
-    public boolean inCheck(base[][] board, int[] newPos){
+    public boolean inCheck(Base[][] board, int[] newPos){
         int x = this.x;
         int y = this.y;
 
@@ -39,7 +39,7 @@ public class base {
     }
 
 
-    private int[] findKing(base[][] board)
+    private int[] findKing(Base[][] board)
     {
         for (int i = 0; i < board.length; i++){
 
@@ -55,7 +55,7 @@ public class base {
         return fake;
     }
 
-    private boolean rookQcheck(base[][] board, int[] daKing){
+    private boolean rookQcheck(Base[][] board, int[] daKing){
 
 
         return false;
@@ -63,7 +63,7 @@ public class base {
 
 
     //UGLY PART OF CODE
-    private boolean knightCheck(base[][] board, int[] daKing) //Looks better????? Figure out way of non hard coding????
+    private boolean knightCheck(Base[][] board, int[] daKing) //Looks better????? Figure out way of non hard coding????
     {
         int kingY = daKing[0], kingX = daKing[1];
         int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 1, kingX + 2}, {kingY + 1, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 1, kingX - 2}, {kingY + 1, kingX - 2}};
@@ -77,7 +77,7 @@ public class base {
         return false;
     }
 
-    private boolean pawnCheck(base[][] board, int[] daKing){ // NEED TO FIX THE FUNCTION BROKEN RN BROKEN 
+    private boolean pawnCheck(Base[][] board, int[] daKing){ // NEED TO FIX THE FUNCTION BROKEN RN BROKEN 
         if (this.color == "white"){
             int kingY = daKing[0], kingX = daKing[1];
 

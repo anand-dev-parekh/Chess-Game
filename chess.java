@@ -1,9 +1,9 @@
-import pieces.base;
-import pieces.king;
-import pieces.queen;
-import pieces.rook;
-import pieces.bishop;
-import pieces.knight;
+import pieces.Base;
+import pieces.King;
+import pieces.Queen;
+import pieces.Rook;
+import pieces.Bishop;
+import pieces.Knight;
 
 class chess{
     public static void main(String[] args)
@@ -12,14 +12,14 @@ class chess{
 
 
 
-        king king1 = new king("white", 0, 5,"king");
-        queen queen1 = new queen("white", 4, 0, "queen");
-        rook rook1 = new rook("black", 5,  5,"rook");
-        bishop bishop1 = new bishop("black", 5, 5, "bishop");
-        knight knight1 = new knight("white", 2, 2, "knight");
+        King king1 = new King("white", 0, 5,"king");
+        Queen queen1 = new Queen("white", 4, 0, "queen");
+        Rook rook1 = new Rook("black", 5,  5,"rook");
+        Bishop bishop1 = new Bishop("black", 5, 5, "bishop");
+        Knight knight1 = new Knight("white", 2, 2, "knight");
 
 
-        base[][] board = {{null, null, null, null, null, king1, queen1, null}, 
+        Base[][] board = {{null, null, null, null, null, king1, queen1, null}, 
                           {null, null, null, null, null, null, null, null}, 
                           {null, null, knight1, null, null, null, null, null}, 
                           {null, null, null, null, null, null, null, null},

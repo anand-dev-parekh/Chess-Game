@@ -1,16 +1,16 @@
 package pieces;
 import java.util.Arrays;
 
-public class queen extends base{
+public class Queen extends Base{
 
-    public queen(String color, int x, int y, String piece)
+    public Queen(String color, int x, int y, String piece)
     {
         super(color, x, y, piece);
     }
 
     //I DO NOT KNOW IF THERES SOME OOP THInG THAT WOULD MAKE THIS MORE CLEAN BUT WE CAN JUST COPY FUNCTIONS FROM BISHOP AND ROOK CLASS FOR VALID MOVE
 
-    public boolean validMove(base[][] board, int[] newPos){
+    public boolean validMove(Base[][] board, int[] newPos){
 
         if (this.toRight(board, newPos) || this.toLeft(board, newPos) || this.toTop(board, newPos) || this.toBottom(board, newPos) || this.toTopRight(board, newPos) || this.toBottomRight(board, newPos) || this.toBottomLeft(board, newPos) || this.toTopLeft(board, newPos)) return true;
 
@@ -18,7 +18,7 @@ public class queen extends base{
     }
 
 
-    private boolean toRight(base[][] board, int[] newPos)
+    private boolean toRight(Base[][] board, int[] newPos)
     {
         int y = this.y, x = this.x + 1;
 
@@ -34,7 +34,7 @@ public class queen extends base{
         return false;
     }
 
-    private boolean toLeft(base[][] board, int[] newPos)
+    private boolean toLeft(Base[][] board, int[] newPos)
     {
         int y = this.y, x = this.x - 1;
 
@@ -49,7 +49,7 @@ public class queen extends base{
         return false;
     }
 
-    private boolean toTop(base[][] board, int[] newPos)
+    private boolean toTop(Base[][] board, int[] newPos)
     {
         int x = this.x, y = this.y + 1;
 
@@ -64,7 +64,7 @@ public class queen extends base{
         }
         return false;
     }
-    private boolean toBottom(base[][] board, int[] newPos)
+    private boolean toBottom(Base[][] board, int[] newPos)
     {
         int x = this.x, y = this.y - 1;
 
@@ -80,7 +80,7 @@ public class queen extends base{
         return false;        
     }
 
-    public boolean toTopRight(base[][] board, int[] newPos)
+    public boolean toTopRight(Base[][] board, int[] newPos)
     {
         int y = this.y - 1, x = this.x + 1;
 
@@ -96,7 +96,7 @@ public class queen extends base{
         }
         return false;
     }
-    public boolean toBottomRight(base[][] board, int[] newPos)
+    public boolean toBottomRight(Base[][] board, int[] newPos)
     {
         int y = this.y + 1, x = this.x + 1;
 
@@ -112,7 +112,7 @@ public class queen extends base{
         }
         return false;
     }
-    public boolean toTopLeft(base[][] board, int[] newPos){
+    public boolean toTopLeft(Base[][] board, int[] newPos){
 
         int y = this.y - 1, x = this.x - 1;
 
@@ -129,7 +129,7 @@ public class queen extends base{
 
         return false;
     }
-    public boolean toBottomLeft(base[][] board, int[] newPos){
+    public boolean toBottomLeft(Base[][] board, int[] newPos){
 
         int y = this.y + 1, x = this.x - 1;
 
