@@ -25,7 +25,9 @@ public class queen extends base{
         while (x < 8){
 
             int[] rightPossible = {y, x};
-            if (Arrays.equals(rightPossible, newPos)) return true;
+
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(rightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             x++;
         }
@@ -39,8 +41,8 @@ public class queen extends base{
         while (x >= 0){
             int[] leftPossible = {y, x};
 
-
-            if (Arrays.equals(leftPossible, newPos)) return true;
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(leftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             x--;
         }
@@ -55,7 +57,8 @@ public class queen extends base{
         {
             int[] topPossible = {y, x};
 
-            if (Arrays.equals(topPossible, newPos)) return true;
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(topPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             y++;
         }
@@ -68,8 +71,9 @@ public class queen extends base{
         while (y >= 0)
         {
             int[] bottomPossible = {y, x};
-
-            if (Arrays.equals(bottomPossible, newPos)) return true;
+            
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(bottomPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             y--;
         }
@@ -83,7 +87,9 @@ public class queen extends base{
         while (x < 8 && y >= 0)
         {
             int[] topRightPossible = {y, x};
-            if (Arrays.equals(topRightPossible, newPos)) return true;
+            
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(topRightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x++; y--;
@@ -97,7 +103,9 @@ public class queen extends base{
         while (x < 8 && y >= 0)
         {
             int[] bottomRightPossible = {y, x};
-            if (Arrays.equals(bottomRightPossible, newPos)) return true;
+            
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(bottomRightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x++; y++;
@@ -111,7 +119,9 @@ public class queen extends base{
         while (x < 8 && y >= 0)
         {
             int[] topLeftPossible = {y, x};
-            if (Arrays.equals(topLeftPossible, newPos)) return true;
+
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(topLeftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x--; y--;
@@ -126,7 +136,9 @@ public class queen extends base{
         while (x >= 0 && y < 8)
         {
             int[] bottomLeftPossible = {y, x};
-            if (Arrays.equals(bottomLeftPossible, newPos)) return true;
+            
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(bottomLeftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x--; y++;

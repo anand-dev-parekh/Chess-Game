@@ -21,7 +21,9 @@ public class bishop extends base{
         while (x < 8 && y >= 0)
         {
             int[] topRightPossible = {y, x};
-            if (Arrays.equals(topRightPossible, newPos)) return true;
+
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(topRightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x++; y--;
@@ -35,7 +37,9 @@ public class bishop extends base{
         while (x < 8 && y >= 0)
         {
             int[] bottomRightPossible = {y, x};
-            if (Arrays.equals(bottomRightPossible, newPos)) return true;
+
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(bottomRightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x++; y++;
@@ -49,7 +53,9 @@ public class bishop extends base{
         while (x < 8 && y >= 0)
         {
             int[] topLeftPossible = {y, x};
-            if (Arrays.equals(topLeftPossible, newPos)) return true;
+
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(topLeftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x--; y--;
@@ -64,7 +70,9 @@ public class bishop extends base{
         while (x >= 0 && y < 0)
         {
             int[] bottomLeftPossible = {y, x};
-            if (Arrays.equals(bottomLeftPossible, newPos)) return true;
+
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(bottomLeftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x--; y++;

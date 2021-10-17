@@ -20,8 +20,9 @@ public class rook extends base{
 
         while (x < 8){
             int[] rightPossible = {y, x};
-    
-            if (Arrays.equals(rightPossible, newPos)) return true;
+
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(rightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             x++;
         }
@@ -35,8 +36,8 @@ public class rook extends base{
         while (x >= 0){
             int[] leftPossible = {y, x};
 
-
-            if (Arrays.equals(leftPossible, newPos)) return true;
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(leftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             x--;
         }
@@ -51,7 +52,8 @@ public class rook extends base{
         {
             int[] topPossible = {y, x};
 
-            if (Arrays.equals(topPossible, newPos)) return true;
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(topPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             y++;
         }
@@ -65,7 +67,8 @@ public class rook extends base{
         {
             int[] bottomPossible = {y, x};
 
-            if (Arrays.equals(bottomPossible, newPos)) return true;
+            if (board[y][x] != null && board[y][x].color == this.color) return false;
+            else if (Arrays.equals(bottomPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             y--;
         }
