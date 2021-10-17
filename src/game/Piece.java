@@ -7,7 +7,7 @@ public abstract class Piece {
     int col;
     int row;
 
-    public Piece(String color, String piece, int col, int row){
+    public Piece(String color, String piece, int row, int col){
         this.color = color;
         this.piece = piece;
 
@@ -15,7 +15,7 @@ public abstract class Piece {
         this.row = row;
     }
 
-    public abstract boolean validMove(Piece[][] grid, int col, int row);
+    public abstract boolean validMove(Piece[][] grid, int row, int col);
 
     protected boolean inBounds(int col, int row){
         if(this.col >= 0 && this.col <= 7 && this.row >= 0 && this.row <= 7) return true;
