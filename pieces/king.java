@@ -11,6 +11,8 @@ public class King extends Base{
     
     public boolean validMove(Base[][] board, int newX, int newY)
     {
+        if (this.x == newX && this.y == newY) return false; //Cant move to same spot
+
         int y = this.y, x = this.x;
 
         int changeY = Math.abs(newY - y),  changeX = Math.abs(newX - x);

@@ -9,6 +9,7 @@ public class Rook extends Base{
 
     public boolean validMove(Base[][] board, int newX, int newY) //THIS IS THE VALID METHOD
     {
+        if (this.x == newX && this.y == newY) return false; //Cant move to same spot    
 
         if (this.x != newX && this.y != newY) return false;
         if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; // Checks to make sure new position isnt occupied by piece of same color
