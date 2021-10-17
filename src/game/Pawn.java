@@ -20,7 +20,7 @@ public class Pawn extends Base{
         // tests validity for single and double square forward moves
         if (this.x == newX && board.matrix[newY][newX] == null){
             if (newY == this.y + 2*decrement){
-                if ((this.y == 1 || this.y == 7) && board.matrix[newY- 1][this.x] == null) return true;
+                if ((this.y == 1 || this.y == 7) && board.matrix[newY + decrement][this.x] == null) return true;
             }
             else if (newY == this.y + decrement) return true;
             else return false;
