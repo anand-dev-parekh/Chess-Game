@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Board {
 
-    public Base[][] board;
+    public Base[][] matrix;
     public ArrayList<int[]> prevMoves;
 
-    public Board(Base[][] board, ArrayList<int[]> prevMoves){
-        this.board = board;
+    public Board(Base[][] matrix, ArrayList<int[]> prevMoves){
+        this.matrix = matrix;
         this.prevMoves = prevMoves;
     }
 
