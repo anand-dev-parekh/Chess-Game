@@ -8,23 +8,27 @@ class chess{
     {
 
         int[] test = {0, 1};
+        int[] rookLocation = {4, 0};
+        int[] rightRookLocation = {4, 6};
 
 
 
-        king king1 = new king("White", test, "king");
-        queen queen1 = new queen("White", test, "queen");
+        king king1 = new king("white", test, "king");
+        queen queen1 = new queen("white", test, "queen");
+        rook rook1 = new rook("black", rookLocation, "rook");
 
-        System.out.println(queen1.color + " " + queen1.position + " " + king1.color);
 
-        base[][] board = {{null, null, null, null, null, king1, queen1, null}, 
-                          {}, 
-                          {}, 
-                          {},
-                          {},
-                          {},
-                          {},
-                          {},
-                          {}
-                                };   
+        base[][] board = {{null, null, null, null, null, king1, queen1, null, null}, 
+                          {null, null, null, null, null, null, null, null, null}, 
+                          {null, null, null, null, null, null, null, null, null}, 
+                          {null, null, null, null, null, null, null, null, null},
+                          {rook1, null, null, null, null, null, null, null, null},
+                          {null, null, null, null, null, null, null, null, null},
+                          {null, null, null, null, null, null, null, null, null},
+                          {null, null, null, null, null, null, null, null, null},
+                          {null, null, null, null, null, null, null, null, null}
+                                }; 
+        System.out.println(rook1.validMove(board, rightRookLocation));
+
     }
 }

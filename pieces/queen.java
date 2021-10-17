@@ -1,4 +1,5 @@
 package pieces;
+import java.util.Arrays;
 
 public class queen extends base{
 
@@ -22,13 +23,12 @@ public class queen extends base{
 
     private boolean toRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1];
+        int y = this.position[0], x = ++this.position[1];
 
         while (x < 9){
+            
             int[] rightPossible = {y, x};
-
-
-            if (rightPossible == newPos) return true;
+            if (Arrays.equals(rightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             x++;
         }
@@ -37,13 +37,13 @@ public class queen extends base{
 
     private boolean toLeft(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1];
+        int y = this.position[0], x = --this.position[1];
 
         while (x >= 0){
             int[] leftPossible = {y, x};
 
 
-            if (leftPossible == newPos) return true;
+            if (Arrays.equals(leftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             x--;
         }
@@ -52,13 +52,13 @@ public class queen extends base{
 
     private boolean toTop(base[][] board, int[] newPos)
     {
-        int x = this.position[1], y = this.position[0];
+        int x = this.position[1], y = ++this.position[0];
 
         while (y < 9)
         {
             int[] topPossible = {y, x};
 
-            if (topPossible == newPos) return true;
+            if (Arrays.equals(topPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             y++;
         }
@@ -66,13 +66,13 @@ public class queen extends base{
     }
     private boolean toBottom(base[][] board, int[] newPos)
     {
-        int x = this.position[1], y = this.position[0];
+        int x = this.position[1], y = --this.position[0];
 
         while (y >= 0)
         {
             int[] bottomPossible = {y, x};
 
-            if (bottomPossible == newPos) return true;
+            if (Arrays.equals(bottomPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
             y--;
         }
@@ -81,12 +81,12 @@ public class queen extends base{
 
     public boolean toTopRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1];
+        int y = --this.position[0], x = ++this.position[1];
 
         while (x < 9 && y >= 0)
         {
             int[] topRightPossible = {y, x};
-            if (topRightPossible == newPos) return true;
+            if (Arrays.equals(topRightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x++; y--;
@@ -95,12 +95,12 @@ public class queen extends base{
     }
     public boolean toBottomRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = this.position[1];
+        int y = ++this.position[0], x = ++this.position[1];
 
         while (x < 9 && y >= 0)
         {
             int[] bottomRightPossible = {y, x};
-            if (bottomRightPossible == newPos) return true;
+            if (Arrays.equals(bottomRightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x++; y++;
@@ -109,12 +109,12 @@ public class queen extends base{
     }
     public boolean toTopLeft(base[][] board, int[] newPos){
 
-        int y = this.position[0], x = this.position[1];
+        int y = --this.position[0], x = --this.position[1];
 
         while (x < 9 && y >= 0)
         {
             int[] topLeftPossible = {y, x};
-            if (topLeftPossible == newPos) return true;
+            if (Arrays.equals(topLeftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x--; y--;
@@ -124,12 +124,12 @@ public class queen extends base{
     }
     public boolean toBottomLeft(base[][] board, int[] newPos){
 
-        int y = this.position[0], x = this.position[1];
+        int y = ++this.position[0], x = --this.position[1];
 
         while (x < 9 && y >= 0)
         {
             int[] bottomLeftPossible = {y, x};
-            if (bottomLeftPossible == newPos) return true;
+            if (Arrays.equals(bottomLeftPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
 
             x--; y++;
