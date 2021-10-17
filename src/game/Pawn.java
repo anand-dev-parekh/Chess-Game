@@ -20,12 +20,11 @@ public class Pawn extends Base{
         // tests validity for single and double square forward moves
         if (this.x == newX && board.matrix[newY][newX] == null){
             if (newY == this.y + 2*decrement){
-                if (this.y == 1 || this.y == 7) return true;
+                if ((this.y == 1 || this.y == 7) && board.matrix[newY- 1][this.x] == null) return true;
             }
             else if (newY == this.y + decrement) return true;
             else return false;
         }
-        else return false; 
         
         // Diagonal taking + En Pessant [NOT DONE]
         int prevX = board.prevMoves.get(1); // Gets the previous moves coordanites
