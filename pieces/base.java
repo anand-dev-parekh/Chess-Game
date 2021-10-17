@@ -1,7 +1,8 @@
 package pieces;
 
 public class Base {
-    final public String color;
+    //SETS the base attributes of all pieces
+    final public String color;              
     public int x;
     public int y;
     public String piece;
@@ -14,13 +15,15 @@ public class Base {
         this.piece = piece;
     }
 
-
+    //Base method for all pieces 
     public boolean validMove(Base[][] board, int x, int y)
     {
         return false;
     }
 
-    public boolean inCheck(Base[][] board, int[] newPos){
+
+
+    public boolean inCheck(Base[][] board, int[] newPos){ //Will check if king is in check after move has been played
         int x = this.x;
         int y = this.y;
 

@@ -9,14 +9,11 @@ class chess{
     public static void main(String[] args)
     {
 
-
-
-
         King king1 = new King("white", 0, 5,"king");
         Queen queen1 = new Queen("white", 4, 0, "queen");
         Rook rook1 = new Rook("black", 5,  5,"rook");
         Bishop bishop1 = new Bishop("black", 5, 5, "bishop");
-        Knight knight1 = new Knight("white", 2, 2, "knight");
+        Knight knight1 = new Knight("black", 2, 2, "knight");
 
 
         Base[][] board = {{null, null, null, null, null, king1, queen1, null}, 
@@ -30,7 +27,7 @@ class chess{
                                 }; 
 
 
-        System.out.println(board[5][5].validMove(board, 2, 2));
+        System.out.println(board[5][5].validMove(board, 4, 7));
 
     }
 }
