@@ -7,8 +7,7 @@ public class Base {
     public int y;
     public String piece;
 
-    public Base(String color, int x, int y, String piece)
-    {
+    public Base(String color, int x, int y, String piece){
         this.color = color;
         this.x = x;
         this.y = y;
@@ -16,63 +15,47 @@ public class Base {
     }
 
     //Base method for all pieces 
-    public boolean validMove(Base[][] board, int x, int y)
-    {
+    public boolean validMove(Base[][] board, int x, int y){
         return false;
     }
 
 
 
-    public boolean inCheck(Base[][] board, int[] newPos){ //Will check if king is in check after move has been played
+    public boolean inCheck(Base[][] board, int newX, int newY){ //Will check if king is in check after move has been played
         int x = this.x;
         int y = this.y;
-
-        int newX = newPos[1];
-        int newY = newPos[0];
-
 
         board[y][x] = null;
         board[newY][newX] = this;
 
         int[] daKing = this.findKing(board);
 
-        if (this.knightCheck(board, daKing) || this.pawnCheck(board, daKing) || this.rookQcheck(board, daKing)) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
+        if (this.knightCheck(board, daKing[1], daKing[0]) || this.pawnCheck(board, daKing[1], daKing[0]) || this.rookQcheck(board, daKing[1], daKing[0]) || this.bishopQcheck(board, daKing[1], daKing[0])) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
 
         return false;
     }
 
-
-    private int[] findKing(Base[][] board)
-    {
+    //BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
+    private int[] findKing(Base[][] board){
         for (int i = 0; i < board.length; i++){
 
             for (int j = 0; j < board[i].length; j++)
             {
                 if (board[i][j].piece == "king" && board[i][j].color == this.color){
-                    int[] daKing = {i, j};
-                    return daKing;
+                    return new int[] {i, j};
                 }
             }
         }
-        int[] fake = {0, 1};
-        return fake;
-    }
-
-    private boolean rookQcheck(Base[][] board, int[] daKing){
-
-
-        return false;
+        return new int[] {0, 0};
     }
 
 
-    //UGLY PART OF CODE
-    private boolean knightCheck(Base[][] board, int[] daKing) //Looks better????? Figure out way of non hard coding????
-    {
-        int kingY = daKing[0], kingX = daKing[1];
+    private boolean knightCheck(Base[][] board, int kingX, int kingY){ //LOOK BETTER????
         int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 1, kingX + 2}, {kingY + 1, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 1, kingX - 2}, {kingY + 1, kingX - 2}};
 
         for (int i = 0; i < knightChecks.length; i++){
-            if (knightChecks[i][0] < 8 && knightChecks[i][0] >= 0 && knightChecks[i][1] < 8 && knightChecks[i][1] >= 0){
+            
+            if (inBounds(knightChecks[i][1], knightChecks[i][0])){
                 if (board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true;
             }
 
@@ -80,9 +63,8 @@ public class Base {
         return false;
     }
 
-    private boolean pawnCheck(Base[][] board, int[] daKing){ // NEED TO FIX THE FUNCTION BROKEN RN BROKEN 
+    private boolean pawnCheck(Base[][] board, int kingX, int kingY){ // NEED TO FIX THE FUNCTION BROKEN RN BROKEN 
         if (this.color == "white"){
-            int kingY = daKing[0], kingX = daKing[1];
 
             if (kingY != 0 && kingX != 8 && kingX != 0){
                 if ((board[--kingY][++kingX].piece == "pawn" && board[--kingY][++kingX].color != this.color) || (board[--kingY][--kingX].piece == "pawn" && board[--kingY][--kingX].color != this.color)) return true;
@@ -90,6 +72,20 @@ public class Base {
             }
             return true;
         }
+        return false;
+    }
+
+    private boolean rookQcheck(Base[][] board, int kingX, int kingY){ // NEED TO FINISH
+        return false;
+    }
+
+    private boolean bishopQcheck(Base[][] board, int kingX, int kingY){
+        return true;
+    }
+
+    private boolean inBounds(int x, int y){
+        if (x >= 0 && x <= 7 && y >=0 && y <= 7) return true;
+
         return false;
     }
 
