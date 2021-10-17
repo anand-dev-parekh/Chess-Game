@@ -17,6 +17,7 @@ public class king extends base{
 
         int changeY = Math.abs(newY - y),  changeX = Math.abs(newX - x);
 
+        if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; 
         if ((changeY == 0 || changeY == 1) && (changeX == 1 || changeX == 0)) return true;
 
         return false;
