@@ -18,15 +18,12 @@ public class queen extends base{
     }
 
 
-
-
-
     private boolean toRight(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = ++this.position[1];
+        int y = this.position[0], x = this.position[1] + 1;
 
         while (x < 9){
-            
+
             int[] rightPossible = {y, x};
             if (Arrays.equals(rightPossible, newPos)) return true;
             else if (board[y][x] != null) return false;
@@ -37,7 +34,7 @@ public class queen extends base{
 
     private boolean toLeft(base[][] board, int[] newPos)
     {
-        int y = this.position[0], x = --this.position[1];
+        int y = this.position[0], x = this.position[1] - 1;
 
         while (x >= 0){
             int[] leftPossible = {y, x};
@@ -52,7 +49,7 @@ public class queen extends base{
 
     private boolean toTop(base[][] board, int[] newPos)
     {
-        int x = this.position[1], y = ++this.position[0];
+        int x = this.position[1], y = this.position[0] + 1;
 
         while (y < 9)
         {
@@ -66,7 +63,7 @@ public class queen extends base{
     }
     private boolean toBottom(base[][] board, int[] newPos)
     {
-        int x = this.position[1], y = --this.position[0];
+        int x = this.position[1], y = this.position[0] - 1;
 
         while (y >= 0)
         {
@@ -81,7 +78,7 @@ public class queen extends base{
 
     public boolean toTopRight(base[][] board, int[] newPos)
     {
-        int y = --this.position[0], x = ++this.position[1];
+        int y = this.position[0] - 1, x = this.position[1] + 1;
 
         while (x < 9 && y >= 0)
         {
@@ -95,7 +92,7 @@ public class queen extends base{
     }
     public boolean toBottomRight(base[][] board, int[] newPos)
     {
-        int y = ++this.position[0], x = ++this.position[1];
+        int y = this.position[0] + 1, x = this.position[1] + 1;
 
         while (x < 9 && y >= 0)
         {
@@ -109,7 +106,7 @@ public class queen extends base{
     }
     public boolean toTopLeft(base[][] board, int[] newPos){
 
-        int y = --this.position[0], x = --this.position[1];
+        int y = this.position[0] - 1, x = this.position[1] - 1;
 
         while (x < 9 && y >= 0)
         {
@@ -124,7 +121,7 @@ public class queen extends base{
     }
     public boolean toBottomLeft(base[][] board, int[] newPos){
 
-        int y = ++this.position[0], x = --this.position[1];
+        int y = this.position[0] + 1, x = this.position[1] - 1;
 
         while (x < 9 && y >= 0)
         {

@@ -9,7 +9,8 @@ class chess{
 
         int[] test = {0, 1};
         int[] rookLocation = {4, 0};
-        int[] rightRookLocation = {4, 6};
+        int[] wrongLocation = {3, 4};
+        int[] rightRookLocation = {2, 0};
 
 
 

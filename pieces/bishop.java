@@ -16,7 +16,7 @@ public class bishop extends base{
 
     public boolean toTopRight(base[][] board, int[] newPos)
     {
-        int y = --this.position[0], x = ++this.position[1];
+        int y = this.position[0] - 1, x = this.position[1] + 1;
 
         while (x < 9 && y >= 0)
         {
@@ -30,7 +30,7 @@ public class bishop extends base{
     }
     public boolean toBottomRight(base[][] board, int[] newPos)
     {
-        int y = ++this.position[0], x = ++this.position[1];
+        int y = this.position[0] + 1, x = this.position[1] + 1;
 
         while (x < 9 && y >= 0)
         {
@@ -44,7 +44,7 @@ public class bishop extends base{
     }
     public boolean toTopLeft(base[][] board, int[] newPos){
 
-        int y = --this.position[0], x = --this.position[1];
+        int y = this.position[0] - 1, x = this.position[1] - 1;
 
         while (x < 9 && y >= 0)
         {
@@ -59,7 +59,7 @@ public class bishop extends base{
     }
     public boolean toBottomLeft(base[][] board, int[] newPos){
 
-        int y = ++this.position[0], x = --this.position[1];
+        int y = this.position[0] + 1, x = this.position[1] - 1;
 
         while (x < 9 && y >= 0)
         {
