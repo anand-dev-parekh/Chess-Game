@@ -9,8 +9,6 @@ public class pond extends base{
 
     public boolean validMove(base[][] board, int[] newPos) //FINISH LATER
     {
-
-
         return false;
     }
 

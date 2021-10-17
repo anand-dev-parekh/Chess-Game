@@ -31,7 +31,7 @@ public class base {
 
         int[] daKing = this.findKing(board);
 
-        if (this.knightCheck(board, daKing) || this.pawnCheck(board, daKing)) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
+        if (this.knightCheck(board, daKing) || this.pawnCheck(board, daKing) || this.rookQcheck(board, daKing)) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
 
         return false;
     }
@@ -53,10 +53,18 @@ public class base {
         return fake;
     }
 
+    private boolean rookQcheck(base[][] board, int[] daKing){
+
+
+        return false;
+    }
+
+
+    //UGLY PART OF CODE
     private boolean knightCheck(base[][] board, int[] daKing) //Looks better????? Figure out way of non hard coding????
     {
         int kingY = daKing[0], kingX = daKing[1];
-        int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 2, kingX + 2}, {kingY + 2, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 2, kingX - 2}, {kingY + 2, kingX - 2}};
+        int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 1, kingX + 2}, {kingY + 1, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 1, kingX - 2}, {kingY + 1, kingX - 2}};
 
         for (int i = 0; i < knightChecks.length; i++){
             if (knightChecks[i][0] < 8 && knightChecks[i][0] >= 0 && knightChecks[i][1] < 8 && knightChecks[i][1] >= 0){
