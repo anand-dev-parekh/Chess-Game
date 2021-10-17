@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Board {
 
     public Base[][] matrix;
-    public ArrayList<int[]> prevMoves;
+    public ArrayList<Integer> prevMoves;
 
-    public Board(Base[][] matrix, ArrayList<int[]> prevMoves){
+    public Board(Base[][] matrix, ArrayList<Integer> prevMoves){
         this.matrix = matrix;
         this.prevMoves = prevMoves;
     }

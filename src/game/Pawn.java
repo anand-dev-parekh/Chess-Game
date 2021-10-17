@@ -8,22 +8,35 @@ public class Pawn extends Base{
     }
 
     public boolean validMove(Board board, int newX, int newY) //NEED TO IMPLEMENT EN PEASSANT FIX Pond Color
-    {   
+    {  
+        
+        if (board.matrix[newY][newX].color == this.color) return false;
+
         int decrement = 1;
         if (this.color == "white"){
-            if (this.x == 6 && newY == this.y - 2 && this.x == newX && board.matrix[newY][newX] == null && board.matrix[this.y - 1][this.x] == null) return true; //CHECKS for jumping twice up
             decrement = -1;
         }
-        else{
-            if (this.x == 1 && newY == this.y + 2 && this.x == newX && board.matrix[newY][newX] == null && board.matrix[this.y + 1][this.x] == null) return true; //CHECKS for jumping twice up
-        }
+
+        if (newY != this.y + decrement) return false; // Makes sure moves go up 1 on y axis for white, and down 1 on y axis for black
+
+
+        if (this.x == newX && board.matrix[newY][newX] == null) return true; //Moves one up or down since x stays same. We return true.
         
-        if (newY == this.y + decrement && this.x == newX && board.matrix[newY][newX] == null) return true;
+        int prevX = board.prevMoves.get(1); // Gets the previous moves coordanites
+        int prevY = board.prevMoves.get(0);       
 
-        if (newY == this.y + decrement && newX == this.x - 1 && board.matrix[newY][newX] != null && board.matrix[newY][newX].color != this.color) return true;
-        if (newY == this.y + decrement && newX == this.x + 1 && board.matrix[newY][newX] != null && board.matrix[newY][newX].color != this.color) return true;
+        // En peassant for left and taking for left
+        if (newX == this.x - 1){  // Checks that moved to left
 
-        return false;
-          
+            if(board.matrix[newY][newX] != null) return true; // Checks for taking on left
+            if (this.y == prevY && this.x - 1 == prevX && board.matrix[prevY][prevX].piece == "pawn" && board.matrix[prevY][prevX].color != this.color) return true; //Checks En peasant left
+        }
+        if (newX == this.x + 1){ 
+            
+            if (board.matrix[newY][newX] != null) return true; // Checks for taking on right
+            if (this.y == prevY && this.x + 1 == prevX && board.matrix[prevY][prevX].piece == "pawn" && board.matrix[prevY][prevX].color != this.color) return true; //Checks En peasant right
+        }
+
+        return false;  
     }    
 }
