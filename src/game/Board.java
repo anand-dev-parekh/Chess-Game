@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Board {
 
     public Base[][] matrix;
-    public ArrayList<Integer> prevMoves;
+    public ArrayList<Base[][]> prevBoards;
 
-    public Board(Base[][] matrix, ArrayList<Integer> prevMoves){
+    public Board(Base[][] matrix, ArrayList<Base[][]> prevBoards){
         this.matrix = matrix;
-        this.prevMoves = prevMoves;
+        this.prevBoards = prevBoards;
     }
 
     
