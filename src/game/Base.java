@@ -26,6 +26,7 @@ public abstract class Base {
 
         int[] daKing = this.findKing(board.matrix);
 
+        //Check all the possible ways the king could be checked
         if (this.knightCheck(board.matrix, daKing[1], daKing[0]) || this.pawnCheck(board.matrix, daKing[1], daKing[0]) || this.rookQcheck(board.matrix, daKing[1], daKing[0]) || this.bishopQcheck(board.matrix, daKing[1], daKing[0])) return true; // NEED TO ADD ALL PIECES TO THIS IF STATEMENT
 
         return false;
@@ -61,7 +62,7 @@ public abstract class Base {
 
     private boolean pawnCheck(Base[][] board, int kingX, int kingY){ 
         int possibleX1 = kingX - 1, possibleX2 = kingX + 1, possibleY;
-        
+
         if (this.color == "white") possibleY = kingY - 1;            //King can only be checked by pond in front of it
         else possibleY = kingY + 1;                                 //King can only be checked by pond in front of it
 
@@ -70,6 +71,58 @@ public abstract class Base {
     }
 
     private boolean rookQcheck(Base[][] board, int kingX, int kingY){ // NEED TO FINISH
+
+        if (this.toRight(board, kingX, kingY) || this.toLeft(board, kingX, kingY) || this.toUp(board, kingX, kingY) || this.toDown(board, kingX, kingY)) return true;
+        return false;
+    }
+    
+    //Helper Function to rookQcheck() *Checks if there is rook or queen to right of king
+    private boolean toRight(Base[][] board, int kingX, int kingY){
+
+        while (kingX < 8){
+            if (board[kingY][kingX] != null) {
+                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                return false;
+            }
+            kingX++;
+        }
+        return false;
+    }
+    
+    //Helper Function to rookQcheck() *Checks if there is rook or queen to left of king
+    private boolean toLeft(Base[][] board, int kingX, int kingY){
+
+        while (kingX >= 0){
+            if (board[kingY][kingX] != null) {
+                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                return false;
+            }
+            kingX--;            
+        }
+        return false;
+    }
+
+    private boolean toUp(Base[][] board, int kingX, int kingY){
+
+        while (kingY >= 0){
+            if (board[kingY][kingX] != null) {
+                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                return false;
+            }
+            kingY--;
+        }
+        return false;
+    }
+
+    private boolean toDown(Base[][] board, int kingX, int kingY){
+        
+        while (kingY < 8){
+            if (board[kingY][kingX] != null) {
+                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                return false;
+            }
+            kingY++;
+        }
         return false;
     }
 
