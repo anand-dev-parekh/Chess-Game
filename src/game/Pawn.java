@@ -25,22 +25,25 @@ public class Pawn extends Base{
             else if (newY == this.y + decrement) return true;
             else return false;
         }
-        
-        // Diagonal taking + En Pessant [NOT DONE]
-        int prevX = board.prevMoves.get(1); // Gets the previous moves coordanites
-        int prevY = board.prevMoves.get(0);
+           
+        // Diagonal taking + En Pessant [NOT DONE]       
+        int changeX = Math.abs(this.x - newX);
 
-        if (newX == this.x - 1){  // Checks that moved to left
+        if (this.y == newY + decrement && changeX == 1){
 
-            if(board.matrix[newY][newX] != null) return true; // Checks for taking on left
-            if (this.y == prevY && this.x - 1 == prevX && board.matrix[prevY][prevX].piece == "pawn") return true; //Checks En peasant left
-        }
-        if (newX == this.x + 1){ // Checks that moved to right
+            if (board.matrix[newY][newX] != null) return true; // Captures piece any direction.
             
-            if (board.matrix[newY][newX] != null) return true; // Checks for taking on right
-            if (this.y == prevY && this.x + 1 == prevX && board.matrix[prevY][prevX].piece == "pawn") return true; //Checks En peasant right
-        }
+            Base[][] previousBoard = board.prevBoards.get(board.prevBoards.size() - 2); // This gets the board from last move   
 
+            //en pessant
+            if (this.color == "white" && this.y == 3){
+                if (previousBoard[1][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[1][newX] == null) return true;
+
+            }
+            else if (this.y == 4){
+                if (previousBoard[6][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[6][newX] == null) return true;
+            }
+        }
         return false;  
     }    
 }
