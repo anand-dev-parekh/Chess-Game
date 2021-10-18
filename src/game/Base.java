@@ -51,7 +51,7 @@ public abstract class Base {
 
         for (int i = 0; i < knightChecks.length; i++){
             
-            if (inBounds(knightChecks[i][1], knightChecks[i][0])){
+            if (inBounds(knightChecks[i][0], knightChecks[i][1])){
                 if (board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true;
             }
 
@@ -60,14 +60,14 @@ public abstract class Base {
     }
 
     private boolean pawnCheck(Base[][] board, int kingX, int kingY){ // NEED TO FIX THE FUNCTION BROKEN RN BROKEN 
+        int possibleX1 = kingX - 1, possibleX2 = kingX + 1, possibleY;
         if (this.color == "white"){
-
-            if (kingY != 0 && kingX != 8 && kingX != 0){
-                if ((board[--kingY][++kingX].piece == "pawn" && board[--kingY][++kingX].color != this.color) || (board[--kingY][--kingX].piece == "pawn" && board[--kingY][--kingX].color != this.color)) return true;
-                return false;
-            }
-            return true;
+            possibleY = kingY - 1; 
         }
+        else{
+            possibleY = kingY + 1;
+        }
+        if ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color)) return true;
         return false;
     }
 
@@ -79,7 +79,7 @@ public abstract class Base {
         return true;
     }
 
-    private boolean inBounds(int x, int y){
+    private boolean inBounds(int y, int x){
         if (x >= 0 && x <= 7 && y >=0 && y <= 7) return true;
 
         return false;
