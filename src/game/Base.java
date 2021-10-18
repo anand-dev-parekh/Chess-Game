@@ -59,14 +59,12 @@ public abstract class Base {
         return false;
     }
 
-    private boolean pawnCheck(Base[][] board, int kingX, int kingY){ // NEED TO FIX THE FUNCTION BROKEN RN BROKEN 
+    private boolean pawnCheck(Base[][] board, int kingX, int kingY){ 
         int possibleX1 = kingX - 1, possibleX2 = kingX + 1, possibleY;
-        if (this.color == "white"){
-            possibleY = kingY - 1; 
-        }
-        else{
-            possibleY = kingY + 1;
-        }
+        
+        if (this.color == "white") possibleY = kingY - 1;            //King can only be checked by pond in front of it
+        else possibleY = kingY + 1;                                 //King can only be checked by pond in front of it
+
         if ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color)) return true;
         return false;
     }
