@@ -8,7 +8,7 @@ public class Queen extends Base{
     }
 
 
-    public boolean validMove(Board board, int newX, int newY){
+    public boolean validMove(Board board, int newY, int newX){
 
         if (this.x == newX && this.y == newY) return false; //Cant move to same spot
         else if (this.x == newX || this.y == newY) return this.validRowColumn(board.matrix, newX, newY);

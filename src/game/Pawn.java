@@ -7,7 +7,7 @@ public class Pawn extends Base{
         super(color, x, y, piece);
     }
 
-    public boolean validMove(Board board, int newX, int newY)
+    public boolean validMove(Board board, int newY, int newX)
     {  
         
         if (board.matrix[newY][newX] != null && board.matrix[newY][newX].color == this.color) return false; // Checks if move is occupied by piece of same color

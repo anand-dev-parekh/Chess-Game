@@ -7,7 +7,7 @@ public class Bishop extends Base{
         super(color, x, y, piece);
     }
 
-    public boolean validMove(Board board, int newX, int newY){
+    public boolean validMove(Board board, int newY, int newX){
         if (this.x == newX && this.y == newY) return false; //Cant move to same spot
         
         int xOffset = newX - x, yOffset = newY - y;
