@@ -72,12 +72,13 @@ class Chess{
 
             if (!board.matrix[y][x].inCheck(board.matrix, newY, newX) && board.matrix[y][x].validMove(board, newY, newX))
             {
-                board.prevBoards.add(board.matrix);
                 board.matrix[y][x].x = newX;
                 board.matrix[y][x].y = newY;
 
                 board.matrix[newY][newX] = board.matrix[y][x];
                 board.matrix[y][x] = null;
+
+                board.prevBoards.add(board.matrix);
 
                 printt(board.matrix);
             }
