@@ -12,7 +12,7 @@ class Chess{
     public static void main(String[] args)
     {
 
-        King king1 = new King("white", 0, 5,"king");
+        King king1 = new King("white", 0, 3,"king");
         Queen queen1 = new Queen("white", 0, 6, "queen");
         Rook rook1 = new Rook("black", 4,  0,"rook");
         Bishop bishop1 = new Bishop("black", 5, 5, "bishop");
@@ -20,7 +20,7 @@ class Chess{
         Pawn onePond = new Pawn("white", 4, 7, "pond");
 
 
-        Base[][] matrix = {{null, null, null, null, null, king1, queen1, null}, 
+        Base[][] matrix = {{null, null, null, king1, null, null, queen1, null}, 
                           {null, null, null, null, null, null, null, null}, 
                           {null, null, knight1, null, null, null, null, null}, 
                           {null, null, null, null, null, null, null, null},
@@ -33,7 +33,7 @@ class Chess{
         ArrayList<Base[][]> prevBoards = new ArrayList<Base[][]>();
         Board board = new Board(matrix, prevBoards);
 
-        System.out.println(board.matrix[0][6].validMove(board, 0, 1));
+        System.out.println(board.matrix[0][6].inCheck(board, 0, 5));
 
 
 

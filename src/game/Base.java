@@ -7,7 +7,7 @@ public abstract class Base {
     public int y;
     public String piece;
 
-    public Base(String color, int x, int y, String piece){
+    public Base(String color, int y, int x, String piece){
         this.color = color;
         this.x = x;
         this.y = y;
@@ -15,9 +15,9 @@ public abstract class Base {
     }
 
     //Base method for all pieces 
-    public abstract boolean validMove(Board board, int x, int y);
+    public abstract boolean validMove(Board board, int y, int x);
 
-    public boolean inCheck(Board board, int newX, int newY){ //Will check if king is in check after move has been played
+    public boolean inCheck(Board board, int newY, int newX){ //Will check if king is in check after move has been played
         int x = this.x;
         int y = this.y;
 
@@ -27,7 +27,7 @@ public abstract class Base {
         int[] daKing = this.findKing(board.matrix);
 
         //Check all the possible ways the king could be checked
-        if (this.knightCheck(board.matrix, daKing[1], daKing[0]) || this.pawnCheck(board.matrix, daKing[1], daKing[0]) || this.rookQcheck(board.matrix, daKing[1], daKing[0]) || this.bishopQcheck(board.matrix, daKing[1], daKing[0])) return true;
+        if (this.knightCheck(board.matrix, daKing[0], daKing[1]) || this.pawnCheck(board.matrix, daKing[0], daKing[1]) || this.rookQcheck(board.matrix, daKing[0], daKing[1]) || this.bishopQcheck(board.matrix, daKing[0], daKing[1])) return true;
 
         return false;
     }
@@ -44,7 +44,7 @@ public abstract class Base {
 
             for (int j = 0; j < board[i].length; j++) //Iterates all x values for each column/y value
             {
-                if (board[i][j].piece == "king" && board[i][j].color == this.color){ //If u find the king return its position
+                if (board[i][j] != null && board[i][j].piece == "king" && board[i][j].color == this.color){ //If u find the king return its position
                     return new int[] {i, j};
                 }
             }
@@ -53,7 +53,7 @@ public abstract class Base {
     }
 
     //Checks if Knight is checking king
-    private boolean knightCheck(Base[][] board, int kingX, int kingY){ 
+    private boolean knightCheck(Base[][] board, int kingY, int kingX){ 
 
         //All possible knight moves based from kings position
         int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 1, kingX + 2}, {kingY + 1, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 1, kingX - 2}, {kingY + 1, kingX - 2}};
@@ -61,7 +61,7 @@ public abstract class Base {
         for (int i = 0; i < knightChecks.length; i++){ //Checks all positions knight could be to check king
             
             if (inBounds(knightChecks[i][0], knightChecks[i][1])){ // If knight position is in board indexes range
-                if (board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true; //returns true if piece is knight and oposite color
+                if (board[knightChecks[i][0]][knightChecks[i][1]] != null && board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true; //returns true if piece is knight and oposite color
             }
 
         }
@@ -76,29 +76,29 @@ public abstract class Base {
 
 
     //Checks if pawn is Checking
-    private boolean pawnCheck(Base[][] board, int kingX, int kingY){ 
+    private boolean pawnCheck(Base[][] board, int kingY, int kingX){ 
         int possibleX1 = kingX - 1, possibleX2 = kingX + 1, possibleY;
 
         if (this.color == "white") possibleY = kingY - 1;            //King can only be checked by pond in front of it
         else possibleY = kingY + 1;                                 //King can only be checked by pond in front of it
 
-        if ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color)) return true;
+        if (board[possibleY][possibleX1] != null && ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color))) return true;
         return false;
     }
 
     //Checks if rook or queen is checking
-    private boolean rookQcheck(Base[][] board, int kingX, int kingY){
+    private boolean rookQcheck(Base[][] board, int kingY, int kingX){
 
-        if (this.toRight(board, kingX, kingY) || this.toLeft(board, kingX, kingY) || this.toUp(board, kingX, kingY) || this.toDown(board, kingX, kingY)) return true;
+        if (this.toRight(board, kingY, kingX) || this.toLeft(board, kingY, kingX) || this.toUp(board, kingY, kingX) || this.toDown(board, kingY, kingX)) return true;
         return false;
     }
     
     //Helper Function to rookQcheck() *Checks if there is rook or queen to right of king
-    private boolean toRight(Base[][] board, int kingX, int kingY){
+    private boolean toRight(Base[][] board, int kingY, int kingX){
 
         while (kingX < 8){
             if (board[kingY][kingX] != null) {
-                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
                 return false;
             }
             kingX++;
@@ -107,11 +107,11 @@ public abstract class Base {
     }
     
     //Helper Function to rookQcheck() *Checks if there is rook or queen to left of king
-    private boolean toLeft(Base[][] board, int kingX, int kingY){
+    private boolean toLeft(Base[][] board, int kingY, int kingX){
 
         while (kingX >= 0){
             if (board[kingY][kingX] != null) {
-                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
                 return false;
             }
             kingX--;            
@@ -120,11 +120,11 @@ public abstract class Base {
     }
 
     //Helper Function to rookQcheck() *Checks if there is rook or queen to above of king
-    private boolean toUp(Base[][] board, int kingX, int kingY){
+    private boolean toUp(Base[][] board, int kingY, int kingX){
 
         while (kingY >= 0){
             if (board[kingY][kingX] != null) {
-                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
                 return false;
             }
             kingY--;
@@ -133,11 +133,11 @@ public abstract class Base {
     }
 
     //Helper Function to rookQcheck() *Checks if there is rook or queen to bottom of king
-    private boolean toDown(Base[][] board, int kingX, int kingY){
+    private boolean toDown(Base[][] board, int kingY, int kingX){
         
         while (kingY < 8){
             if (board[kingY][kingX] != null) {
-                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
                 return false;
             }
             kingY++;
@@ -146,16 +146,16 @@ public abstract class Base {
     }
 
     //Checks if bishop or queen is checking king
-    private boolean bishopQcheck(Base[][] board, int kingX, int kingY){
+    private boolean bishopQcheck(Base[][] board, int kingY, int kingX){
         if (this.toTopRight(board, kingX, kingY) || this.toBottomRight(board, kingX, kingY) || this.toTopLeft(board, kingX, kingY) || this.toBottomLeft(board, kingX, kingY)) return true;
         return false;
     }
 
     //Helper function to bishoQcheck() *Checks if bishop or queen is to top right of king
-    private boolean toTopRight(Base[][] board, int kingX, int kingY){
+    private boolean toTopRight(Base[][] board, int kingY, int kingX){
         while (kingX < 8 && kingY >= 0){
             if (board[kingY][kingX] != null) {
-                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                if ((board[kingY][kingX].piece == "bishop" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
                 return false;
             }
             kingX++; kingY--;
@@ -164,10 +164,10 @@ public abstract class Base {
     }
 
     //Helper function to bishoQcheck() *Checks if bishop or queen is to bottom right of king
-    private boolean toBottomRight(Base[][] board, int kingX, int kingY){
+    private boolean toBottomRight(Base[][] board, int kingY, int kingX){
         while (kingX < 8 && kingY < 8){
             if (board[kingY][kingX] != null) {
-                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                if ((board[kingY][kingX].piece == "bishop" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
                 return false;
             }
             kingX++; kingY++;
@@ -176,10 +176,10 @@ public abstract class Base {
     }
 
     //Helper function to bishoQcheck() *Checks if bishop or queen is to top left of king
-    private boolean toTopLeft(Base[][] board, int kingX, int kingY){
+    private boolean toTopLeft(Base[][] board, int kingY, int kingX){
         while (kingX >= 0 && kingY >= 0){
             if (board[kingY][kingX] != null) {
-                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                if ((board[kingY][kingX].piece == "bishop" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
                 return false;
             }
             kingX--; kingY--;
@@ -188,10 +188,10 @@ public abstract class Base {
     }
 
     //Helper function to bishoQcheck() *Checks if bishop or queen is to top right of king
-    private boolean toBottomLeft(Base[][] board, int kingX, int kingY){
+    private boolean toBottomLeft(Base[][] board, int kingY, int kingX){
         while (kingX > 0 && kingY < 8){
             if (board[kingY][kingX] != null) {
-                if (board[kingY][kingX].piece == "rook" && board[kingY][kingX].piece == "queen" && board[kingY][kingX].color != this.color) return true;
+                if ((board[kingY][kingX].piece == "bishop" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
                 return false;
             }
             kingX--; kingY++;

@@ -3,9 +3,9 @@ import java.lang.Math;
 
 public class King extends Base{
 
-    public King(String color, int x, int y,  String piece)
+    public King(String color, int y, int x,  String piece)
     {
-        super(color, x, y, piece);
+        super(color, y, x, piece);
 
     }
     

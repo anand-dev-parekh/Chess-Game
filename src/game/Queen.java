@@ -2,21 +2,21 @@ package game;
 
 public class Queen extends Base{
 
-    public Queen(String color, int x, int y, String piece)
+    public Queen(String color, int y, int x, String piece)
     {
-        super(color, x, y, piece);
+        super(color, y, x, piece);
     }
 
 
     public boolean validMove(Board board, int newY, int newX){
 
         if (this.x == newX && this.y == newY) return false; //Cant move to same spot
-        else if (this.x == newX || this.y == newY) return this.validRowColumn(board.matrix, newX, newY);
-        else return this.validDiagnols(board.matrix, newX, newY);
+        else if (this.x == newX || this.y == newY) return this.validRowColumn(board.matrix, newY, newX);
+        else return this.validDiagnols(board.matrix, newY, newX);
         
     }
 
-    private boolean validRowColumn(Base[][] board, int newX, int newY){ //This function checks the rows and columns for queen moves
+    private boolean validRowColumn(Base[][] board, int newY, int newX){ //This function checks the rows and columns for queen moves
 
         if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; // Checks to make sure new position isnt occupied by piece of same color
         
@@ -33,7 +33,7 @@ public class Queen extends Base{
         return true;
     }
 
-    private boolean validDiagnols(Base[][] board, int newX, int newY){
+    private boolean validDiagnols(Base[][] board, int newY, int newX){
 
         int x = this.x, y = this.y;                                     
         int xOffset = newX - x, yOffset = newY - y;
