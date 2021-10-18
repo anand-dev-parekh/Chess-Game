@@ -32,13 +32,19 @@ public abstract class Base {
         return false;
     }
 
-    //BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
-    private int[] findKing(Base[][] board){
-        for (int i = 0; i < board.length; i++){
+    /*          BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
+                BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
+                BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
+                BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
+    */
 
-            for (int j = 0; j < board[i].length; j++)
+    //finds kings position
+    private int[] findKing(Base[][] board){
+        for (int i = 0; i < board.length; i++){ //Iterates all the colums/y value of board
+
+            for (int j = 0; j < board[i].length; j++) //Iterates all x values for each column/y value
             {
-                if (board[i][j].piece == "king" && board[i][j].color == this.color){
+                if (board[i][j].piece == "king" && board[i][j].color == this.color){ //If u find the king return its position
                     return new int[] {i, j};
                 }
             }
@@ -46,20 +52,30 @@ public abstract class Base {
         return new int[] {0, 0};
     }
 
+    //Checks if Knight is checking king
+    private boolean knightCheck(Base[][] board, int kingX, int kingY){ 
 
-    private boolean knightCheck(Base[][] board, int kingX, int kingY){ //LOOK BETTER????
+        //All possible knight moves based from kings position
         int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 1, kingX + 2}, {kingY + 1, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 1, kingX - 2}, {kingY + 1, kingX - 2}};
 
-        for (int i = 0; i < knightChecks.length; i++){
+        for (int i = 0; i < knightChecks.length; i++){ //Checks all positions knight could be to check king
             
-            if (inBounds(knightChecks[i][0], knightChecks[i][1])){
-                if (board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true;
+            if (inBounds(knightChecks[i][0], knightChecks[i][1])){ // If knight position is in board indexes range
+                if (board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true; //returns true if piece is knight and oposite color
             }
 
         }
         return false;
     }
+    
+    //Checks if coordanites are in bounds or out of board
+    private boolean inBounds(int y, int x){
+        if (x >= 0 && x <= 7 && y >=0 && y <= 7) return true;
+        return false;
+    }
 
+
+    //Checks if pawn is Checking
     private boolean pawnCheck(Base[][] board, int kingX, int kingY){ 
         int possibleX1 = kingX - 1, possibleX2 = kingX + 1, possibleY;
 
@@ -70,7 +86,8 @@ public abstract class Base {
         return false;
     }
 
-    private boolean rookQcheck(Base[][] board, int kingX, int kingY){ // NEED TO FINISH
+    //Checks if rook or queen is checking
+    private boolean rookQcheck(Base[][] board, int kingX, int kingY){
 
         if (this.toRight(board, kingX, kingY) || this.toLeft(board, kingX, kingY) || this.toUp(board, kingX, kingY) || this.toDown(board, kingX, kingY)) return true;
         return false;
@@ -102,6 +119,7 @@ public abstract class Base {
         return false;
     }
 
+    //Helper Function to rookQcheck() *Checks if there is rook or queen to above of king
     private boolean toUp(Base[][] board, int kingX, int kingY){
 
         while (kingY >= 0){
@@ -114,6 +132,7 @@ public abstract class Base {
         return false;
     }
 
+    //Helper Function to rookQcheck() *Checks if there is rook or queen to bottom of king
     private boolean toDown(Base[][] board, int kingX, int kingY){
         
         while (kingY < 8){
@@ -130,10 +149,5 @@ public abstract class Base {
         return true;
     }
 
-    private boolean inBounds(int y, int x){
-        if (x >= 0 && x <= 7 && y >=0 && y <= 7) return true;
-
-        return false;
-    }
 
 }
