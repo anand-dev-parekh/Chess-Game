@@ -23,7 +23,7 @@ public class Queen extends Base{
         int x = this.x, y = this.y;
         int xOffset = newX - x, yOffset = newY - y;
 
-        for (int i = 1; i < Math.max(xOffset, yOffset); i++)
+        for (int i = 1; i < Math.max(Math.abs(xOffset), Math.abs(yOffset)); i++)
         {   
             if (xOffset != 0) x += xOffset/Math.abs(xOffset);       //xOffset or yOffset will be 0 so must use if statment for the incrementing
             else y += yOffset/Math.abs(yOffset);                    

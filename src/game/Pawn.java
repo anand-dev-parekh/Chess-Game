@@ -20,12 +20,13 @@ public class Pawn extends Base{
         // tests validity for single and double square forward moves
         if (this.x == newX && board.matrix[newY][newX] == null){
             if (newY == this.y + 2*decrement){
-                if ((this.y == 1 || this.y == 7) && board.matrix[newY + decrement][this.x] == null) return true;
+                if ((this.y == 1 || this.y == 6) && board.matrix[newY + decrement][this.x] == null) return true;
             }
             else if (newY == this.y + decrement) return true;
             else return false;
         }
-           
+        
+        System.out.println(this.y + " " + this.x);
         // Diagonal taking + En Pessant      
         int changeX = Math.abs(this.x - newX);
 
@@ -33,6 +34,7 @@ public class Pawn extends Base{
 
             if (board.matrix[newY][newX] != null) return true; // Captures piece any direction.
             
+            if (board.prevBoards.size() < 3) return false;
             Base[][] previousBoard = board.prevBoards.get(board.prevBoards.size() - 2); // This gets the board from last move   
 
             //en pessant

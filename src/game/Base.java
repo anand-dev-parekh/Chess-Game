@@ -17,17 +17,25 @@ public abstract class Base {
     //Base method for all pieces 
     public abstract boolean validMove(Board board, int y, int x);
 
-    public boolean inCheck(Board board, int newY, int newX){ //Will check if king is in check after move has been played
+    public boolean inCheck(Base[][] tempBoard, int newY, int newX){ //Will check if king is in check after move has been played
         int x = this.x;
         int y = this.y;
 
-        board.matrix[y][x] = null;
-        board.matrix[newY][newX] = this;
+        Base[][] board = {{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null}, {null, null, null, null, null, null, null, null}};
+        
+        for (int i = 0; i < tempBoard.length; i++){
+            for (int j = 0; j < tempBoard[i].length; j++){
+                board[i][j] = tempBoard[i][j]; 
+            }
+        }
 
-        int[] daKing = this.findKing(board.matrix);
+        board[y][x] = null;
+        board[newY][newX] = this;
+
+        int[] daKing = this.findKing(board);
 
         //Check all the possible ways the king could be checked
-        if (this.knightCheck(board.matrix, daKing[0], daKing[1]) || this.pawnCheck(board.matrix, daKing[0], daKing[1]) || this.rookQcheck(board.matrix, daKing[0], daKing[1]) || this.bishopQcheck(board.matrix, daKing[0], daKing[1])) return true;
+        if (this.knightCheck(board, daKing[0], daKing[1]) || this.pawnCheck(board, daKing[0], daKing[1]) || this.rookQcheck(board, daKing[0], daKing[1]) || this.bishopQcheck(board, daKing[0], daKing[1])) return true;
 
         return false;
     }
@@ -82,7 +90,7 @@ public abstract class Base {
         if (this.color == "white") possibleY = kingY - 1;            //King can only be checked by pond in front of it
         else possibleY = kingY + 1;                                 //King can only be checked by pond in front of it
 
-        if (board[possibleY][possibleX1] != null && ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color))) return true;
+        if (board[possibleY][possibleX1] != null && ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || board[possibleY][possibleX2] != null && (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color))) return true;
         return false;
     }
 
