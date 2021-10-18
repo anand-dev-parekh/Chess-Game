@@ -26,7 +26,7 @@ public class Pawn extends Base{
             else return false;
         }
            
-        // Diagonal taking + En Pessant [NOT DONE]       
+        // Diagonal taking + En Pessant      
         int changeX = Math.abs(this.x - newX);
 
         if (this.y == newY + decrement && changeX == 1){
