@@ -30,7 +30,7 @@ public class Pawn extends Base{
         // Diagonal taking + En Pessant      
         int changeX = Math.abs(this.x - newX);
 
-        if (this.y == newY + decrement && changeX == 1){
+        if (newY == this.y + decrement && changeX == 1){
 
             if (board.matrix[newY][newX] != null) return true; // Captures piece any direction.
             
@@ -39,11 +39,18 @@ public class Pawn extends Base{
 
             //en pessant
             if (this.color == "white" && this.y == 3){
-                if (previousBoard[1][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[1][newX] == null) return true;
+                if (previousBoard[1][newX] != null && board.matrix[this.y][newX] != null){
 
+                    if (previousBoard[1][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[1][newX] == null) return true;
+                
+                }
             }
             else if (this.y == 4){
-                if (previousBoard[6][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[6][newX] == null) return true;
+                if (previousBoard[6][newX] != null && board.matrix[this.y][newX] != null){
+
+                    if (previousBoard[6][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[6][newX] == null) return true;
+                
+                }
             }
         }
         return false;  
