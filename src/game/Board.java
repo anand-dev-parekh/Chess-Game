@@ -11,6 +11,5 @@ public class Board {
         this.matrix = matrix;
         this.prevBoards = prevBoards;
     }
-
     
 }

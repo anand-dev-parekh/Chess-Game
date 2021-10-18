@@ -26,7 +26,6 @@ public class Pawn extends Base{
             else return false;
         }
         
-        System.out.println(this.y + " " + this.x);
         // Diagonal taking + En Pessant      
         int changeX = Math.abs(this.x - newX);
 
@@ -36,7 +35,6 @@ public class Pawn extends Base{
             
             if (board.prevBoards.size() < 3) return false;
             Base[][] previousBoard = board.prevBoards.get(board.prevBoards.size() - 2); // This gets the board from last move   
-
             //en pessant
             if (this.color == "white" && this.y == 3){
                 if (previousBoard[1][newX] != null && board.matrix[this.y][newX] != null){
@@ -54,5 +52,5 @@ public class Pawn extends Base{
             }
         }
         return false;  
-    }    
+    }   
 }

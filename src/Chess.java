@@ -78,7 +78,15 @@ class Chess{
                 board.matrix[newY][newX] = board.matrix[y][x];
                 board.matrix[y][x] = null;
 
-                board.prevBoards.add(board.matrix);
+
+                Base[][] tempBoard = {{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null}, {null, null, null, null, null, null, null, null}};
+        
+                for (int i = 0; i < tempBoard.length; i++){
+                    for (int j = 0; j < board.matrix[i].length; j++){
+                        tempBoard[i][j] = board.matrix[i][j]; 
+                    }
+                }
+                board.prevBoards.add(tempBoard); // board.prevboards.add(new Base[][])
 
                 printt(board.matrix);
             }
