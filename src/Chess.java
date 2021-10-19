@@ -85,6 +85,7 @@ class Chess{
                     else{
                         board.matrix[newY - 1][newX] = null;
                     }
+                    board.matrix[newY][newX].enPessant = false;
                 }
 
 
