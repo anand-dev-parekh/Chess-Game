@@ -17,6 +17,7 @@ public class King extends Base{
         if (board.matrix[newY][newX] != null && board.matrix[newY][newX].color == this.color) return false; //Checks to make sure piece isnt occupied by same color
         if ((changeY == 0 || changeY == 1) && (changeX == 1 || changeX == 0)) return true;    //Returns bubble around king if true
 
+        //castling
         if (this.y == 7 || this.y == 0){
 
             if (newX == this.x + 2 || newX == this.x - 2){
@@ -30,12 +31,11 @@ public class King extends Base{
                         distance = 3;
                         iterator = -1;
                     }
-                    int i = 0;
-                    while (i < distance){
+                    
+                    for (int i = 0; i < distance; i++){
                         if (board.matrix[this.y][this.x + iterator] != null) return false;
                         i++;
                     }
-
 
                 }
             }
