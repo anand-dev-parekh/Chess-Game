@@ -6,6 +6,15 @@ public abstract class Base {
     public int x;
     public int y;
     public String piece;
+    public boolean enPessant;
+
+    public Base(String color, int y, int x, String piece, boolean enPessant){
+        this.color = color;
+        this.x = x;
+        this.y = y;
+        this.piece = piece;
+        this.enPessant = enPessant;
+    }
 
     public Base(String color, int y, int x, String piece){
         this.color = color;
@@ -28,6 +37,15 @@ public abstract class Base {
                 board[i][j] = tempBoard[i][j]; 
             }
         }
+        if (board[y][x].enPessant){
+            if (this.color == "white"){
+                board[newY + 1][newX] = null;
+            }
+            else{
+                board[newY - 1][newX] = null;
+            }
+        }
+
 
         board[y][x] = null;
         board[newY][newX] = this;
@@ -35,8 +53,7 @@ public abstract class Base {
         int[] daKing = this.findKing(board);
 
         //Check all the possible ways the king could be checked
-        if (this.knightCheck(board, daKing[0], daKing[1]) || this.pawnCheck(board, daKing[0], daKing[1]) || this.rookQcheck(board, daKing[0], daKing[1]) || this.bishopQcheck(board, daKing[0], daKing[1])) return true;
-
+        if (this.isCheck(board, daKing[0], daKing[1])) return true;
         return false;
     }
 
@@ -45,6 +62,13 @@ public abstract class Base {
                 BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
                 BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
     */
+
+    private boolean isCheck(Base[][] board, int kingY, int kingX){
+        if (this.knightCheck(board, kingY, kingX) || this.pawnCheck(board, kingY, kingX) || this.rookQcheck(board, kingY, kingX) || this.bishopQcheck(board, kingY, kingX)) return true;
+
+        return false;
+    }
+
 
     //finds kings position
     private int[] findKing(Base[][] board){

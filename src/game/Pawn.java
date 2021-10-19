@@ -2,9 +2,9 @@ package game;
 
 public class Pawn extends Base{
 
-    public Pawn(String color, int y, int x, String piece)
+    public Pawn(String color, int y, int x, String piece, boolean enPessant)
     {
-        super(color, y, x, piece);
+        super(color, y, x, piece, enPessant);
     }
 
     public boolean validMove(Board board, int newY, int newX)
@@ -39,14 +39,19 @@ public class Pawn extends Base{
             if (this.color == "white" && this.y == 3){
                 if (previousBoard[1][newX] != null && board.matrix[this.y][newX] != null){
 
-                    if (previousBoard[1][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[1][newX] == null) return true;
+                    if (previousBoard[1][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[1][newX] == null){
+                        board.matrix[this.y][this.x].enPessant = true;
+                        return true;}
                 
                 }
             }
             else if (this.y == 4){
                 if (previousBoard[6][newX] != null && board.matrix[this.y][newX] != null){
 
-                    if (previousBoard[6][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[6][newX] == null) return true;
+                    if (previousBoard[6][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[6][newX] == null) {
+                        board.matrix[this.y][this.x].enPessant = true;
+                        return true;
+                    }
                 
                 }
             }
