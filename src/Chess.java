@@ -21,14 +21,14 @@ class Chess{
         Knight blackKnight1 = new Knight("black", 0, 1, "knight");
         Rook blackRook1 = new Rook("black", 0 , 0, "rook");
         Rook blackRook2 = new Rook("black", 0, 7, "rook");
-        Pawn blackPawn0 = new Pawn("black", 1, 0, "pawn", false);
-        Pawn blackPawn1 = new Pawn("black", 1, 1, "pawn", false);
-        Pawn blackPawn2 = new Pawn("black", 1, 2, "pawn", false);
-        Pawn blackPawn3 = new Pawn("black", 1, 3, "pawn", false);
-        Pawn blackPawn4 = new Pawn("black", 1, 4, "pawn", false);
-        Pawn blackPawn5 = new Pawn("black", 1, 5, "pawn", false);
-        Pawn blackPawn6 = new Pawn("black", 1, 6, "pawn", false);
-        Pawn blackPawn7 = new Pawn("black", 1, 7, "pawn", false);
+        Pawn blackPawn0 = new Pawn("black", 1, 0, "pawn", false, false);
+        Pawn blackPawn1 = new Pawn("black", 1, 1, "pawn", false, false);
+        Pawn blackPawn2 = new Pawn("black", 1, 2, "pawn", false, false);
+        Pawn blackPawn3 = new Pawn("black", 1, 3, "pawn", false, false);
+        Pawn blackPawn4 = new Pawn("black", 1, 4, "pawn", false, false);
+        Pawn blackPawn5 = new Pawn("black", 1, 5, "pawn", false, false);
+        Pawn blackPawn6 = new Pawn("black", 1, 6, "pawn", false, false);
+        Pawn blackPawn7 = new Pawn("black", 1, 7, "pawn", false, false);
 
         King whiteKing = new King("white", 7, 4, "king");
         Queen whiteQueen = new Queen("white", 7, 3, "queen");
@@ -38,14 +38,14 @@ class Chess{
         Knight whiteKnight1 = new Knight("white", 7, 1, "knight");
         Rook whiteRook1 = new Rook("white", 7 , 0, "rook");
         Rook whiteRook2 = new Rook("white", 7, 7, "rook");
-        Pawn whitePawn0 = new Pawn("white", 6, 0, "pawn", false);
-        Pawn whitePawn1 = new Pawn("white", 6, 1, "pawn", false);
-        Pawn whitePawn2 = new Pawn("white", 6, 2, "pawn", false);
-        Pawn whitePawn3 = new Pawn("white", 6, 3, "pawn", false);
-        Pawn whitePawn4 = new Pawn("white", 6, 4, "pawn", false);
-        Pawn whitePawn5 = new Pawn("white", 6, 5, "pawn", false);
-        Pawn whitePawn6 = new Pawn("white", 6, 6, "pawn", false);
-        Pawn whitePawn7 = new Pawn("white", 6, 7, "pawn", false);
+        Pawn whitePawn0 = new Pawn("white", 6, 0, "pawn", false, false);
+        Pawn whitePawn1 = new Pawn("white", 6, 1, "pawn", false, false);
+        Pawn whitePawn2 = new Pawn("white", 6, 2, "pawn", false, false);
+        Pawn whitePawn3 = new Pawn("white", 6, 3, "pawn", false, false);
+        Pawn whitePawn4 = new Pawn("white", 6, 4, "pawn", false, false);
+        Pawn whitePawn5 = new Pawn("white", 6, 5, "pawn", false, false);
+        Pawn whitePawn6 = new Pawn("white", 6, 6, "pawn", false, false);
+        Pawn whitePawn7 = new Pawn("white", 6, 7, "pawn", false, false);
 
         Base[][] matrix = {{blackRook1, blackKnight1, blackBishop1, blackQueen, blackKing, blackBishop2, blackKnight2, blackRook2}, 
                           {blackPawn0, blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7}, 
@@ -86,6 +86,10 @@ class Chess{
                         board.matrix[newY - 1][newX] = null;
                     }
                     board.matrix[newY][newX].enPessant = false;
+                }
+                if (board.matrix[newY][newX].promotion){
+                    System.out.println("Promotion Working");
+                    board.matrix[newY][newX].promotion = false;
                 }
 
 

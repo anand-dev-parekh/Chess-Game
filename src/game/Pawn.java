@@ -2,9 +2,9 @@ package game;
 
 public class Pawn extends Base{
 
-    public Pawn(String color, int y, int x, String piece, boolean enPessant)
+    public Pawn(String color, int y, int x, String piece, boolean enPessant, boolean promotion)
     {
-        super(color, y, x, piece, enPessant);
+        super(color, y, x, piece, enPessant, promotion);
     }
 
     public boolean validMove(Board board, int newY, int newX)
@@ -22,7 +22,9 @@ public class Pawn extends Base{
             if (newY == this.y + 2*decrement){
                 if ((this.y == 1 || this.y == 6) && board.matrix[newY + decrement][this.x] == null) return true;
             }
-            else if (newY == this.y + decrement) return true;
+            else if (newY == this.y + decrement){
+                if (newY == 7 || newY == 0) this.enPessant = true;
+                return true;}
             else return false;
         }
         
@@ -31,7 +33,10 @@ public class Pawn extends Base{
 
         if (newY == this.y + decrement && changeX == 1){
 
-            if (board.matrix[newY][newX] != null) return true; // Captures piece any direction.
+            if (board.matrix[newY][newX] != null){
+                if (newY == 7 || newY == 0) this.promotion = true;
+                return true; // Captures piece any direction.
+            }
             
             if (board.prevBoards.size() < 3) return false;
             Base[][] previousBoard = board.prevBoards.get(board.prevBoards.size() - 2); // This gets the board from last move   

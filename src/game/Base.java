@@ -7,13 +7,15 @@ public abstract class Base {
     public int y;
     public String piece;
     public boolean enPessant;
+    public boolean promotion;
 
-    public Base(String color, int y, int x, String piece, boolean enPessant){
+    public Base(String color, int y, int x, String piece, boolean enPessant, boolean promotion){
         this.color = color;
         this.x = x;
         this.y = y;
         this.piece = piece;
         this.enPessant = enPessant;
+        this.promotion = promotion;
     }
 
     public Base(String color, int y, int x, String piece){
