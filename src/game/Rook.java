@@ -3,8 +3,8 @@ package game;
 public class Rook extends Base{
    
 
-    public Rook(String color, int y, int x, String piece){
-        super(color, y, x, piece);
+    public Rook(String color, int y, int x, String piece, boolean hasMoved){
+        super(color, y, x, piece, hasMoved);
     }
 
     public boolean validMove(Board board, int newY, int newX) //THIS IS THE VALID METHOD

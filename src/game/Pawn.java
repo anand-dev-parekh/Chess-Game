@@ -45,7 +45,7 @@ public class Pawn extends Base{
                 if (previousBoard[1][newX] != null && board.matrix[this.y][newX] != null){
 
                     if (previousBoard[1][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[1][newX] == null){
-                        board.matrix[this.y][this.x].enPessant = true;
+                        board.matrix[this.y][this.x].enPessant = true; //Sets En Pessant to True, so taking will work in other files
                         return true;}
                 
                 }
@@ -54,7 +54,7 @@ public class Pawn extends Base{
                 if (previousBoard[6][newX] != null && board.matrix[this.y][newX] != null){
 
                     if (previousBoard[6][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[6][newX] == null) {
-                        board.matrix[this.y][this.x].enPessant = true;
+                        board.matrix[this.y][this.x].enPessant = true; //Sets En Pessant to True, so taking will work in other files
                         return true;
                     }
                 

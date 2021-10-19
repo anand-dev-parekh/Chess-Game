@@ -13,14 +13,14 @@ class Chess{
     public static void main(String[] args)
     {
 
-        King blackKing = new King("black", 0, 4, "king");
+        King blackKing = new King("black", 0, 4, "king", false);
         Queen blackQueen = new Queen("black", 0, 3, "queen");
         Bishop blackBishop1 = new Bishop("black", 0, 2, "bishop");
         Bishop blackBishop2 = new Bishop("black", 0, 5, "bishop");
         Knight blackKnight2 = new Knight("black", 0, 6, "knight");
         Knight blackKnight1 = new Knight("black", 0, 1, "knight");
-        Rook blackRook1 = new Rook("black", 0 , 0, "rook");
-        Rook blackRook2 = new Rook("black", 0, 7, "rook");
+        Rook blackRook1 = new Rook("black", 0 , 0, "rook", false);
+        Rook blackRook2 = new Rook("black", 0, 7, "rook", false);
         Pawn blackPawn0 = new Pawn("black", 1, 0, "pawn", false, false);
         Pawn blackPawn1 = new Pawn("black", 1, 1, "pawn", false, false);
         Pawn blackPawn2 = new Pawn("black", 1, 2, "pawn", false, false);
@@ -30,14 +30,14 @@ class Chess{
         Pawn blackPawn6 = new Pawn("black", 1, 6, "pawn", false, false);
         Pawn blackPawn7 = new Pawn("black", 1, 7, "pawn", false, false);
 
-        King whiteKing = new King("white", 7, 4, "king");
+        King whiteKing = new King("white", 7, 4, "king", false);
         Queen whiteQueen = new Queen("white", 7, 3, "queen");
         Bishop whiteBishop1 = new Bishop("white", 7, 2, "bishop");
         Bishop whiteBishop2 = new Bishop("white", 7, 5, "bishop");
         Knight whiteKnight2 = new Knight("white", 7, 6, "knight");
         Knight whiteKnight1 = new Knight("white", 7, 1, "knight");
-        Rook whiteRook1 = new Rook("white", 7 , 0, "rook");
-        Rook whiteRook2 = new Rook("white", 7, 7, "rook");
+        Rook whiteRook1 = new Rook("white", 7 , 0, "rook", false);
+        Rook whiteRook2 = new Rook("white", 7, 7, "rook", false);
         Pawn whitePawn0 = new Pawn("white", 6, 0, "pawn", false, false);
         Pawn whitePawn1 = new Pawn("white", 6, 1, "pawn", false, false);
         Pawn whitePawn2 = new Pawn("white", 6, 2, "pawn", false, false);
@@ -78,6 +78,7 @@ class Chess{
 
                 board.matrix[newY][newX] = board.matrix[y][x];
                 board.matrix[y][x] = null;
+                
                 if (board.matrix[newY][newX].enPessant){
                     if (board.matrix[newY][newX].color == "white"){
                         board.matrix[newY + 1][newX] = null;
@@ -91,6 +92,8 @@ class Chess{
                     System.out.println("Promotion Working");
                     board.matrix[newY][newX].promotion = false;
                 }
+
+                board.matrix[newY][newX].hasMoved = true;
 
 
                 Base[][] tempBoard = {{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null}, {null, null, null, null, null, null, null, null}};

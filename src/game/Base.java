@@ -8,6 +8,7 @@ public abstract class Base {
     public String piece;
     public boolean enPessant;
     public boolean promotion;
+    public boolean hasMoved;
 
     public Base(String color, int y, int x, String piece, boolean enPessant, boolean promotion){
         this.color = color;
@@ -23,6 +24,13 @@ public abstract class Base {
         this.x = x;
         this.y = y;
         this.piece = piece;
+    }
+    public Base(String color, int y, int x, String piece, boolean hasMoved){
+        this.color = color;
+        this.x = x;
+        this.y = y;
+        this.piece = piece;
+        this.hasMoved = hasMoved;
     }
 
     //Base method for all pieces 
@@ -55,8 +63,7 @@ public abstract class Base {
         int[] daKing = this.findKing(board);
 
         //Check all the possible ways the king could be checked
-        if (this.isCheck(board, daKing[0], daKing[1])) return true;
-        return false;
+        return this.isCheck(board, daKing[0], daKing[1]);
     }
 
     /*          BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
