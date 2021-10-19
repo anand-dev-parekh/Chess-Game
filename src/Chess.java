@@ -70,7 +70,8 @@ class Chess{
             System.out.println("\n Coordanites of place u want piece to move ");
             newY = input.nextInt(); newX = input.nextInt();
 
-            if (!board.matrix[y][x].inCheck(board.matrix, newY, newX) && board.matrix[y][x].validMove(board, newY, newX))
+            if (board.matrix[y][x] == null) System.out.println("Selected non piece");
+            else if (!board.matrix[y][x].inCheck(board.matrix, newY, newX) && board.matrix[y][x].validMove(board, newY, newX))
             {
                 board.matrix[y][x].x = newX;
                 board.matrix[y][x].y = newY;
