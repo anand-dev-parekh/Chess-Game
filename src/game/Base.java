@@ -37,7 +37,7 @@ public abstract class Base {
                 board[i][j] = tempBoard[i][j]; 
             }
         }
-        if (board[y][x].enPessant){
+        if (this.enPessant){
             if (this.color == "white"){
                 board[newY + 1][newX] = null;
             }

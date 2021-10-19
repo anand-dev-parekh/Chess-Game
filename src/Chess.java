@@ -78,6 +78,14 @@ class Chess{
 
                 board.matrix[newY][newX] = board.matrix[y][x];
                 board.matrix[y][x] = null;
+                if (board.matrix[newY][newX].enPessant){
+                    if (board.matrix[newY][newX].color == "white"){
+                        board.matrix[newY + 1][newX] = null;
+                    }
+                    else{
+                        board.matrix[newY - 1][newX] = null;
+                    }
+                }
 
 
                 Base[][] tempBoard = {{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null}, {null, null, null, null, null, null, null, null}};
