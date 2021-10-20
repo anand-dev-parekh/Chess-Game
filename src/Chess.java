@@ -13,7 +13,7 @@ class Chess{
     public static void main(String[] args)
     {
 
-        King blackKing = new King("black", 0, 4, "king", false);
+        King blackKing = new King("black", 0, 4, "king", false, false);
         Queen blackQueen = new Queen("black", 0, 3, "queen");
         Bishop blackBishop1 = new Bishop("black", 0, 2, "bishop");
         Bishop blackBishop2 = new Bishop("black", 0, 5, "bishop");
@@ -30,7 +30,7 @@ class Chess{
         Pawn blackPawn6 = new Pawn("black", 1, 6, "pawn", false, false);
         Pawn blackPawn7 = new Pawn("black", 1, 7, "pawn", false, false);
 
-        King whiteKing = new King("white", 7, 4, "king", false);
+        King whiteKing = new King("white", 7, 4, "king", false, false);
         Queen whiteQueen = new Queen("white", 7, 3, "queen");
         Bishop whiteBishop1 = new Bishop("white", 7, 2, "bishop");
         Bishop whiteBishop2 = new Bishop("white", 7, 5, "bishop");
@@ -73,12 +73,25 @@ class Chess{
             if (board.matrix[y][x] == null) System.out.println("Selected piece of nothing");
             else if (board.matrix[y][x].validMove(board, newY, newX) && !board.matrix[y][x].inCheck(board.matrix, newY, newX))
             {
+                if (board.matrix[y][x].castle){
+                    if (newX > x){
+                        board.matrix[y][x + 1] = board.matrix[y][x + 3];
+                        board.matrix[y][x + 3] = null;
+                        board.matrix[y][x + 1].x = x + 1;
+                    }
+                    else{
+                        board.matrix[y][x - 1] = board.matrix[y][x - 4];
+                        board.matrix[y][x - 4] = null; 
+                        board.matrix[y][x - 1].x = x - 1;
+                    }
+                }
+
                 board.matrix[y][x].x = newX;
                 board.matrix[y][x].y = newY;
 
                 board.matrix[newY][newX] = board.matrix[y][x];
                 board.matrix[y][x] = null;
-                
+
                 if (board.matrix[newY][newX].enPessant){
                     if (board.matrix[newY][newX].color == "white"){
                         board.matrix[newY + 1][newX] = null;
@@ -96,7 +109,7 @@ class Chess{
                 board.matrix[newY][newX].hasMoved = true;
 
 
-                Base[][] tempBoard = {{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null}, {null, null, null, null, null, null, null, null}};
+                Base[][] tempBoard = new Base[8][8];
         
                 for (int i = 0; i < board.matrix.length; i++){
                     for (int j = 0; j < board.matrix[i].length; j++){

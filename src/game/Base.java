@@ -9,6 +9,7 @@ public abstract class Base {
     public boolean enPessant;
     public boolean promotion;
     public boolean hasMoved;
+    public boolean castle;
 
     public Base(String color, int y, int x, String piece, boolean enPessant, boolean promotion){
         this.color = color;
@@ -17,6 +18,7 @@ public abstract class Base {
         this.piece = piece;
         this.enPessant = enPessant;
         this.promotion = promotion;
+        this.castle = promotion;
     }
 
     public Base(String color, int y, int x, String piece){
@@ -33,6 +35,7 @@ public abstract class Base {
         this.hasMoved = hasMoved;
     }
 
+
     //Base method for all pieces 
     public abstract boolean validMove(Board board, int y, int x);
 
@@ -40,20 +43,26 @@ public abstract class Base {
         int x = this.x;
         int y = this.y;
 
-        Base[][] board = {{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null},{null, null, null, null, null, null, null, null}, {null, null, null, null, null, null, null, null}};
+        Base[][] board = new Base[8][8];
         
         for (int i = 0; i < tempBoard.length; i++){
             for (int j = 0; j < tempBoard[i].length; j++){
                 board[i][j] = tempBoard[i][j]; 
             }
         }
-        if (this.enPessant){
+
+        if (this.enPessant){ //If EnPessant remove piece that was enpessanted on temporary board
             if (this.color == "white"){
                 board[newY + 1][newX] = null;
             }
             else{
                 board[newY - 1][newX] = null;
             }
+        }
+        if (this.castle){
+            int decrement = 1;
+            if (newX < this.x) decrement = -1;
+            return (this.isCheck(board, this.y, this.x) || this.isCheck(board, this.y, this.x + decrement) || this.isCheck(board, this.y, this.x + decrement * 2));
         }
 
 
