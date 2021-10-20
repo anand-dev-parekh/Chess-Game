@@ -59,7 +59,7 @@ public abstract class Base {
                 board[newY - 1][newX] = null;
             }
         }
-        if (this.castle){
+        if (this.castle){ // If move was castle, We check three positions king could have been checked from.
             int decrement = 1;
             if (newX < this.x) decrement = -1;
             return (this.isCheck(board, this.y, this.x) || this.isCheck(board, this.y, this.x + decrement) || this.isCheck(board, this.y, this.x + decrement * 2));
