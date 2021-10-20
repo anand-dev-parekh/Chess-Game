@@ -81,7 +81,7 @@ public abstract class Base {
                 BELOW IS ALL HELPER FUNCTIONS FOR THE InCheck() function
     */
 
-    private boolean isCheck(Base[][] board, int kingY, int kingX){
+    public boolean isCheck(Base[][] board, int kingY, int kingX){
         if (this.knightCheck(board, kingY, kingX) || this.pawnCheck(board, kingY, kingX) || this.rookQcheck(board, kingY, kingX) || this.bishopQcheck(board, kingY, kingX)) return true;
 
         return false;

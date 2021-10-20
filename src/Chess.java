@@ -65,6 +65,7 @@ class Chess{
 
         printt(board.matrix);
         while (true){
+            //if (isCheckmate(String currentColor)) break;
             System.out.println("Coordanites of piece you want to move: ");
             y = input.nextInt(); x = input.nextInt();
             System.out.println("\n Coordanites of place u want piece to move ");
