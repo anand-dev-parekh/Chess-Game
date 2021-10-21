@@ -11,28 +11,15 @@ public abstract class Base {
     public boolean hasMoved;
     public boolean castle;
 
-    public Base(String color, int y, int x, String piece, boolean enPessant, boolean promotion){
-        this.color = color;
-        this.x = x;
-        this.y = y;
-        this.piece = piece;
-        this.enPessant = enPessant;
-        this.promotion = promotion;
-        this.castle = promotion;
-    }
-
     public Base(String color, int y, int x, String piece){
         this.color = color;
         this.x = x;
         this.y = y;
         this.piece = piece;
-    }
-    public Base(String color, int y, int x, String piece, boolean hasMoved){
-        this.color = color;
-        this.x = x;
-        this.y = y;
-        this.piece = piece;
-        this.hasMoved = hasMoved;
+        this.enPessant = false;
+        this.promotion = false;
+        this.castle = false;
+        this.hasMoved = false;
     }
 
 

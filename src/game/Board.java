@@ -6,10 +6,12 @@ public class Board {
 
     public Base[][] matrix;
     public ArrayList<Base[][]> prevBoards;
+    public int fiftyMove;
 
     public Board(Base[][] matrix, ArrayList<Base[][]> prevBoards){
         this.matrix = matrix;
         this.prevBoards = prevBoards;
+        this.fiftyMove = 0;
     }
 
 
@@ -51,11 +53,12 @@ public class Board {
 
     //isDraw() Function
     public boolean isDraw (String color){
+        if (this.isFiftyMove() || this.isRepetition() || this.isStalemate(color)) return true;
         return false;
     }
 
     //HELPER FUNCTIONS FOR isDraw()
-    private boolean isStatemate (String color){
+    private boolean isStalemate (String color){
         return false;
     }
 
@@ -63,7 +66,8 @@ public class Board {
         return false;
     }
     
-    private boolean isFiftyMove(int count){
+    private boolean isFiftyMove(){
+        if (this.fiftyMove > 50) return true;
         return false;
     }
 

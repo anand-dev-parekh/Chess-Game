@@ -2,9 +2,9 @@ package game;
 
 public class Pawn extends Base{
 
-    public Pawn(String color, int y, int x, String piece, boolean enPessant, boolean promotion)
+    public Pawn(String color, int y, int x, String piece)
     {
-        super(color, y, x, piece, enPessant, promotion);
+        super(color, y, x, piece);
     }
 
     public boolean validMove(Board board, int newY, int newX)

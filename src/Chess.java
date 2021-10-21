@@ -13,39 +13,39 @@ class Chess{
     public static void main(String[] args)
     {
 
-        King blackKing = new King("black", 0, 4, "king", false, false);
+        King blackKing = new King("black", 0, 4, "king");
         Queen blackQueen = new Queen("black", 0, 3, "queen");
         Bishop blackBishop1 = new Bishop("black", 0, 2, "bishop");
         Bishop blackBishop2 = new Bishop("black", 0, 5, "bishop");
         Knight blackKnight2 = new Knight("black", 0, 6, "knight");
         Knight blackKnight1 = new Knight("black", 0, 1, "knight");
-        Rook blackRook1 = new Rook("black", 0 , 0, "rook", false);
-        Rook blackRook2 = new Rook("black", 0, 7, "rook", false);
-        Pawn blackPawn0 = new Pawn("black", 1, 0, "pawn", false, false);
-        Pawn blackPawn1 = new Pawn("black", 1, 1, "pawn", false, false);
-        Pawn blackPawn2 = new Pawn("black", 1, 2, "pawn", false, false);
-        Pawn blackPawn3 = new Pawn("black", 1, 3, "pawn", false, false);
-        Pawn blackPawn4 = new Pawn("black", 1, 4, "pawn", false, false);
-        Pawn blackPawn5 = new Pawn("black", 1, 5, "pawn", false, false);
-        Pawn blackPawn6 = new Pawn("black", 1, 6, "pawn", false, false);
-        Pawn blackPawn7 = new Pawn("black", 1, 7, "pawn", false, false);
+        Rook blackRook1 = new Rook("black", 0 , 0, "rook");
+        Rook blackRook2 = new Rook("black", 0, 7, "rook");
+        Pawn blackPawn0 = new Pawn("black", 1, 0, "pawn");
+        Pawn blackPawn1 = new Pawn("black", 1, 1, "pawn");
+        Pawn blackPawn2 = new Pawn("black", 1, 2, "pawn");
+        Pawn blackPawn3 = new Pawn("black", 1, 3, "pawn");
+        Pawn blackPawn4 = new Pawn("black", 1, 4, "pawn");
+        Pawn blackPawn5 = new Pawn("black", 1, 5, "pawn");
+        Pawn blackPawn6 = new Pawn("black", 1, 6, "pawn");
+        Pawn blackPawn7 = new Pawn("black", 1, 7, "pawn");
 
-        King whiteKing = new King("white", 7, 4, "king", false, false);
+        King whiteKing = new King("white", 7, 4, "king");
         Queen whiteQueen = new Queen("white", 7, 3, "queen");
         Bishop whiteBishop1 = new Bishop("white", 7, 2, "bishop");
         Bishop whiteBishop2 = new Bishop("white", 7, 5, "bishop");
         Knight whiteKnight2 = new Knight("white", 7, 6, "knight");
         Knight whiteKnight1 = new Knight("white", 7, 1, "knight");
-        Rook whiteRook1 = new Rook("white", 7 , 0, "rook", false);
-        Rook whiteRook2 = new Rook("white", 7, 7, "rook", false);
-        Pawn whitePawn0 = new Pawn("white", 6, 0, "pawn", false, false);
-        Pawn whitePawn1 = new Pawn("white", 6, 1, "pawn", false, false);
-        Pawn whitePawn2 = new Pawn("white", 6, 2, "pawn", false, false);
-        Pawn whitePawn3 = new Pawn("white", 6, 3, "pawn", false, false);
-        Pawn whitePawn4 = new Pawn("white", 6, 4, "pawn", false, false);
-        Pawn whitePawn5 = new Pawn("white", 6, 5, "pawn", false, false);
-        Pawn whitePawn6 = new Pawn("white", 6, 6, "pawn", false, false);
-        Pawn whitePawn7 = new Pawn("white", 6, 7, "pawn", false, false);
+        Rook whiteRook1 = new Rook("white", 7 , 0, "rook");
+        Rook whiteRook2 = new Rook("white", 7, 7, "rook");
+        Pawn whitePawn0 = new Pawn("white", 6, 0, "pawn");
+        Pawn whitePawn1 = new Pawn("white", 6, 1, "pawn");
+        Pawn whitePawn2 = new Pawn("white", 6, 2, "pawn");
+        Pawn whitePawn3 = new Pawn("white", 6, 3, "pawn");
+        Pawn whitePawn4 = new Pawn("white", 6, 4, "pawn");
+        Pawn whitePawn5 = new Pawn("white", 6, 5, "pawn");
+        Pawn whitePawn6 = new Pawn("white", 6, 6, "pawn");
+        Pawn whitePawn7 = new Pawn("white", 6, 7, "pawn");
 
         Base[][] matrix = {{blackRook1, blackKnight1, blackBishop1, blackQueen, blackKing, blackBishop2, blackKnight2, blackRook2}, 
                           {blackPawn0, blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7}, 
@@ -66,6 +66,7 @@ class Chess{
         printt(board.matrix);
         while (true){
             //if (isCheckmate(String currentColor)) break;
+            if (board.isDraw("white")) break;
             System.out.println("Coordanites of piece you want to move: ");
             y = input.nextInt(); x = input.nextInt();
             System.out.println("\n Coordanites of place u want piece to move ");
@@ -74,6 +75,9 @@ class Chess{
             if (board.matrix[y][x] == null) System.out.println("Selected piece of nothing");
             else if (board.matrix[y][x].validMove(board, newY, newX) && !board.matrix[y][x].inCheck(board.matrix, newY, newX))
             {
+                if (board.matrix[newY][newX] == null) board.fiftyMove++; //Checks if no taking was done
+                else board.fiftyMove = 0; // Resets fifty move rule since there was a taking
+
                 if (board.matrix[y][x].castle){
                     if (newX > x){
                         board.matrix[y][x + 1] = board.matrix[y][x + 3];
@@ -126,6 +130,7 @@ class Chess{
                 System.out.println("Not valid move");
             }
         }
+        System.out.println("OUTTA DA LOOP");
     }
 
 
