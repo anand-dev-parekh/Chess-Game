@@ -92,7 +92,7 @@ class Chess{
                 }
 
                 board.matrix[y][x].x = newX;
-                board.matrix[y][x].y = newY;
+                board.matrix[y][x].y = newY; 
 
                 board.matrix[newY][newX] = board.matrix[y][x];
                 board.matrix[y][x] = null;
@@ -102,9 +102,11 @@ class Chess{
                         board.matrix[newY + 1][newX] = null;
                     }
                     else{
+                    
                         board.matrix[newY - 1][newX] = null;
                     }
-                    board.matrix[newY][newX].enPessant = false;
+                    board.fiftyMove = 0; //Resets fifty move rule since en pessant
+                    board.matrix[newY][newX].enPessant = false; // Resets enpessant to false
                 }
                 if (board.matrix[newY][newX].promotion){
                     System.out.println("Promotion Working");
@@ -151,6 +153,5 @@ class Chess{
             }
             System.out.println("\n-------------------------------------------------------------------------------");
         }
-
     }
 }

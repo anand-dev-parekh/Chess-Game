@@ -7,6 +7,7 @@ public class Pawn extends Base{
         super(color, y, x, piece);
     }
 
+    @Override
     public boolean validMove(Board board, int newY, int newX)
     {  
         

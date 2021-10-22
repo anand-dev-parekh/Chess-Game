@@ -5,7 +5,7 @@ public abstract class Base {
     final public String color;              
     public int x;
     public int y;
-    public String piece;
+    final public String piece;
     public boolean enPessant;
     public boolean promotion;
     public boolean hasMoved;
@@ -30,7 +30,7 @@ public abstract class Base {
         int x = this.x;
         int y = this.y;
 
-        Base[][] board = new Base[8][8];
+        Base[][] board = new Base[8][8]; // Copies the board
         
         for (int i = 0; i < tempBoard.length; i++){
             for (int j = 0; j < tempBoard[i].length; j++){

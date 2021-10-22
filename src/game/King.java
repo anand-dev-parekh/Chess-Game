@@ -8,6 +8,7 @@ public class King extends Base{
         super(color, y, x, piece);
     }
     
+    @Override
     public boolean validMove(Board board, int newY, int newX)
     {
         if (this.x == newX && this.y == newY) return false; //Cant move to same spot

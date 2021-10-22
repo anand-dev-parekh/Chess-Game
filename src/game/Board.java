@@ -48,6 +48,10 @@ public class Board {
         }
         return new int[] {0, 0};
     }
+    int[][][] blockAbleSquares(int kingY, int kingX){
+        return new int[][][]{{{0}, {0}}};
+
+    }
 
 
 
