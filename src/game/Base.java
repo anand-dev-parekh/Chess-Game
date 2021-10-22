@@ -69,7 +69,7 @@ public abstract class Base {
     */
 
     public boolean isCheck(Base[][] board, int kingY, int kingX){
-        if (this.knightCheck(board, kingY, kingX) || this.pawnCheck(board, kingY, kingX) || this.rookQcheck(board, kingY, kingX) || this.bishopQcheck(board, kingY, kingX)) return true;
+        if (this.knightCheck(board, kingY, kingX) || this.pawnCheck(board, kingY, kingX) || this.rookQcheck(board, kingY, kingX) || this.bishopQcheck(board, kingY, kingX) || this.kingCheck(board, kingY, kingX)) return true;
 
         return false;
     }
@@ -102,6 +102,18 @@ public abstract class Base {
             }
 
         }
+        return false;
+    }
+
+    private boolean kingCheck(Base[][] board, int kingY, int kingX){
+        for (int i = -1; i <= 1; i++){
+            for (int j = -1; j <= 1; j++){
+                if (i == 0 && j == 0) continue;
+                //If king has a valid move return false, Since the king can move out of check.
+                if (inBounds(kingY + i, kingX + j) && board[kingY + i][kingX + j] != null && board[kingY + i][kingX + j].piece == "king" && board[kingY + i][kingX + j].color != this.color) return true;
+            }
+        }
+
         return false;
     }
     
