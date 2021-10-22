@@ -131,7 +131,7 @@ public abstract class Base {
         if (this.color == "white") possibleY = kingY - 1;            //King can only be checked by pond in front of it
         else possibleY = kingY + 1;                                 //King can only be checked by pond in front of it
 
-        if (board[possibleY][possibleX1] != null && ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || board[possibleY][possibleX2] != null && (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color))) return true;
+        if (inBounds(possibleY, possibleX1) && inBounds(possibleY, possibleX2) && board[possibleY][possibleX1] != null && ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || board[possibleY][possibleX2] != null && (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color))) return true;
         return false;
     }
 
