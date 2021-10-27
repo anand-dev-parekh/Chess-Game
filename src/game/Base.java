@@ -137,120 +137,52 @@ public abstract class Base {
 
     //Checks if rook or queen is checking
     private boolean rookQcheck(Base[][] board, int kingY, int kingX){
+        int[][] iterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
-        if (this.toRight(board, kingY, kingX) || this.toLeft(board, kingY, kingX) || this.toUp(board, kingY, kingX) || this.toDown(board, kingY, kingX)) return true;
-        return false;
-    }
-    
-    //Helper Function to rookQcheck() *Checks if there is rook or queen to right of king
-    private boolean toRight(Base[][] board, int kingY, int kingX){
-        kingX++;
-        while (kingX < 8){
-            if (board[kingY][kingX] != null) {
-                if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
-                return false;
-            }
-            kingX++;
-        }
-        return false;
-    }
-    
-    //Helper Function to rookQcheck() *Checks if there is rook or queen to left of king
-    private boolean toLeft(Base[][] board, int kingY, int kingX){
-        kingX--;
-        while (kingX >= 0){
-            if (board[kingY][kingX] != null) {
-                if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
-                return false;
-            }
-            kingX--;            
-        }
-        return false;
-    }
+        int tempKingX = kingX, tempKingY = kingY, kingXiterator, kingYiterator;
+        for (int i = 0; i < iterators.length; i++){
 
-    //Helper Function to rookQcheck() *Checks if there is rook or queen to above of king
-    private boolean toUp(Base[][] board, int kingY, int kingX){
-        kingY--;
-        while (kingY >= 0){
-            if (board[kingY][kingX] != null) {
-                if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
-                return false;
-            }
-            kingY--;
-        }
-        return false;
-    }
+            kingYiterator = iterators[i][0];
+            kingXiterator = iterators[i][1];
 
-    //Helper Function to rookQcheck() *Checks if there is rook or queen to bottom of king
-    private boolean toDown(Base[][] board, int kingY, int kingX){
-        kingY++;
-        while (kingY < 8){
-            if (board[kingY][kingX] != null) {
-                if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
-                return false;
+            kingX = tempKingX + kingXiterator; 
+            kingY = tempKingY + kingYiterator;
+
+            while (kingX < 8 && kingX >= 0 && kingY < 8 && kingY >= 0){
+                if (board[kingY][kingX] != null) {
+                    if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
+                    break;
+                }
+                kingX += kingXiterator;
+                kingY += kingYiterator;
             }
-            kingY++;
         }
         return false;
     }
 
     //Checks if bishop or queen is checking king
     private boolean bishopQcheck(Base[][] board, int kingY, int kingX){
-        if (this.toTopRight(board, kingY, kingX) || this.toBottomRight(board, kingY, kingX) || this.toTopLeft(board, kingY, kingX) || this.toBottomLeft(board, kingY, kingX)) return true;
-        return false;
-    }
+        int[][] iterators = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1}}; //The directions the from the king
 
-    //Helper function to bishoQcheck() *Checks if bishop or queen is to top right of king
-    private boolean toTopRight(Base[][] board, int kingY, int kingX){
-        kingX++; kingY--;
-        while (kingX < 8 && kingY >= 0){
-            if (board[kingY][kingX] != null) {
-                if ((board[kingY][kingX].piece == "bishop" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
-                return false;
+        int tempKingX = kingX, tempKingY = kingY;
+        for (int i = 0; i < iterators.length; i++){
+
+            int kingXiterator = iterators[i][1];
+            int kingYiterator = iterators[i][0];
+            kingX = tempKingX + kingXiterator; 
+            kingY = tempKingY + kingYiterator;
+            while (kingX < 8 && kingX >= 0 && kingY < 8 && kingY >= 0){
+                if (board[kingY][kingX] != null) {
+                    if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
+                    break;
+                }
+                kingX += kingXiterator;
+                kingY += kingYiterator;
             }
-            kingX++; kingY--;
         }
         return false;
     }
 
-    //Helper function to bishoQcheck() *Checks if bishop or queen is to bottom right of king
-    private boolean toBottomRight(Base[][] board, int kingY, int kingX){
-        kingX++; kingY++;
-        while (kingX < 8 && kingY < 8){
-            if (board[kingY][kingX] != null) {
-                if ((board[kingY][kingX].piece == "bishop" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
-                return false;
-            }
-            kingX++; kingY++;
-        }
-        return false;
-    }
-
-    //Helper function to bishoQcheck() *Checks if bishop or queen is to top left of king
-    private boolean toTopLeft(Base[][] board, int kingY, int kingX){
-        kingX--; kingY--;
-        while (kingX >= 0 && kingY >= 0){
-            if (board[kingY][kingX] != null) {
-                if ((board[kingY][kingX].piece == "bishop" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
-                return false;
-            }
-            kingX--; kingY--;
-        }
-        return false;
-    }
-
-    //Helper function to bishoQcheck() *Checks if bishop or queen is to top right of king
-    private boolean toBottomLeft(Base[][] board, int kingY, int kingX){
-        kingX--; kingY++;
-        while (kingX > 0 && kingY < 8){
-            if (board[kingY][kingX] != null) {
-                if ((board[kingY][kingX].piece == "bishop" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
-                return false;
-            }
-            kingX--; kingY++;
-        }
-        return false;
-    }
 
 
 }

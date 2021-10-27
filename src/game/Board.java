@@ -18,7 +18,7 @@ public class Board {
 
     public boolean isCheckmate (String color){
 
-        int[] daKing = this.findKing(color); // Finds king of said color
+        int[] daKing = this.findKing(color); // Finds king of said colorz
 
         int kingY = daKing[0], kingX = daKing[1]; //Puts kings indexes in variables
 
@@ -48,11 +48,7 @@ public class Board {
         }
         return new int[] {0, 0};
     }
-    int[][][] blockAbleSquares(int kingY, int kingX){
-        return new int[][][]{{{0}, {0}}};
-
-    }
-
+    
 
 
     //isDraw() Function
