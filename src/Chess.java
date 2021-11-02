@@ -85,7 +85,8 @@ class Chess{
             {
                 if (board.matrix[newY][newX] == null) board.fiftyMove++; //Checks if no taking was done
                 else board.fiftyMove = 0; // Resets fifty move rule since there was a taking
-
+                
+                
                 if (board.matrix[y][x].castle){
                     if (newX > x){
                         board.matrix[y][x + 1] = board.matrix[y][x + 3];

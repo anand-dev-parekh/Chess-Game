@@ -33,7 +33,7 @@ public class Board {
         }
         ArrayList<ArrayList<int[]>> checkSquares = getSquares(this.matrix, kingY, kingX, color); //Gets squares you can block
 
-        if (moreThanTwo(checkSquares)) return true;
+        if (moreThanTwo(checkSquares)) return true; // If more than two pieces are checking then its check mate
 
 
         for (int y = 0; y < this.matrix.length; y++){ //Iterates all the colums/y value of board
@@ -41,7 +41,7 @@ public class Board {
             for (int x = 0; x < this.matrix[y].length; x++) //Iterates all x values for each column/y value
             {
                 if (this.matrix[y][x] != null && this.matrix[y][x].color.equals(color) && !this.matrix[y][x].piece.equals("king")){ // Any piece of same color
-                    if (this.canBlock(checkSquares, y, x)) return false;
+                    if (this.canBlock(checkSquares, y, x)) return false; // Checks if the piece can block the check
                 }   
             }
         }

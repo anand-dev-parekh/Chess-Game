@@ -19,7 +19,7 @@ public class King extends Base{
         if ((changeY == 0 || changeY == 1) && (changeX == 1 || changeX == 0)) return true;    //Returns bubble around king if true
 
         //castling
-        if ((this.y == 7 || this.y == 0) && (newX == this.x + 2 || newX == this.x - 2)){ //Checks that its on top rank
+        if ((this.y == 7 || this.y == 0) && (newX == this.x + 2 || newX == this.x - 2) && !board.matrix[this.y][this.x].hasMoved){ //Checks that its on top rank
 
             //Checks that rook in left corner or right corner
             if ((board.matrix[this.y][this.x + 3] != null && !board.matrix[this.y][this.x + 3].hasMoved) || (board.matrix[this.y][this.x - 4] != null && !board.matrix[this.y][this.x - 4].hasMoved)){
