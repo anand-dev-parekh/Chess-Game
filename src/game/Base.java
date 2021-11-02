@@ -39,13 +39,10 @@ public abstract class Base {
         }
 
         if (this.enPessant){ //If EnPessant remove piece that was enpessanted on temporary board
-            if (this.color == "white"){
-                board[newY + 1][newX] = null;
-            }
-            else{
-                board[newY - 1][newX] = null;
-            }
+            if (this.color == "white") board[newY + 1][newX] = null;
+            else board[newY - 1][newX] = null;
         }
+        
         if (this.castle){ // If move was castle, We check three positions king could have been checked from.
             int decrement = 1;
             if (newX < this.x) decrement = -1;
@@ -81,7 +78,7 @@ public abstract class Base {
 
             for (int j = 0; j < board[i].length; j++) //Iterates all x values for each column/y value
             {
-                if (board[i][j] != null && board[i][j].piece == "king" && board[i][j].color == this.color){ //If u find the king return its position
+                if (board[i][j] != null && board[i][j].piece.equals("king") && board[i][j].color == this.color){ //If u find the king return its position
                     return new int[] {i, j};
                 }
             }
@@ -98,7 +95,7 @@ public abstract class Base {
         for (int i = 0; i < knightChecks.length; i++){ //Checks all positions knight could be to check king
             
             if (inBounds(knightChecks[i][0], knightChecks[i][1])){ // If knight position is in board indexes range
-                if (board[knightChecks[i][0]][knightChecks[i][1]] != null && board[knightChecks[i][0]][knightChecks[i][1]].piece == "knight" && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true; //returns true if piece is knight and oposite color
+                if (board[knightChecks[i][0]][knightChecks[i][1]] != null && board[knightChecks[i][0]][knightChecks[i][1]].piece.equals("knight") && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true; //returns true if piece is knight and oposite color
             }
 
         }
@@ -110,7 +107,7 @@ public abstract class Base {
             for (int j = -1; j <= 1; j++){
                 if (i == 0 && j == 0) continue;
                 //If king has a valid move return false, Since the king can move out of check.
-                if (inBounds(kingY + i, kingX + j) && board[kingY + i][kingX + j] != null && board[kingY + i][kingX + j].piece == "king" && board[kingY + i][kingX + j].color != this.color) return true;
+                if (inBounds(kingY + i, kingX + j) && board[kingY + i][kingX + j] != null && board[kingY + i][kingX + j].piece.equals("king") && board[kingY + i][kingX + j].color != this.color) return true;
             }
         }
 
@@ -131,16 +128,16 @@ public abstract class Base {
         if (this.color == "white") possibleY = kingY - 1;            //King can only be checked by pond in front of it
         else possibleY = kingY + 1;                                 //King can only be checked by pond in front of it
 
-        if (inBounds(possibleY, possibleX1) && inBounds(possibleY, possibleX2) && board[possibleY][possibleX1] != null && ((board[possibleY][possibleX1].piece == "pawn" && board[possibleY][possibleX1].color != this.color) || board[possibleY][possibleX2] != null && (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color))) return true;
+        if (inBounds(possibleY, possibleX1) && inBounds(possibleY, possibleX2) && board[possibleY][possibleX1] != null && ((board[possibleY][possibleX1].piece.equals("pawn") && board[possibleY][possibleX1].color != this.color) || board[possibleY][possibleX2] != null && (board[possibleY][possibleX2].piece == "pawn" && board[possibleY][possibleX2].color != this.color))) return true;
         return false;
     }
 
     //Checks if rook or queen is checking
     private boolean rookQcheck(Base[][] board, int kingY, int kingX){
-        int[][] iterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int[][] iterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}; //The directions of iterators from the king
 
         int tempKingX = kingX, tempKingY = kingY, kingXiterator, kingYiterator;
-        for (int i = 0; i < iterators.length; i++){
+        for (int i = 0; i < iterators.length; i++){//Iterates through all the different directions
 
             kingYiterator = iterators[i][0];
             kingXiterator = iterators[i][1];
@@ -150,7 +147,7 @@ public abstract class Base {
 
             while (kingX < 8 && kingX >= 0 && kingY < 8 && kingY >= 0){
                 if (board[kingY][kingX] != null) {
-                    if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
+                    if ((board[kingY][kingX].piece.equals("rook") || board[kingY][kingX].piece.equals("queen")) && board[kingY][kingX].color != this.color) return true;
                     break;
                 }
                 kingX += kingXiterator;
@@ -162,10 +159,10 @@ public abstract class Base {
 
     //Checks if bishop or queen is checking king
     private boolean bishopQcheck(Base[][] board, int kingY, int kingX){
-        int[][] iterators = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1}}; //The directions the from the king
+        int[][] iterators = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1}}; //The directions of iterators from the king
 
         int tempKingX = kingX, tempKingY = kingY;
-        for (int i = 0; i < iterators.length; i++){
+        for (int i = 0; i < iterators.length; i++){ //Iterates Through all the different directions
 
             int kingXiterator = iterators[i][1];
             int kingYiterator = iterators[i][0];
@@ -173,7 +170,7 @@ public abstract class Base {
             kingY = tempKingY + kingYiterator;
             while (kingX < 8 && kingX >= 0 && kingY < 8 && kingY >= 0){
                 if (board[kingY][kingX] != null) {
-                    if ((board[kingY][kingX].piece == "rook" || board[kingY][kingX].piece == "queen") && board[kingY][kingX].color != this.color) return true;
+                    if ((board[kingY][kingX].piece.equals("bishop") || board[kingY][kingX].piece.equals("queen")) && board[kingY][kingX].color != this.color) return true;
                     break;
                 }
                 kingX += kingXiterator;
@@ -182,7 +179,4 @@ public abstract class Base {
         }
         return false;
     }
-
-
-
 }

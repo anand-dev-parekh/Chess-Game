@@ -62,17 +62,25 @@ class Chess{
 
         Scanner input = new Scanner(System.in);
         int x, y, newX, newY;
+        String turn = "white";
 
         printt(board.matrix);
         while (true){
-            //if (isCheckmate(String currentColor)) break;
-            if (board.isDraw("white")) break;
+            
+            
+            
+            if (board.isCheckmate(turn)) break;
+            if (board.isDraw(turn)) break;
+
+
+
+
             System.out.println("Coordanites of piece you want to move: ");
             y = input.nextInt(); x = input.nextInt();
             System.out.println("\n Coordanites of place u want piece to move ");
             newY = input.nextInt(); newX = input.nextInt();
 
-            if (board.matrix[y][x] == null) System.out.println("Selected piece of nothing");
+            if (board.matrix[y][x] == null || !board.matrix[y][x].color.equals(turn)) System.out.println("Can't move that piece");
             else if (board.matrix[y][x].validMove(board, newY, newX) && !board.matrix[y][x].inCheck(board.matrix, newY, newX))
             {
                 if (board.matrix[newY][newX] == null) board.fiftyMove++; //Checks if no taking was done
@@ -123,7 +131,10 @@ class Chess{
                         tempBoard[i][j] = board.matrix[i][j]; 
                     }
                 }
-                board.prevBoards.add(tempBoard); // board.prevboards.add(new Base[][])
+                board.prevBoards.add(tempBoard); 
+
+                if (turn.equals("white")) turn = "black";
+                else turn = "white";
 
                 printt(board.matrix);
             }
@@ -147,7 +158,7 @@ class Chess{
             System.out.print(y + "||");
             for (int x = 0; x < matrix.length; x++){
 
-                if (matrix[y][x] == null) System.out.print(" nulll ||");
+                if (matrix[y][x] == null) System.out.print("       ||");
                 else System.out.print(" " + matrix[y][x].color.charAt(0) + matrix[y][x].piece.substring(0, 4) + " ||");
 
             }
