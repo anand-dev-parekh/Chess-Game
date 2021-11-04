@@ -19,21 +19,26 @@ public class King extends Base{
         if ((changeY == 0 || changeY == 1) && (changeX == 1 || changeX == 0)) return true;    //Returns bubble around king if true
 
         //castling
-        if ((this.y == 7 || this.y == 0) && (newX == this.x + 2 || newX == this.x - 2) && !board.matrix[this.y][this.x].hasMoved){ //Checks that its on top rank
+        if ((this.y == 7 || this.y == 0) && !board.matrix[this.y][this.x].hasMoved){ //Checks that its on top rank
 
-            //Checks that rook in left corner or right corner
-            if ((board.matrix[this.y][this.x + 3] != null && !board.matrix[this.y][this.x + 3].hasMoved) || (board.matrix[this.y][this.x - 4] != null && !board.matrix[this.y][this.x - 4].hasMoved)){
-                int iterator = -1, distance = 4;
-                if (newX > this.x){
-                    distance = 3; //Marks distance between rook and king
-                    iterator = 1; // Go to right or to left
-                }   
-                for (int i = 1; i < distance; i++){
-                    if (board.matrix[this.y][this.x + iterator] != null) return false;
-                }
-                board.matrix[this.y][this.x].castle = true;
-                return true;
+
+            int iterator, distance;
+            if (newX == this.x + 2 && board.matrix[this.y][this.x + 3] != null && !board.matrix[this.y][this.x + 3].hasMoved){
+                iterator = 1;
+                distance = 3;
             }
+            else if (newX == this.x - 2 && (board.matrix[this.y][this.x - 4] != null && !board.matrix[this.y][this.x - 4].hasMoved)){
+                iterator = -1;
+                distance = 4;
+            }
+            else return false;
+
+            for (int i = 1; i < distance; i++){
+                if (board.matrix[this.y][this.x + iterator] != null) return false;
+            }
+            board.matrix[this.y][this.x].castle = true;
+            return true;
+            
         }
         return false;
     }

@@ -31,13 +31,19 @@ public class Board {
                 if (inBounds(kingY + j, kingX + i) && this.matrix[kingY][kingX].validMove(this, kingY + j, kingX + i) && !this.matrix[kingY][kingX].inCheck(this.matrix, kingY + j, kingX + i)) return false;
             }
         }
+
         ArrayList<ArrayList<int[]>> checkSquares = getSquares(this.matrix, kingY, kingX, color); //Gets squares you can block
+       
+        int count = 0;
+        for (int i = 0; i < checkSquares.size(); i++){
+            if (checkSquares.get(i) != null) count++;
+        }
+        System.out.println(count);
 
         if (moreThanTwo(checkSquares)) return true; // If more than two pieces are checking then its check mate
 
 
         for (int y = 0; y < this.matrix.length; y++){ //Iterates all the colums/y value of board
-
             for (int x = 0; x < this.matrix[y].length; x++) //Iterates all x values for each column/y value
             {
                 if (this.matrix[y][x] != null && this.matrix[y][x].color.equals(color) && !this.matrix[y][x].piece.equals("king")){ // Any piece of same color
@@ -101,7 +107,8 @@ public class Board {
         String piece = "rook";
         if (Math.abs(decrementX) == 1 && Math.abs(decrementY) == 1) piece = "bishop";
 
-
+        kingX += decrementX; //Makes sure to skip checking the king for piece
+        kingY += decrementY; //Makes sure to skip checking the king for piece
         while (kingX < 8 && kingX >= 0 && kingY < 8 && kingY >= 0){
             int[] coords = {kingY, kingX};
             output.add(coords);
@@ -112,7 +119,6 @@ public class Board {
             kingX += decrementX;
             kingY += decrementY;
         }
-
         return null;
     }
     private ArrayList<int[]> pawnCheck(Base[][] board, int kingY, int kingX, String color){ 
@@ -143,7 +149,7 @@ public class Board {
         for (int i = 0; i < checkSquares.size(); i++){
             if (checkSquares.get(i) != null) count++;
         }
-        return count >= 2;
+        return count > 2;
     }
     private boolean canBlock(ArrayList<ArrayList<int[]>> blockSquares, int y, int x){
         for (int i = 0; i < blockSquares.size();i++){
@@ -169,13 +175,14 @@ public class Board {
 
     //HELPER FUNCTIONS FOR isDraw()
     private boolean isStalemate (String color){
-        if (this.prevBoards.size() > 5)
-            if (this.prevBoards.get(this.prevBoards.size() - 2) == this.matrix && this.matrix == this.prevBoards.get(this.prevBoards.size() - 4)) return true;
             
             return false;
     }
 
     private boolean isRepetition(){
+        if (this.prevBoards.size() > 5)
+            if (this.prevBoards.get(this.prevBoards.size() - 2) == this.matrix && this.matrix == this.prevBoards.get(this.prevBoards.size() - 4)) return true;
+
         return false;
     }
     

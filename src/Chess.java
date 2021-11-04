@@ -70,7 +70,7 @@ class Chess{
             
             
             if (board.isCheckmate(turn)) break;
-            if (board.isDraw(turn)) break;
+            //if (board.isDraw(turn)) break;
 
 
 

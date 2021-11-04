@@ -66,7 +66,7 @@ public abstract class Base {
     */
 
     public boolean isCheck(Base[][] board, int kingY, int kingX){
-        if (this.knightCheck(board, kingY, kingX) || this.pawnCheck(board, kingY, kingX) || this.rookQcheck(board, kingY, kingX) || this.bishopQcheck(board, kingY, kingX) || this.kingCheck(board, kingY, kingX)) return true;
+        if (this.knightCheck(board, kingY, kingX) || this.pawnCheck(board, kingY, kingX) || this.rookQBishopcheck(board, kingY, kingX) || this.kingCheck(board, kingY, kingX)) return true;
 
         return false;
     }
@@ -132,45 +132,26 @@ public abstract class Base {
         return false;
     }
 
-    //Checks if rook or queen is checking
-    private boolean rookQcheck(Base[][] board, int kingY, int kingX){
-        int[][] iterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}; //The directions of iterators from the king
+    //Checks if rook queen and bishop are checking
+    private boolean rookQBishopcheck(Base[][] board, int kingY, int kingX){
+        int[][] iterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}}; //The directions of iterators from the king
+
 
         int tempKingX = kingX, tempKingY = kingY, kingXiterator, kingYiterator;
         for (int i = 0; i < iterators.length; i++){//Iterates through all the different directions
 
             kingYiterator = iterators[i][0];
             kingXiterator = iterators[i][1];
+        
+            String piece = "rook";
+            if (Math.abs(kingXiterator) == 1 && Math.abs(kingYiterator) == 1) piece = "bishop";
 
             kingX = tempKingX + kingXiterator; 
             kingY = tempKingY + kingYiterator;
 
             while (kingX < 8 && kingX >= 0 && kingY < 8 && kingY >= 0){
                 if (board[kingY][kingX] != null) {
-                    if ((board[kingY][kingX].piece.equals("rook") || board[kingY][kingX].piece.equals("queen")) && board[kingY][kingX].color != this.color) return true;
-                    break;
-                }
-                kingX += kingXiterator;
-                kingY += kingYiterator;
-            }
-        }
-        return false;
-    }
-
-    //Checks if bishop or queen is checking king
-    private boolean bishopQcheck(Base[][] board, int kingY, int kingX){
-        int[][] iterators = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1}}; //The directions of iterators from the king
-
-        int tempKingX = kingX, tempKingY = kingY;
-        for (int i = 0; i < iterators.length; i++){ //Iterates Through all the different directions
-
-            int kingXiterator = iterators[i][1];
-            int kingYiterator = iterators[i][0];
-            kingX = tempKingX + kingXiterator; 
-            kingY = tempKingY + kingYiterator;
-            while (kingX < 8 && kingX >= 0 && kingY < 8 && kingY >= 0){
-                if (board[kingY][kingX] != null) {
-                    if ((board[kingY][kingX].piece.equals("bishop") || board[kingY][kingX].piece.equals("queen")) && board[kingY][kingX].color != this.color) return true;
+                    if ((board[kingY][kingX].piece.equals(piece) || board[kingY][kingX].piece.equals("queen")) && board[kingY][kingX].color != this.color) return true;
                     break;
                 }
                 kingX += kingXiterator;
