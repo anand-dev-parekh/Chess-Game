@@ -34,12 +34,6 @@ public class Board {
 
         ArrayList<ArrayList<int[]>> checkSquares = getSquares(this.matrix, kingY, kingX, color); //Gets squares you can block
        
-        int count = 0;
-        for (int i = 0; i < checkSquares.size(); i++){
-            if (checkSquares.get(i) != null) count++;
-        }
-        System.out.println(count);
-
         if (moreThanTwo(checkSquares)) return true; // If more than two pieces are checking then its check mate
 
 
