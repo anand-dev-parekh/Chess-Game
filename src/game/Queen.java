@@ -8,11 +8,27 @@ public class Queen extends Base{
     }
 
     @Override
-    public boolean validMove(Board board, int newY, int newX){
+    public boolean canMove(Board boardObject){
+        //moves to check for queen
+        int[][] iterators = {{this.y + 1, this.x}, {this.y - 1, this.x}, {this.y, this.x - 1}, {this.y, this.x + 1}, {this.y + 1, this.x + 1}, {this.y + 1, this.x - 1}, {this.y - 1, this.x - 1}, {this.y - 1, this.x + 1}};
+        
+        for (int i = 0; i < iterators.length; i++){
+            
+            if (inBounds(iterators[i][0], iterators[i][1])){
+                //If queen can make a move return True
+                if ((boardObject.matrix[iterators[i][0]][iterators[i][1]] == null || !boardObject.matrix[iterators[i][0]][iterators[i][1]].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].inCheck(boardObject, iterators[i][0], iterators[i][1])) return true;
+       
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean validMove(Board boardObject, int newY, int newX){
 
         if (this.x == newX && this.y == newY) return false; //Cant move to same spot
-        else if (this.x == newX || this.y == newY) return this.validRowColumn(board.matrix, newY, newX);
-        else return this.validDiagnols(board.matrix, newY, newX);
+        else if (this.x == newX || this.y == newY) return this.validRowColumn(boardObject.matrix, newY, newX);
+        else return this.validDiagnols(boardObject.matrix, newY, newX);
         
     }
 
@@ -37,9 +53,13 @@ public class Queen extends Base{
 
         int x = this.x, y = this.y;                                     
         int xOffset = newX - x, yOffset = newY - y;
-
-        if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; // Checks to make sure new position isnt occupied by piece of same color
-        if (Math.abs(yOffset) != Math.abs(xOffset)) return false; //Checks to make sure piece is on SAME DIAGNOL
+        
+        
+        // Checks to make sure new position isnt occupied by piece of same color
+        if (board[newY][newX] != null && board[newY][newX].color == this.color) return false; 
+        
+        //Checks to make sure piece is on SAME DIAGNOL
+        if (Math.abs(yOffset) != Math.abs(xOffset)) return false; 
 
         for (int i = 1; i < Math.abs(xOffset); i++)
         {

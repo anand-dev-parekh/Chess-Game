@@ -47,7 +47,8 @@ class Chess{
         Pawn whitePawn6 = new Pawn("white", 6, 6, "pawn");
         Pawn whitePawn7 = new Pawn("white", 6, 7, "pawn");
 
-        Base[][] matrix = {{blackRook1, blackKnight1, blackBishop1, blackQueen, blackKing, blackBishop2, blackKnight2, blackRook2}, 
+        Base[][] matrix = {
+                          {blackRook1, blackKnight1, blackBishop1, blackQueen, blackKing, blackBishop2, blackKnight2, blackRook2}, 
                           {blackPawn0, blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7}, 
                           {null, null, null, null, null, null, null, null}, 
                           {null, null, null, null, null, null, null, null},
@@ -55,21 +56,21 @@ class Chess{
                           {null, null, null, null, null, null, null, null},
                           {whitePawn0, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7},
                           {whiteRook1, whiteKnight1, whiteBishop1, whiteQueen, whiteKing, whiteBishop2, whiteKnight2, whiteRook2},
-                                }; 
+                          }; 
 
         ArrayList<Base[][]> prevBoards = new ArrayList<Base[][]>();
-        Board board = new Board(matrix, prevBoards);
+        Board boardObject = new Board(matrix, prevBoards);
 
         Scanner input = new Scanner(System.in);
         int x, y, newX, newY;
         String turn = "white";
 
-        printt(board.matrix);
+        printt(boardObject.matrix);
         while (true){
             
             
-            
-            if (board.isCheckmate(turn)) break;
+            if (boardObject.isGameOver(turn)) break;
+            //if (board.isCheckmate(turn)) break;
             //if (board.isDraw(turn)) break;
 
 
@@ -80,71 +81,75 @@ class Chess{
             System.out.println("\n Coordanites of place u want piece to move ");
             newY = input.nextInt(); newX = input.nextInt();
 
-            if (board.matrix[y][x] == null || !board.matrix[y][x].color.equals(turn)) System.out.println("Can't move that piece");
-            else if (board.matrix[y][x].validMove(board, newY, newX) && !board.matrix[y][x].inCheck(board.matrix, newY, newX))
+            if (boardObject.matrix[y][x] == null || !boardObject.matrix[y][x].color.equals(turn)) System.out.println("Can't move that piece");
+            else if (boardObject.matrix[y][x].validMove(boardObject, newY, newX) && !boardObject.matrix[y][x].inCheck(boardObject, newY, newX))
             {
-                if (board.matrix[newY][newX] == null) board.fiftyMove++; //Checks if no taking was done
-                else board.fiftyMove = 0; // Resets fifty move rule since there was a taking
+                if (boardObject.matrix[newY][newX] == null) boardObject.fiftyMove++; //Checks if no taking was done
+                else boardObject.fiftyMove = 0; // Resets fifty move rule since there was a taking
                 
                 
-                if (board.matrix[y][x].castle){
+                if (boardObject.matrix[y][x].castle){
                     if (newX > x){
-                        board.matrix[y][x + 1] = board.matrix[y][x + 3];
-                        board.matrix[y][x + 3] = null;
-                        board.matrix[y][x + 1].x = x + 1;
+                        boardObject.matrix[y][x + 1] = boardObject.matrix[y][x + 3];
+                        boardObject.matrix[y][x + 3] = null;
+                        boardObject.matrix[y][x + 1].x = x + 1;
                     }
                     else{
-                        board.matrix[y][x - 1] = board.matrix[y][x - 4];
-                        board.matrix[y][x - 4] = null; 
-                        board.matrix[y][x - 1].x = x - 1;
+                        boardObject.matrix[y][x - 1] = boardObject.matrix[y][x - 4];
+                        boardObject.matrix[y][x - 4] = null; 
+                        boardObject.matrix[y][x - 1].x = x - 1;
                     }
                 }
 
-                board.matrix[y][x].x = newX;
-                board.matrix[y][x].y = newY; 
+                boardObject.matrix[y][x].x = newX;
+                boardObject.matrix[y][x].y = newY; 
 
-                board.matrix[newY][newX] = board.matrix[y][x];
-                board.matrix[y][x] = null;
+                boardObject.matrix[newY][newX] = boardObject.matrix[y][x];
+                boardObject.matrix[y][x] = null;
 
-                if (board.matrix[newY][newX].enPessant){
-                    if (board.matrix[newY][newX].color == "white"){
-                        board.matrix[newY + 1][newX] = null;
+                if (boardObject.matrix[newY][newX].enPessant){
+                    if (boardObject.matrix[newY][newX].color == "white"){
+                        boardObject.matrix[newY + 1][newX] = null;
                     }
                     else{
                     
-                        board.matrix[newY - 1][newX] = null;
+                        boardObject.matrix[newY - 1][newX] = null;
                     }
-                    board.fiftyMove = 0; //Resets fifty move rule since en pessant
-                    board.matrix[newY][newX].enPessant = false; // Resets enpessant to false
+                    boardObject.fiftyMove = 0; //Resets fifty move rule since en pessant
+                    boardObject.matrix[newY][newX].enPessant = false; // Resets enpessant to false
                 }
-                if (board.matrix[newY][newX].promotion){
+                if (boardObject.matrix[newY][newX].promotion){
                     System.out.println("Promotion Working");
-                    board.matrix[newY][newX].promotion = false;
+                    boardObject.matrix[newY][newX].promotion = false;
                 }
 
-                board.matrix[newY][newX].hasMoved = true;
+                boardObject.matrix[newY][newX].hasMoved = true;
 
 
-                Base[][] tempBoard = new Base[8][8];
+                Base[][] tempBoardMatrix = new Base[8][8];
         
-                for (int i = 0; i < board.matrix.length; i++){
-                    for (int j = 0; j < board.matrix[i].length; j++){
-                        tempBoard[i][j] = board.matrix[i][j]; 
+                for (int i = 0; i < boardObject.matrix.length; i++){
+                    for (int j = 0; j < boardObject.matrix[i].length; j++){
+                        tempBoardMatrix[i][j] = boardObject.matrix[i][j]; 
                     }
                 }
-                board.prevBoards.add(tempBoard); 
+                boardObject.prevBoards.add(tempBoardMatrix); 
 
                 if (turn.equals("white")) turn = "black";
                 else turn = "white";
 
-                printt(board.matrix);
+                printt(boardObject.matrix);
             }
             else 
             {
                 System.out.println("Not valid move");
+                boardObject.matrix[y][x].castle = false;
+                boardObject.matrix[y][x]. promotion = false;
             }
         }
+
         System.out.println("OUTTA DA LOOP");
+        input.close();
     }
 
 

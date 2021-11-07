@@ -7,11 +7,30 @@ public class Pawn extends Base{
         super(color, y, x, piece);
     }
 
+    
     @Override
-    public boolean validMove(Board board, int newY, int newX)
-    {  
+    public boolean canMove(Board boardObject){
+        int yChange = -1;
+        if (this.color.equals("black")) yChange = 1;
+
+        //if can move forward return true
+        if (inBounds(this.y + yChange, this.x) && boardObject.matrix[this.y + yChange][this.x] == null && !boardObject.matrix[this.y][this.x].inCheck(boardObject, this.y + yChange, this.x)) return true;
         
-        if (board.matrix[newY][newX] != null && board.matrix[newY][newX].color == this.color) return false; // Checks if move is occupied by piece of same color
+        //If can take right return true
+        if (inBounds(this.y + yChange, this.x + 1) && (boardObject.matrix[this.y + yChange][this.x + 1] == null || !boardObject.matrix[this.y + yChange][this.x + 1].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].inCheck(boardObject, this.y + yChange, this.x + 1)) return true;
+        
+        //If can take left return true
+        if (inBounds(this.y + yChange, this.x - 1) && (boardObject.matrix[this.y + yChange][this.x - 1] == null || !boardObject.matrix[this.y + yChange][this.x - 1].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].inCheck(boardObject, this.y + yChange, this.x - 1)) return true;
+
+        return false;
+    }
+
+
+    @Override
+    public boolean validMove(Board boardObject, int newY, int newX)
+    {  
+        // Checks if move is occupied by piece of same color
+        if (boardObject.matrix[newY][newX] != null && boardObject.matrix[newY][newX].color == this.color) return false; 
 
         int decrement = 1;
         if (this.color == "white"){
@@ -19,13 +38,16 @@ public class Pawn extends Base{
         }
 
         // tests validity for single and double square forward moves
-        if (this.x == newX && board.matrix[newY][newX] == null){
+        if (this.x == newX && boardObject.matrix[newY][newX] == null){
             if (newY == this.y + 2*decrement){
-                if ((this.y == 1 || this.y == 6) && board.matrix[this.y + decrement][this.x] == null) return true;
+                //Checks to make sure on 2nd rank or 7th rank. And piece in between is null for double jumping
+                if ((this.y == 1 || this.y == 6) && boardObject.matrix[this.y + decrement][this.x] == null) return true;
             }
+            // Checks 1 square movement forward
             else if (newY == this.y + decrement){
-                if (newY == 7 || newY == 0) this.enPessant = true;
-                return true;}
+                if (newY == 7 || newY == 0) this.promotion = true;
+                return true;
+            }
             else return false;
         }
         
@@ -34,31 +56,32 @@ public class Pawn extends Base{
 
         if (newY == this.y + decrement && changeX == 1){
 
-            if (board.matrix[newY][newX] != null){
+            if (boardObject.matrix[newY][newX] != null){
                 if (newY == 7 || newY == 0) this.promotion = true;
                 return true; // Captures piece any direction.
             }
             
-            if (board.prevBoards.size() < 3) return false;
-            Base[][] previousBoard = board.prevBoards.get(board.prevBoards.size() - 2); // This gets the board from last move   
-            //en pessant
+            if (boardObject.prevBoards.size() < 3) return false;
+            Base[][] previousBoard = boardObject.prevBoards.get(boardObject.prevBoards.size() - 2); // This gets the board from last move   
+            //en pessants
             if (this.color == "white" && this.y == 3){
-                if (previousBoard[1][newX] != null && board.matrix[this.y][newX] != null){
+                //Checks that pawn existed on second rank on old board, but not on new board.
+                if (previousBoard[1][newX] != null && boardObject.matrix[this.y][newX] != null && boardObject.matrix[1][newX] == null){
 
-                    if (previousBoard[1][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[1][newX] == null){
-                        board.matrix[this.y][this.x].enPessant = true; //Sets En Pessant to True, so taking will work in other files
-                        return true;}
-                
+                    if (previousBoard[1][newX].piece == "pawn" && boardObject.matrix[this.y][newX].piece == "pawn"){
+                        boardObject.matrix[this.y][this.x].enPessant = true; //Sets En Pessant to True, so taking will work in inCheck() 
+                        return true;
+                    }
                 }
             }
             else if (this.y == 4){
-                if (previousBoard[6][newX] != null && board.matrix[this.y][newX] != null){
-
-                    if (previousBoard[6][newX].piece == "pawn" && board.matrix[this.y][newX].piece == "pawn" && board.matrix[6][newX] == null) {
-                        board.matrix[this.y][this.x].enPessant = true; //Sets En Pessant to True, so taking will work in other files
+                if (previousBoard[6][newX] != null && boardObject.matrix[this.y][newX] != null){
+                    
+                    //Checks that pawn existed on seventh rank on old board, but not on new board.
+                    if (previousBoard[6][newX].piece == "pawn" && boardObject.matrix[this.y][newX].piece == "pawn" && boardObject.matrix[6][newX] == null) {
+                        boardObject.matrix[this.y][this.x].enPessant = true; //Sets En Pessant to True, so taking will work in inCheck()
                         return true;
                     }
-                
                 }
             }
         }
