@@ -107,15 +107,15 @@ public abstract class Base {
     //BELOW IS ALL HELPER FUNCTIONS FOR inCheck()
 
 
-    public boolean isCheck(Base[][] board, int kingY, int kingX){
-        if (this.knightCheck(board, kingY, kingX) || this.pawnCheck(board, kingY, kingX) || this.rookQBishopcheck(board, kingY, kingX) || this.kingCheck(board, kingY, kingX)) return true;
+    public boolean isCheck(Base[][] boardMatrix, int kingY, int kingX){
+        if (this.knightCheck(boardMatrix, kingY, kingX) || this.pawnCheck(boardMatrix, kingY, kingX) || this.rookQBishopcheck(boardMatrix, kingY, kingX) || this.kingCheck(boardMatrix, kingY, kingX)) return true;
 
         return false;
     }
 
 
     //Checks if Knight is checking king
-    private boolean knightCheck(Base[][] board, int kingY, int kingX){ 
+    private boolean knightCheck(Base[][] boardMatrix, int kingY, int kingX){ 
 
         //All possible knight moves based from kings position
         int[][] knightChecks = {{kingY - 2, kingX + 1},{kingY + 2, kingX + 1}, {kingY - 1, kingX + 2}, {kingY + 1, kingX + 2}, {kingY - 2, kingX - 1},{kingY + 2, kingX - 1}, {kingY - 1, kingX - 2}, {kingY + 1, kingX - 2}};
@@ -123,7 +123,7 @@ public abstract class Base {
         for (int i = 0; i < knightChecks.length; i++){ //Checks all positions knight could be to check king
             
             if (inBounds(knightChecks[i][0], knightChecks[i][1])){ // If knight position is in board indexes range
-                if (board[knightChecks[i][0]][knightChecks[i][1]] != null && board[knightChecks[i][0]][knightChecks[i][1]].piece.equals("knight") && board[knightChecks[i][0]][knightChecks[i][1]].color != this.color) return true; //returns true if piece is knight and oposite color
+                if (boardMatrix[knightChecks[i][0]][knightChecks[i][1]] != null && boardMatrix[knightChecks[i][0]][knightChecks[i][1]].piece.equals("knight") && !boardMatrix[knightChecks[i][0]][knightChecks[i][1]].color.equals(this.color)) return true; //returns true if piece is knight and oposite color
             }
 
         }
@@ -132,12 +132,12 @@ public abstract class Base {
 
 
     //Checks if king is in new kings positions bubble
-    private boolean kingCheck(Base[][] board, int kingY, int kingX){
+    private boolean kingCheck(Base[][] boardMatrix, int kingY, int kingX){
         for (int i = -1; i <= 1; i++){
             for (int j = -1; j <= 1; j++){
                 if (i == 0 && j == 0) continue;
                 //If king has a valid move return false, Since the king can move out of check.
-                if (inBounds(kingY + i, kingX + j) && board[kingY + i][kingX + j] != null && board[kingY + i][kingX + j].piece.equals("king") && board[kingY + i][kingX + j].color != this.color) return true;
+                if (inBounds(kingY + i, kingX + j) && boardMatrix[kingY + i][kingX + j] != null && boardMatrix[kingY + i][kingX + j].piece.equals("king") && boardMatrix[kingY + i][kingX + j].color != this.color) return true;
             }
         }
 
@@ -146,21 +146,21 @@ public abstract class Base {
 
 
     //Checks if pawn is Checking
-    private boolean pawnCheck(Base[][] board, int kingY, int kingX){ 
+    private boolean pawnCheck(Base[][] boardMatrix, int kingY, int kingX){ 
         int possibleX1 = kingX - 1, possibleX2 = kingX + 1, possibleY;
 
         //King can only be checked by pond in front of it
         if (this.color == "white") possibleY = kingY - 1;            
         else possibleY = kingY + 1;                                 
 
-        if (inBounds(possibleY, possibleX1) && board[possibleY][possibleX1] != null && board[possibleY][possibleX1].piece.equals("pawn") && !board[possibleY][possibleX1].color.equals(this.color)) return true;
-        if (inBounds(possibleY, possibleX2) && board[possibleY][possibleX2] != null && board[possibleY][possibleX2].piece.equals("pawn") && !board[possibleY][possibleX2].color.equals(this.color)) return true;
+        if (inBounds(possibleY, possibleX1) && boardMatrix[possibleY][possibleX1] != null && boardMatrix[possibleY][possibleX1].piece.equals("pawn") && !boardMatrix[possibleY][possibleX1].color.equals(this.color)) return true;
+        if (inBounds(possibleY, possibleX2) && boardMatrix[possibleY][possibleX2] != null && boardMatrix[possibleY][possibleX2].piece.equals("pawn") && !boardMatrix[possibleY][possibleX2].color.equals(this.color)) return true;
         return false;
     }
 
 
     //Checks if rook queen and bishop are checking
-    private boolean rookQBishopcheck(Base[][] board, int kingY, int kingX){
+    private boolean rookQBishopcheck(Base[][] boardMatrix, int kingY, int kingX){
         int[][] iterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}}; //The directions of iterators from the king
 
 
@@ -179,8 +179,8 @@ public abstract class Base {
             kingY = tempKingY + kingYiterator; 
 
             while (inBounds(kingY, kingX)){
-                if (board[kingY][kingX] != null) {
-                    if ((board[kingY][kingX].piece.equals(piece) || board[kingY][kingX].piece.equals("queen")) && board[kingY][kingX].color != this.color) return true;
+                if (boardMatrix[kingY][kingX] != null) {
+                    if ((boardMatrix[kingY][kingX].piece.equals(piece) || boardMatrix[kingY][kingX].piece.equals("queen")) && !boardMatrix[kingY][kingX].color.equals(this.color)) return true;
                     break;
                 }
                 kingX += kingXiterator;

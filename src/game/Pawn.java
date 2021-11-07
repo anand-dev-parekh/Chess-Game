@@ -7,7 +7,7 @@ public class Pawn extends Base{
         super(color, y, x, piece);
     }
 
-    
+
     @Override
     public boolean canMove(Board boardObject){
         int yChange = -1;
@@ -64,21 +64,21 @@ public class Pawn extends Base{
             if (boardObject.prevBoards.size() < 3) return false;
             Base[][] previousBoard = boardObject.prevBoards.get(boardObject.prevBoards.size() - 2); // This gets the board from last move   
             //en pessants
-            if (this.color == "white" && this.y == 3){
+            if (this.color.equals("white") && this.y == 3){
                 //Checks that pawn existed on second rank on old board, but not on new board.
                 if (previousBoard[1][newX] != null && boardObject.matrix[this.y][newX] != null && boardObject.matrix[1][newX] == null){
 
-                    if (previousBoard[1][newX].piece == "pawn" && boardObject.matrix[this.y][newX].piece == "pawn"){
+                    if (previousBoard[1][newX].piece.equals("pawn") && boardObject.matrix[this.y][newX].piece.equals("pawn")){
                         boardObject.matrix[this.y][this.x].enPessant = true; //Sets En Pessant to True, so taking will work in inCheck() 
                         return true;
                     }
                 }
             }
-            else if (this.y == 4){
+            else if (this.color.equals("black") && this.y == 4){
                 if (previousBoard[6][newX] != null && boardObject.matrix[this.y][newX] != null){
                     
                     //Checks that pawn existed on seventh rank on old board, but not on new board.
-                    if (previousBoard[6][newX].piece == "pawn" && boardObject.matrix[this.y][newX].piece == "pawn" && boardObject.matrix[6][newX] == null) {
+                    if (previousBoard[6][newX].piece.equals("pawn") && boardObject.matrix[this.y][newX].piece.equals("pawn") && boardObject.matrix[6][newX] == null) {
                         boardObject.matrix[this.y][this.x].enPessant = true; //Sets En Pessant to True, so taking will work in inCheck()
                         return true;
                     }
