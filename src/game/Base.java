@@ -265,7 +265,7 @@ public abstract class Base {
 
 
     //Adds Pawn Left check in ArrayList<int[]> Form
-    private ArrayList<int[]> addPawnLeftCheck(Base[][] board){ 
+    private ArrayList<int[]> addPawnLeftCheck(Base[][] boardMatrix){ 
         ArrayList<int[]> output = new ArrayList<int[]>();
         int possibleX1 = this.x - 1, possibleY;
 
@@ -274,7 +274,7 @@ public abstract class Base {
         else possibleY = this.y + 1;                                 
 
         //Check if there is pawn of opposite color checking on left
-        if (inBounds(possibleY, possibleX1) && board[possibleY][possibleX1] != null && board[possibleY][possibleX1].piece.equals("pawn") && !board[possibleY][possibleX1].color.equals(this.color)){
+        if (inBounds(possibleY, possibleX1) && boardMatrix[possibleY][possibleX1] != null && boardMatrix[possibleY][possibleX1].piece.equals("pawn") && !boardMatrix[possibleY][possibleX1].color.equals(this.color)){
             int[] coords = {possibleY, possibleX1};
             output.add(coords);
             return output;
@@ -285,7 +285,7 @@ public abstract class Base {
 
 
     //Adds Pawn Right check in ArrayList<int[]> Form
-    private ArrayList<int[]> addPawnRightCheck(Base[][] board){
+    private ArrayList<int[]> addPawnRightCheck(Base[][] boardMatrix){
         ArrayList<int[]> output = new ArrayList<int[]>();
         int possibleX2 = this.x + 1, possibleY;
 
@@ -295,7 +295,7 @@ public abstract class Base {
         else possibleY = this.x + 1; 
         
         //Check if there is pawn of opposite color checking on right
-        if (inBounds(possibleY, possibleX2) && board[possibleY][possibleX2] != null && board[possibleY][possibleX2].piece.equals("pawn") && !board[possibleY][possibleX2].color.equals(this.color)){
+        if (inBounds(possibleY, possibleX2) && boardMatrix[possibleY][possibleX2] != null && boardMatrix[possibleY][possibleX2].piece.equals("pawn") && !boardMatrix[possibleY][possibleX2].color.equals(this.color)){
             int[] coords2 = {possibleY, possibleX2};
             output.add(coords2);
             return output;
