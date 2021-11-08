@@ -220,7 +220,7 @@ public abstract class Base {
         if (inBounds(knightY, knightX))
         {
             //Knight piece is in position to check king
-            if (boardMatrix[knightY][knightX] != null && boardMatrix[knightY][knightX].piece.equals("knight") && !boardMatrix[knightY][knightX].color.equals(color))
+            if (boardMatrix[knightY][knightX] != null && boardMatrix[knightY][knightX].piece.equals("knight") && !boardMatrix[knightY][knightX].color.equals(this.color))
             {
                 ArrayList<int[]> knightPos = new ArrayList<int[]>();
                 int[] coordaintes = {knightY, knightX};
@@ -269,17 +269,18 @@ public abstract class Base {
         ArrayList<int[]> output = new ArrayList<int[]>();
         int possibleX1 = this.x - 1, possibleY;
 
-        if (color.equals("white")) possibleY = this.y - 1;            //King can only be checked by pond in front of it
-        else possibleY = this.y + 1;                                 //King can only be checked by pond in front of it
-
+        //King can only be checked by pond in front of it
+        if (color.equals("white")) possibleY = this.y - 1;           
+        else possibleY = this.y + 1;                                 
 
         //Check if there is pawn of opposite color checking on left
-        if (inBounds(possibleY, possibleX1) && board[possibleY][possibleX1] != null && board[possibleY][possibleX1].piece.equals("pawn") && board[possibleY][possibleX1].color != color){
+        if (inBounds(possibleY, possibleX1) && board[possibleY][possibleX1] != null && board[possibleY][possibleX1].piece.equals("pawn") && !board[possibleY][possibleX1].color.equals(this.color)){
             int[] coords = {possibleY, possibleX1};
             output.add(coords);
+            return output;
         }
 
-        return output;
+        return null;
     }
 
 
@@ -294,11 +295,12 @@ public abstract class Base {
         else possibleY = this.x + 1; 
         
         //Check if there is pawn of opposite color checking on right
-        if (inBounds(possibleY, possibleX2) && board[possibleY][possibleX2] != null && board[possibleY][possibleX2].piece.equals("pawn") && board[possibleY][possibleX2].color != color){
+        if (inBounds(possibleY, possibleX2) && board[possibleY][possibleX2] != null && board[possibleY][possibleX2].piece.equals("pawn") && !board[possibleY][possibleX2].color.equals(this.color)){
             int[] coords2 = {possibleY, possibleX2};
             output.add(coords2);
+            return output;
         }
-        return output;        
+        return null;        
     }
 
 }
