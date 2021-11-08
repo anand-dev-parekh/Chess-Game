@@ -1,0 +1,21 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Applications/javafx-sdk-17.0.1/lib/javafx-swt.jar",
+        "/Applications/javafx-sdk-17.0.1/lib/javafx.base.jar",
+        "/Applications/javafx-sdk-17.0.1/lib/javafx.controls.jar",
+        "/Applications/javafx-sdk-17.0.1/lib/javafx.fxml.jar",
+        "/Applications/javafx-sdk-17.0.1/lib/javafx.graphics.jar",
+        "/Applications/javafx-sdk-17.0.1/lib/javafx.media.jar",
+        "/Applications/javafx-sdk-17.0.1/lib/javafx.swing.jar",
+        "/Applications/javafx-sdk-17.0.1/lib/javafx.web.jar",
+        "/Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/javafx-swt.jar",
+        "/Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/javafx.base.jar",
+        "/Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/javafx.controls.jar",
+        "/Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/javafx.fxml.jar",
+        "/Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/javafx.graphics.jar",
+        "/Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/javafx.media.jar",
+        "/Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/javafx.swing.jar",
+        "/Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/javafx.web.jar"
+    ]
+}

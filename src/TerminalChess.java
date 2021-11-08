@@ -9,43 +9,43 @@ import game.Knight;
 import game.Pawn;
 import java.util.Scanner;
 
-class Chess{
+class TerminalChess{
     public static void main(String[] args)
     {
 
-        King blackKing = new King("black", 0, 4, "king");
-        Queen blackQueen = new Queen("black", 0, 3, "queen");
-        Bishop blackBishop1 = new Bishop("black", 0, 2, "bishop");
-        Bishop blackBishop2 = new Bishop("black", 0, 5, "bishop");
-        Knight blackKnight2 = new Knight("black", 0, 6, "knight");
-        Knight blackKnight1 = new Knight("black", 0, 1, "knight");
-        Rook blackRook1 = new Rook("black", 0 , 0, "rook");
-        Rook blackRook2 = new Rook("black", 0, 7, "rook");
-        Pawn blackPawn0 = new Pawn("black", 1, 0, "pawn");
-        Pawn blackPawn1 = new Pawn("black", 1, 1, "pawn");
-        Pawn blackPawn2 = new Pawn("black", 1, 2, "pawn");
-        Pawn blackPawn3 = new Pawn("black", 1, 3, "pawn");
-        Pawn blackPawn4 = new Pawn("black", 1, 4, "pawn");
-        Pawn blackPawn5 = new Pawn("black", 1, 5, "pawn");
-        Pawn blackPawn6 = new Pawn("black", 1, 6, "pawn");
-        Pawn blackPawn7 = new Pawn("black", 1, 7, "pawn");
-
-        King whiteKing = new King("white", 7, 4, "king");
-        Queen whiteQueen = new Queen("white", 7, 3, "queen");
-        Bishop whiteBishop1 = new Bishop("white", 7, 2, "bishop");
-        Bishop whiteBishop2 = new Bishop("white", 7, 5, "bishop");
-        Knight whiteKnight2 = new Knight("white", 7, 6, "knight");
-        Knight whiteKnight1 = new Knight("white", 7, 1, "knight");
-        Rook whiteRook1 = new Rook("white", 7 , 0, "rook");
-        Rook whiteRook2 = new Rook("white", 7, 7, "rook");
-        Pawn whitePawn0 = new Pawn("white", 6, 0, "pawn");
-        Pawn whitePawn1 = new Pawn("white", 6, 1, "pawn");
-        Pawn whitePawn2 = new Pawn("white", 6, 2, "pawn");
-        Pawn whitePawn3 = new Pawn("white", 6, 3, "pawn");
-        Pawn whitePawn4 = new Pawn("white", 6, 4, "pawn");
-        Pawn whitePawn5 = new Pawn("white", 6, 5, "pawn");
-        Pawn whitePawn6 = new Pawn("white", 6, 6, "pawn");
-        Pawn whitePawn7 = new Pawn("white", 6, 7, "pawn");
+        Base blackKing = new King("black", 0, 4, "king");
+        Base blackQueen = new Queen("black", 0, 3, "queen");
+        Base blackBishop1 = new Bishop("black", 0, 2, "bishop");
+        Base blackBishop2 = new Bishop("black", 0, 5, "bishop");
+        Base blackKnight2 = new Knight("black", 0, 6, "knight");
+        Base blackKnight1 = new Knight("black", 0, 1, "knight");
+        Base blackRook1 = new Rook("black", 0 , 0, "rook");
+        Base blackRook2 = new Rook("black", 0, 7, "rook");
+        Base blackPawn0 = new Pawn("black", 1, 0, "pawn");
+        Base blackPawn1 = new Pawn("black", 1, 1, "pawn");
+        Base blackPawn2 = new Pawn("black", 1, 2, "pawn");
+        Base blackPawn3 = new Pawn("black", 1, 3, "pawn");
+        Base blackPawn4 = new Pawn("black", 1, 4, "pawn");
+        Base blackPawn5 = new Pawn("black", 1, 5, "pawn");
+        Base blackPawn6 = new Pawn("black", 1, 6, "pawn");
+        Base blackPawn7 = new Pawn("black", 1, 7, "pawn");
+        
+        Base whiteKing = new King("white", 7, 4, "king");
+        Base whiteQueen = new Queen("white", 7, 3, "queen");
+        Base whiteBishop1 = new Bishop("white", 7, 2, "bishop");
+        Base whiteBishop2 = new Bishop("white", 7, 5, "bishop");
+        Base whiteKnight2 = new Knight("white", 7, 6, "knight");
+        Base whiteKnight1 = new Knight("white", 7, 1, "knight");
+        Base whiteRook1 = new Rook("white", 7 , 0, "rook");
+        Base whiteRook2 = new Rook("white", 7, 7, "rook");
+        Base whitePawn0 = new Pawn("white", 6, 0, "pawn");
+        Base whitePawn1 = new Pawn("white", 6, 1, "pawn");
+        Base whitePawn2 = new Pawn("white", 6, 2, "pawn");
+        Base whitePawn3 = new Pawn("white", 6, 3, "pawn");
+        Base whitePawn4 = new Pawn("white", 6, 4, "pawn");
+        Base whitePawn5 = new Pawn("white", 6, 5, "pawn");
+        Base whitePawn6 = new Pawn("white", 6, 6, "pawn");
+        Base whitePawn7 = new Pawn("white", 6, 7, "pawn");
 
         Base[][] matrix = {
                           {blackRook1, blackKnight1, blackBishop1, blackQueen, blackKing, blackBishop2, blackKnight2, blackRook2}, 
