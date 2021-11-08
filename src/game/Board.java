@@ -90,7 +90,7 @@ public class Board {
 
     private boolean isFiftyMove(){
         //Checks 50 move rule
-        if (this.fiftyMove > 50) return true;
+        if (this.fiftyMove > 50) return true; //i think this is supposed to be = 50 - akhil
         return false;
     }
     

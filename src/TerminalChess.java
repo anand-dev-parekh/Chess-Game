@@ -84,31 +84,34 @@ class TerminalChess{
             if (boardObject.matrix[y][x] == null || !boardObject.matrix[y][x].color.equals(turn)) System.out.println("Can't move that piece");
             else if (boardObject.matrix[y][x].validMove(boardObject, newY, newX) && !boardObject.matrix[y][x].isCheckAfterMove(boardObject, newY, newX))
             {
-                if (boardObject.matrix[newY][newX] == null) boardObject.fiftyMove++; //Checks if no taking was done
-                else boardObject.fiftyMove = 0; // Resets fifty move rule since there was a taking
+                if (boardObject.matrix[newY][newX] == null && !boardObject.matrix[y][x].piece.equals("pawn")) boardObject.fiftyMove++; //Checks if no taking was done
+                else boardObject.fiftyMove = 0; // Resets fifty move rule since there was a taking or pawn move
                 
                 
-                if (boardObject.matrix[y][x].castle){
-                    if (newX > x){
-                        boardObject.matrix[y][x + 1] = boardObject.matrix[y][x + 3];
-                        boardObject.matrix[y][x + 3] = null;
-                        boardObject.matrix[y][x + 1].x = x + 1;
+                if (boardObject.matrix[y][x].castle){ //if castle, move rook
+                    if (newX > x){ //if castling kingside
+                        boardObject.matrix[y][x + 1] = boardObject.matrix[y][x + 3]; //moves rook 2 square
+                        boardObject.matrix[y][x + 3] = null; //sets prev rook square to null
+                        boardObject.matrix[y][x + 1].x = x + 1; //updates x attribute for rook
                     }
-                    else{
+                    else{ //if queenside - basically same thing happens but opposite side
                         boardObject.matrix[y][x - 1] = boardObject.matrix[y][x - 4];
                         boardObject.matrix[y][x - 4] = null; 
                         boardObject.matrix[y][x - 1].x = x - 1;
                     }
                 }
 
-                boardObject.matrix[y][x].x = newX;
+                //update the attributes of da piece you moved
+                boardObject.matrix[y][x].x = newX; 
                 boardObject.matrix[y][x].y = newY; 
 
+                //movin da piece on da board
                 boardObject.matrix[newY][newX] = boardObject.matrix[y][x];
                 boardObject.matrix[y][x] = null;
-
+                
+                //changes extra stuff if en pessant
                 if (boardObject.matrix[newY][newX].enPessant){
-                    if (boardObject.matrix[newY][newX].color == "white"){
+                    if (boardObject.matrix[newY][newX].color.equals("white")){
                         boardObject.matrix[newY + 1][newX] = null;
                     }
                     else{
@@ -118,11 +121,14 @@ class TerminalChess{
                     boardObject.fiftyMove = 0; //Resets fifty move rule since en pessant
                     boardObject.matrix[newY][newX].enPessant = false; // Resets enpessant to false
                 }
+
+                //if promotion
                 if (boardObject.matrix[newY][newX].promotion){
                     System.out.println("Promotion Working");
                     boardObject.matrix[newY][newX].promotion = false;
                 }
 
+                // sets has moved for castling
                 boardObject.matrix[newY][newX].hasMoved = true;
 
 
@@ -153,7 +159,7 @@ class TerminalChess{
     }
 
 
-    static void printt(Base[][] matrix){
+    static void printt(Base[][] matrix){ // this p[rints the borad, first, we frint the first row. then we print the second row. tjen we print the third row. then we print the fourth row. then we print the firth row. then we print the sixth row. then we print the seventh row. then we print the eighth brow BUT we add lines. thje lines make it look cooler. YAYYYYY]
         System.out.print("   ");
         for (int i = 0; i < 8; i++){
             System.out.print("   " + i + "   ||");
