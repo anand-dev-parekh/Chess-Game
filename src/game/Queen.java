@@ -16,7 +16,7 @@ public class Queen extends Base{
             
             if (inBounds(iterators[i][0], iterators[i][1])){
                 //If queen can make a move return True
-                if ((boardObject.matrix[iterators[i][0]][iterators[i][1]] == null || !boardObject.matrix[iterators[i][0]][iterators[i][1]].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].inCheck(boardObject, iterators[i][0], iterators[i][1])) return true;
+                if ((boardObject.matrix[iterators[i][0]][iterators[i][1]] == null || !boardObject.matrix[iterators[i][0]][iterators[i][1]].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].isCheckAfterMove(boardObject, iterators[i][0], iterators[i][1])) return true;
        
             }
         }

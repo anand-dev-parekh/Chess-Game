@@ -82,7 +82,7 @@ class TerminalChess{
             newY = input.nextInt(); newX = input.nextInt();
 
             if (boardObject.matrix[y][x] == null || !boardObject.matrix[y][x].color.equals(turn)) System.out.println("Can't move that piece");
-            else if (boardObject.matrix[y][x].validMove(boardObject, newY, newX) && !boardObject.matrix[y][x].inCheck(boardObject, newY, newX))
+            else if (boardObject.matrix[y][x].validMove(boardObject, newY, newX) && !boardObject.matrix[y][x].isCheckAfterMove(boardObject, newY, newX))
             {
                 if (boardObject.matrix[newY][newX] == null) boardObject.fiftyMove++; //Checks if no taking was done
                 else boardObject.fiftyMove = 0; // Resets fifty move rule since there was a taking

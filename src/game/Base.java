@@ -42,7 +42,7 @@ public abstract class Base {
             if (blockSquares.get(i) != null){
                 for (int j = 0; j < blockSquares.get(i).size(); j++){
                     // If piece can make a valid and non check move to block squares return true
-                    if (board.matrix[this.y][this.x].validMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1]) && !board.matrix[y][x].inCheck(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1])) return true;
+                    if (board.matrix[this.y][this.x].validMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1]) && !board.matrix[y][x].isCheckAfterMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1])) return true;
                 }
             }
         }
@@ -53,7 +53,7 @@ public abstract class Base {
 
 
     //Will check if king is in check after move has been played
-    public boolean inCheck(Board boardObject, int newY, int newX){
+    public boolean isCheckAfterMove(Board boardObject, int newY, int newX){
         int x = this.x;
         int y = this.y;
 

@@ -39,7 +39,7 @@ public class Board {
             for (int j = -1; j <= 1; j++){
                 if (i == 0 && j == 0) continue;
                 //If king has a valid move return false, Since the king can move out of check.
-                if (inBounds(kingY + j, kingX + i) && this.matrix[kingY][kingX].validMove(this, kingY + j, kingX + i) && !this.matrix[kingY][kingX].inCheck(this, kingY + j, kingX + i)) return false;
+                if (inBounds(kingY + j, kingX + i) && this.matrix[kingY][kingX].validMove(this, kingY + j, kingX + i) && !this.matrix[kingY][kingX].isCheckAfterMove(this, kingY + j, kingX + i)) return false;
             }
         }
 

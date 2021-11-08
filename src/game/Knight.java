@@ -16,7 +16,7 @@ public class Knight extends Base{
 
             //If knight can make the move return true
             if (inBounds(iterators[i][0], iterators[i][1])){ 
-                if ((boardObject.matrix[iterators[i][0]][iterators[i][1]] == null || !boardObject.matrix[iterators[i][0]][iterators[i][1]].color.equals(this.color)) && boardObject.matrix[this.y][this.x].inCheck(boardObject, iterators[i][0], iterators[i][1])) return true;
+                if ((boardObject.matrix[iterators[i][0]][iterators[i][1]] == null || !boardObject.matrix[iterators[i][0]][iterators[i][1]].color.equals(this.color)) && boardObject.matrix[this.y][this.x].isCheckAfterMove(boardObject, iterators[i][0], iterators[i][1])) return true;
             }        
 
         }

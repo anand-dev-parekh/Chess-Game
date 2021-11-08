@@ -14,13 +14,13 @@ public class Pawn extends Base{
         if (this.color.equals("black")) yChange = 1;
 
         //if can move forward return true
-        if (inBounds(this.y + yChange, this.x) && boardObject.matrix[this.y + yChange][this.x] == null && !boardObject.matrix[this.y][this.x].inCheck(boardObject, this.y + yChange, this.x)) return true;
+        if (inBounds(this.y + yChange, this.x) && boardObject.matrix[this.y + yChange][this.x] == null && !boardObject.matrix[this.y][this.x].isCheckAfterMove(boardObject, this.y + yChange, this.x)) return true;
         
         //If can take right return true
-        if (inBounds(this.y + yChange, this.x + 1) && (boardObject.matrix[this.y + yChange][this.x + 1] == null || !boardObject.matrix[this.y + yChange][this.x + 1].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].inCheck(boardObject, this.y + yChange, this.x + 1)) return true;
+        if (inBounds(this.y + yChange, this.x + 1) && (boardObject.matrix[this.y + yChange][this.x + 1] == null || !boardObject.matrix[this.y + yChange][this.x + 1].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].isCheckAfterMove(boardObject, this.y + yChange, this.x + 1)) return true;
         
         //If can take left return true
-        if (inBounds(this.y + yChange, this.x - 1) && (boardObject.matrix[this.y + yChange][this.x - 1] == null || !boardObject.matrix[this.y + yChange][this.x - 1].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].inCheck(boardObject, this.y + yChange, this.x - 1)) return true;
+        if (inBounds(this.y + yChange, this.x - 1) && (boardObject.matrix[this.y + yChange][this.x - 1] == null || !boardObject.matrix[this.y + yChange][this.x - 1].color.equals(this.color)) && !boardObject.matrix[this.y][this.x].isCheckAfterMove(boardObject, this.y + yChange, this.x - 1)) return true;
 
         return false;
     }

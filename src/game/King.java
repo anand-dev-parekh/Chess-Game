@@ -16,7 +16,7 @@ public class King extends Base{
                 if (i == 0 && j == 0) continue;
 
                 //If king has a valid move return true, since king can move.
-                if (inBounds(this.y + i, this.x + j) && (boardObject.matrix[this.y + i][this.x + j] == null || boardObject.matrix[this.y + i][this.x + j].color != this.color) && !boardObject.matrix[this.y][this.x].inCheck(boardObject, this.y + i, this.x + j)) return true;
+                if (inBounds(this.y + i, this.x + j) && (boardObject.matrix[this.y + i][this.x + j] == null || boardObject.matrix[this.y + i][this.x + j].color != this.color) && !boardObject.matrix[this.y][this.x].isCheckAfterMove(boardObject, this.y + i, this.x + j)) return true;
             
             }
         }
