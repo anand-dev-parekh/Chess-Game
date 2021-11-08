@@ -9,6 +9,13 @@
             "name": "Launch TerminalChess",
             "request": "launch",
             "mainClass": "TerminalChess",
+            "projectName": "src_3217b131"
+        },
+        {
+            "type": "java",
+            "name": "Launch TerminalChess",
+            "request": "launch",
+            "mainClass": "TerminalChess",
             "projectName": "src_e0fd1f1f"
         },
         {

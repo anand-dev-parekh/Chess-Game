@@ -7,12 +7,14 @@ public class Board {
     public Base[][] matrix;
     public ArrayList<Base[][]> prevBoards;
     public int fiftyMove;
+    public int earliestRepeatableBoard;
 
 
     public Board(Base[][] matrix, ArrayList<Base[][]> prevBoards){
         this.matrix = matrix;
         this.prevBoards = prevBoards;
         this.fiftyMove = 0;
+        this.earliestRepeatableBoard = 1;
     }
 
 
@@ -79,12 +81,31 @@ public class Board {
         return true;
     }
 
-    //Unfinished
+    //checks for 3-fold repetition
     private boolean isRepetition(){
-        if (this.prevBoards.size() > 5)
-            if (this.prevBoards.get(this.prevBoards.size() - 2) == this.matrix && this.matrix == this.prevBoards.get(this.prevBoards.size() - 4)) return true;
+        int count = 0;
 
+        for (int i = this.earliestRepeatableBoard; i < this.prevBoards.size() - 1; i++){
+            if (arraysAreEqual(this.matrix, this.prevBoards.get(i))) count++;
+            if (count == 2) {
+                System.out.println("AYOH EROR");
+                return true;
+            }
+        }
+        
         return false;
+    }
+
+    //helper for repetition
+    private boolean arraysAreEqual(Base[][] boardMatrix1, Base[][] boardMatrix2){
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                if (boardMatrix1[y][x] == null && boardMatrix2[y][x] == null) continue;
+                if (boardMatrix1[y][x] == null || boardMatrix2[y][x] == null) return false;
+                if (!boardMatrix1[y][x].piece.equals(boardMatrix2[y][x].piece) || !boardMatrix1[y][x].color.equals(boardMatrix2[y][x].color)) return false;
+            }
+        }
+        return true;
     }
     
 

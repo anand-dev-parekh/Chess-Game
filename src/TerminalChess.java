@@ -59,7 +59,18 @@ class TerminalChess{
                           }; 
 
         ArrayList<Base[][]> prevBoards = new ArrayList<Base[][]>();
+
+        //create board object
         Board boardObject = new Board(matrix, prevBoards);
+
+        //add starting matrix to prevBoards
+        Base[][] tempBoardMatrix = new Base[8][8];
+        for (int i = 0; i < boardObject.matrix.length; i++){
+            for (int j = 0; j < boardObject.matrix[i].length; j++){
+                tempBoardMatrix[i][j] = boardObject.matrix[i][j]; 
+            }
+        }
+        boardObject.prevBoards.add(tempBoardMatrix); 
 
         Scanner input = new Scanner(System.in);
         int x, y, newX, newY;
@@ -85,7 +96,10 @@ class TerminalChess{
             else if (boardObject.matrix[y][x].validMove(boardObject, newY, newX) && !boardObject.matrix[y][x].isCheckAfterMove(boardObject, newY, newX))
             {
                 if (boardObject.matrix[newY][newX] == null && !boardObject.matrix[y][x].piece.equals("pawn")) boardObject.fiftyMove++; //Checks if no taking was done
-                else boardObject.fiftyMove = 0; // Resets fifty move rule since there was a taking or pawn move
+                else {
+                    boardObject.fiftyMove = 0; // Resets fifty move rule since there was a taking or pawn move
+                    boardObject.earliestRepeatableBoard = boardObject.prevBoards.size();
+                }
                 
                 
                 if (boardObject.matrix[y][x].castle){ //if castle, move rook
@@ -132,14 +146,13 @@ class TerminalChess{
                 boardObject.matrix[newY][newX].hasMoved = true;
 
 
-                Base[][] tempBoardMatrix = new Base[8][8];
-        
+                Base[][] tempBoardInLoopMatrix = new Base[8][8];
                 for (int i = 0; i < boardObject.matrix.length; i++){
                     for (int j = 0; j < boardObject.matrix[i].length; j++){
-                        tempBoardMatrix[i][j] = boardObject.matrix[i][j]; 
+                        tempBoardInLoopMatrix[i][j] = boardObject.matrix[i][j]; 
                     }
                 }
-                boardObject.prevBoards.add(tempBoardMatrix); 
+                boardObject.prevBoards.add(tempBoardInLoopMatrix); 
 
                 if (turn.equals("white")) turn = "black";
                 else turn = "white";
