@@ -118,9 +118,7 @@ public class Board {
     private boolean moreThanTwo(ArrayList<ArrayList<int[]>> checkSquares){ //Checks if there are more than two ways king is being checked
         int count = 0;
         for (int i = 0; i < checkSquares.size(); i++){
-            if (checkSquares.get(i) != null) {
-                count++;
-            }
+            if (checkSquares.get(i) != null) count++;
         }
         System.out.println(count);
         return count >= 2;
