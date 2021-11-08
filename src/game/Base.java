@@ -190,4 +190,115 @@ public abstract class Base {
         return false;
     }
 
+
+    //Gets squares pieces can move to to block checkmate
+    public ArrayList<ArrayList<int[]>> getBlockableSquares(Base[][] boardMatrix){
+        ArrayList<ArrayList<int[]>> ayoh = new ArrayList<ArrayList<int[]>>(); //Blockable Squares
+        
+        int[][] lineIterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
+        for (int i = 0; i < lineIterators.length; i++){ 
+            ayoh.add(this.addLines(boardMatrix, lineIterators[i][0], lineIterators[i][1])); //Add all lines for bishop queen and rook
+        }
+
+        int[][] knightChecks = {{this.y - 2, this.x + 1},{this.y + 2, this.x + 1}, {this.y - 1, this.x + 2}, {this.y + 1, this.x + 2}, {this.y - 2, this.x - 1},{this.y + 2, this.x - 1}, {this.y - 1, this.x - 2}, {this.y + 1, this.x - 2}};
+        for (int i = 0; i < knightChecks.length; i++){
+            ayoh.add(this.addKnightCheck(boardMatrix, knightChecks[i][0], knightChecks[i][1]));// Add all lines for knight
+        }
+        
+        
+        // Add pawn lines
+        ayoh.add(addPawnRightCheck(boardMatrix)); 
+        ayoh.add(addPawnLeftCheck(boardMatrix));
+
+
+        return ayoh;
+    }
+
+
+    //Adds knight Check in ArrayList<int[]> Form
+    private ArrayList<int[]> addKnightCheck(Base[][] boardMatrix, int knightY, int knightX){
+        if (inBounds(knightY, knightX))
+        {
+            //Knight piece is in position to check king
+            if (boardMatrix[knightY][knightX] != null && boardMatrix[knightY][knightX].piece.equals("knight") && !boardMatrix[knightY][knightX].color.equals(color))
+            {
+                ArrayList<int[]> knightPos = new ArrayList<int[]>();
+                int[] coordaintes = {knightY, knightX};
+                knightPos.add(coordaintes);
+
+                return knightPos;
+            }
+        }     
+        return null;
+    }
+
+
+    //Adds bishop queen and rook checks in ArrayList<int[]> Form
+    private ArrayList<int[]> addLines(Base[][] boardMatrix, int decrementY, int decrementX){
+        ArrayList<int[]> output = new ArrayList<int[]>();
+       
+        // If decrementer is both 1 at abs val, then its on diagnol. Set piece to bishop.
+        String piece = "rook";  
+        if (Math.abs(decrementX) == 1 && Math.abs(decrementY) == 1) piece = "bishop"; 
+
+        //Makes sure to skip checking the king for piece
+        int x = this.x + decrementX; 
+        int y = this. y + decrementY; 
+
+        while (inBounds(y, x)){ // While in bounds of chess board
+
+            int[] coords = {y, x}; 
+            output.add(coords);         //Add coords leading up to first piece encounter
+            
+            //First piece encounter
+            if (boardMatrix[y][x] != null) { 
+
+                //If encounter is opposite color and is checking king return ouput else return null
+                if ((boardMatrix[y][x].piece.equals(piece) || boardMatrix[y][x].piece.equals("queen")) && !boardMatrix[y][x].color.equals(this.color)) return output;
+                break;
+            }
+            x += decrementX;
+            y += decrementY;
+        }
+        return null;
+    }
+
+
+    //Adds Pawn Left check in ArrayList<int[]> Form
+    private ArrayList<int[]> addPawnLeftCheck(Base[][] board){ 
+        ArrayList<int[]> output = new ArrayList<int[]>();
+        int possibleX1 = this.x - 1, possibleY;
+
+        if (color.equals("white")) possibleY = this.y - 1;            //King can only be checked by pond in front of it
+        else possibleY = this.y + 1;                                 //King can only be checked by pond in front of it
+
+
+        //Check if there is pawn of opposite color checking on left
+        if (inBounds(possibleY, possibleX1) && board[possibleY][possibleX1] != null && board[possibleY][possibleX1].piece.equals("pawn") && board[possibleY][possibleX1].color != color){
+            int[] coords = {possibleY, possibleX1};
+            output.add(coords);
+        }
+
+        return output;
+    }
+
+
+    //Adds Pawn Right check in ArrayList<int[]> Form
+    private ArrayList<int[]> addPawnRightCheck(Base[][] board){
+        ArrayList<int[]> output = new ArrayList<int[]>();
+        int possibleX2 = this.x + 1, possibleY;
+
+        
+        //King can only be checked by pond in front of it
+        if (color.equals("white")) possibleY = this.y - 1;            
+        else possibleY = this.x + 1; 
+        
+        //Check if there is pawn of opposite color checking on right
+        if (inBounds(possibleY, possibleX2) && board[possibleY][possibleX2] != null && board[possibleY][possibleX2].piece.equals("pawn") && board[possibleY][possibleX2].color != color){
+            int[] coords2 = {possibleY, possibleX2};
+            output.add(coords2);
+        }
+        return output;        
+    }
+
 }
