@@ -87,10 +87,7 @@ public class Board {
 
         for (int i = this.earliestRepeatableBoard; i < this.prevBoards.size() - 1; i++){
             if (arraysAreEqual(this.matrix, this.prevBoards.get(i))) count++;
-            if (count == 2) {
-                System.out.println("AYOH EROR");
-                return true;
-            }
+            if (count == 2) return true;
         }
         
         return false;

@@ -146,13 +146,13 @@ class TerminalChess{
                 boardObject.matrix[newY][newX].hasMoved = true;
 
 
-                Base[][] tempBoardInLoopMatrix = new Base[8][8];
+                tempBoardMatrix = new Base[8][8];
                 for (int i = 0; i < boardObject.matrix.length; i++){
                     for (int j = 0; j < boardObject.matrix[i].length; j++){
-                        tempBoardInLoopMatrix[i][j] = boardObject.matrix[i][j]; 
+                        tempBoardMatrix[i][j] = boardObject.matrix[i][j]; 
                     }
                 }
-                boardObject.prevBoards.add(tempBoardInLoopMatrix); 
+                boardObject.prevBoards.add(tempBoardMatrix); 
 
                 if (turn.equals("white")) turn = "black";
                 else turn = "white";
