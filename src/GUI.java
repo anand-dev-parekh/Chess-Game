@@ -1,4 +1,4 @@
-/*import javafx.application.Application;
+import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -63,4 +63,4 @@ public class GUI extends Application {
         launch();
     }
 
-}*/
+}
