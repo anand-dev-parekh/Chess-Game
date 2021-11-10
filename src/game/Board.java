@@ -8,6 +8,7 @@ public class Board {
     public ArrayList<Base[][]> prevBoards;
     public int fiftyMove;
     public int earliestRepeatableBoard;
+    public String turn;
 
 
     public Board(Base[][] matrix, ArrayList<Base[][]> prevBoards){
@@ -15,18 +16,19 @@ public class Board {
         this.prevBoards = prevBoards;
         this.fiftyMove = 0;
         this.earliestRepeatableBoard = 1;
+        this.turn = "white";
     }
 
 
-    public boolean isGameOver(String color){
+    public boolean isGameOver(){
 
-        int[] daKing = this.findKing(color); // Finds king of said colorz
+        int[] daKing = this.findKing(this.turn); // Finds king of said colorz
 
         int kingY = daKing[0], kingX = daKing[1]; //Puts kings indexes in variables
 
         boolean isCheck = this.matrix[kingY][kingX].isCheck(this.matrix, kingY, kingX);  // Is king being checked
 
-        if (this.isCheckmate(color, kingY, kingX, isCheck) || this.isFiftyMove() || this.isRepetition() || this.isStalemate(color, kingY, kingX, isCheck)) return true;
+        if (this.isCheckmate(this.turn, kingY, kingX, isCheck) || this.isFiftyMove() || this.isRepetition() || this.isStalemate(this.turn, kingY, kingX, isCheck)) return true;
 
         return false;
     }
@@ -47,8 +49,6 @@ public class Board {
 
         ArrayList<ArrayList<int[]>> blockableCheckSquares = this.matrix[kingY][kingX].getBlockableSquares(this.matrix); //Gets squares you can block
        
-
-        System.out.println(moreThanTwo(blockableCheckSquares));
         if (moreThanTwo(blockableCheckSquares)) return true; // If more than two pieces are checking then its check mate
 
 
@@ -138,10 +138,74 @@ public class Board {
         for (int i = 0; i < checkSquares.size(); i++){
             if (checkSquares.get(i) != null) count++;
         }
-        System.out.println(count);
         return count >= 2;
     }
 
+
+
+    public void updateBoardObjectMatrix(int y, int x, int newY, int newX){
+        if (this.matrix[newY][newX] == null && !this.matrix[y][x].piece.equals("pawn")) this.fiftyMove++; //Checks if no taking was done
+        else {
+            this.fiftyMove = 0; // Resets fifty move rule since there was a taking or pawn move
+            this.earliestRepeatableBoard = this.prevBoards.size();
+        }
+        
+        
+        if (this.matrix[y][x].castle){ //if castle, move rook
+            if (newX > x){ //if castling kingside
+                this.matrix[y][x + 1] = this.matrix[y][x + 3]; //moves rook 2 square
+                this.matrix[y][x + 3] = null; //sets prev rook square to null
+                this.matrix[y][x + 1].x = x + 1; //updates x attribute for rook
+            }
+            else{ //if queenside - basically same thing happens but opposite side
+                this.matrix[y][x - 1] = this.matrix[y][x - 4];
+                this.matrix[y][x - 4] = null; 
+                this.matrix[y][x - 1].x = x - 1;
+            }
+        }
+
+        //update the attributes of da piece you moved
+        this.matrix[y][x].x = newX; 
+        this.matrix[y][x].y = newY; 
+
+        //movin da piece on da board
+        this.matrix[newY][newX] = this.matrix[y][x];
+        this.matrix[y][x] = null;
+        
+        //changes extra stuff if en pessant
+        if (this.matrix[newY][newX].enPessant){
+            if (this.matrix[newY][newX].color.equals("white")){
+                this.matrix[newY + 1][newX] = null;
+            }
+            else{
+            
+                this.matrix[newY - 1][newX] = null;
+            }
+            this.fiftyMove = 0; //Resets fifty move rule since en pessant
+            this.matrix[newY][newX].enPessant = false; // Resets enpessant to false
+        }
+
+        //if promotion
+        if (this.matrix[newY][newX].promotion){
+            System.out.println("Promotion Working");
+            this.matrix[newY][newX].promotion = false;
+        }
+
+        // sets has moved for castling
+        this.matrix[newY][newX].hasMoved = true;
+
+
+        Base[][] tempBoardMatrix = new Base[8][8];
+        for (int i = 0; i < this.matrix.length; i++){
+            for (int j = 0; j < this.matrix[i].length; j++){
+                tempBoardMatrix[i][j] = this.matrix[i][j]; 
+            }
+        }
+        this.prevBoards.add(tempBoardMatrix); 
+
+        if (this.turn.equals("white")) this.turn = "black";
+        else this.turn = "white";
+    }
 
 
 }

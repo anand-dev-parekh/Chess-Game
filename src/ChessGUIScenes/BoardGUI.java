@@ -16,18 +16,20 @@ import java.io.IOException;
 
 
 import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
+
 
 public class BoardGUI extends GridPane{
-    private Board boardObject; 
+    public Board boardObject; 
+    private Label stateOfDaMove;
 
-
-    public BoardGUI(){
+    public BoardGUI(Label stateOfMove){
+        stateOfDaMove = stateOfMove;
         this.boardObject =  createGame();
         updateBoard();
     }
@@ -36,23 +38,35 @@ public class BoardGUI extends GridPane{
     public void updateBoard(){
         this.getChildren().clear();
 
+
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
-                
+
                 Rectangle square = new Rectangle(90, 90, 90, 90);
                 if ((y + x) % 2 == 0) square.setFill(Color.TAN);
                 else square.setFill(Color.BEIGE);
                 this.add(square, x, y);
+            }
+        }
+
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                
+
 
                 if (boardObject.matrix[y][x] != null){
                     try{
                         FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
                                     
                         Image image = new Image(pathway);
-                        ImageView imageNode = new ImageView(image);
+                        
+                        PieceGUI imageNode = new PieceGUI(image, this, stateOfDaMove);                        
 
                         this.add(imageNode, x, y);
+                        
                         GridPane.setHalignment(imageNode, HPos.CENTER);
+                        GridPane.setValignment(imageNode, VPos.CENTER);
+
                     }
                     catch (IOException e) {
                         System.out.println("FILE ERROR PICTURES");
@@ -60,7 +74,6 @@ public class BoardGUI extends GridPane{
                 }
             }
         }
-        
         
         return;
     }

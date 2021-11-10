@@ -18,9 +18,11 @@ public class GUI extends Application {
     public void start(Stage stage) {
         
         //Chess Scene
+        Label stateLabel = new Label("State: ");
+        Label stateChanging = new Label("");
 
         //Left Hbox
-        BoardGUI daGrid = new BoardGUI();
+        BoardGUI daGrid = new BoardGUI(stateChanging);
 
         //Right Hbox
         Button resetGame = new Button("Reset");
@@ -28,7 +30,11 @@ public class GUI extends Application {
         Button pastMoves = new Button("Move back");
 
 
-        VBox buttonsBox = new VBox(50, resetGame, pastMoves);
+        VBox buttonsBox = new VBox(50);
+        buttonsBox.getChildren().addAll(stateLabel, stateChanging, resetGame, pastMoves);
+
+
+        
         buttonsBox.setAlignment(Pos.CENTER);
 
         //Big boi Hbox
