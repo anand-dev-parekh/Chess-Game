@@ -19,25 +19,70 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
 import javafx.scene.Node;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+
 
 
 public class BoardGUI extends GridPane{
     public Board boardObject; 
     private Label stateOfDaMove;
+    private Stage promotionAlert;
 
     public BoardGUI(Label stateOfMove){
         stateOfDaMove = stateOfMove;
+        
         this.boardObject =  createGame();
         createBoardGUI();
 
-
+        this.promotionAlert = new Stage();
+        promotionCreate();
     }
+
+
+
+    private void promotionCreate(){
+        HBox holder = new HBox();
+
+
+        String[] pieces  = {"queen", "rook", "bishop", "rook"};
+        for (int i = 0; i < pieces.length; i++){
+            try {
+                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.turn + pieces[i] + ".png");
+                Image image = new Image(pathway);
+                            
+                ImageView imageNode = new ImageView(image);  
+            
+            
+                Button buttonPiece = new Button();
+                buttonPiece.setGraphic(imageNode);
+
+                buttonPiece.setOnMouseClicked(e ->{
+                    //this.boardObject.updateForPromotion(pieces[i]);
+                    //this.updateForGUI(pieces[i]);
+                    this.promotionAlert.close();
+                });
+
+                holder.getChildren().add(buttonPiece);
+            
+            }
+            catch(IOException ye ) {System.out.println("Ayoh");}                       
+
+        }  
+        Scene promotionScene = new Scene(holder);
+        this.promotionAlert.setScene(promotionScene);
+    }
+
+
+
 
     public void updateBoardGUI(int y, int x, int newY, int newX){
         ObservableList<Node> childrens = this.getChildren();
@@ -91,29 +136,32 @@ public class BoardGUI extends GridPane{
                         GridPane.setValignment(node, VPos.CENTER);
                     }
                 }
+            } 
+            if (this.boardObject.matrix[newY][newX].promotion){
+                this.promotionAlert.show();
             }
-            
         }
 
         if (pieceToRemove != null) this.getChildren().remove(pieceToRemove);
         if (pieceToRemoveEnPessant != null) this.getChildren().remove(pieceToRemoveEnPessant);
+
+        if (this.boardObject.matrix[newY][newX].promotion){
+            this.promotionAlert.show();
+        }
 
 
         
     }
 
 
-
-
-
-    public void createBoardGUI(){
+    private void createBoardGUI(){
 
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
 
                 Rectangle square = new Rectangle(90, 90, 90, 90);
-                if ((y + x) % 2 == 0) square.setFill(Color.TAN);
-                else square.setFill(Color.BEIGE);
+                if ((y + x) % 2 == 0) square.setFill(Color.BEIGE);
+                else square.setFill(Color.TAN);
                 this.add(square, y, x);
             }
         }
@@ -152,13 +200,9 @@ public class BoardGUI extends GridPane{
 
     //For now we will just create a new instance. DOwn the road make pieces attributes, and just reinput pieces to save memory.
     public void resetBoard(){
-        /*for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8;j++){
-                this.boardObject.matrix[i][j] = null;
-                
-            }
-        }*/
-        
+        this.boardObject =  createGame();
+        createBoardGUI();
+
     }
 
 

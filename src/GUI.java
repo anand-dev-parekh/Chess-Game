@@ -32,7 +32,7 @@ public class GUI extends Application {
 
         VBox buttonsBox = new VBox(50);
         buttonsBox.getChildren().addAll(stateLabel, stateChanging, resetGame, pastMoves);
-
+    
 
         
         buttonsBox.setAlignment(Pos.CENTER);

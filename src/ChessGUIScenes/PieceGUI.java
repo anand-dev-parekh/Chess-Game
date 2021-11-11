@@ -35,6 +35,7 @@ public class PieceGUI extends ImageView{
             startX = e.getSceneX();
             startY = e.getSceneY();
             this.setCursor(Cursor.CLOSED_HAND);
+            this.toFront();
         });
 
         this.setOnMouseDragged(e ->{
