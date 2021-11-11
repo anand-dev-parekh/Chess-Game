@@ -80,8 +80,6 @@ class TerminalChess{
             
             
             if (boardObject.isGameOver()) break;
-            //if (board.isCheckmate(turn)) break;
-            //if (board.isDraw(turn)) break;
 
 
             System.out.println("Coordanites of piece you want to move: ");
@@ -93,6 +91,7 @@ class TerminalChess{
             else if (boardObject.matrix[y][x].validMove(boardObject, newY, newX) && !boardObject.matrix[y][x].isCheckAfterMove(boardObject, newY, newX))
             {
                 boardObject.updateBoardObjectMatrix(y, x, newY, newX);
+                boardObject.updateAttributesMoveWork(newY, newX);
 
                 printt(boardObject.matrix);
             }

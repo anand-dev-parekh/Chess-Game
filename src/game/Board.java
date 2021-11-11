@@ -182,17 +182,14 @@ public class Board {
                 this.matrix[newY - 1][newX] = null;
             }
             this.fiftyMove = 0; //Resets fifty move rule since en pessant
-            this.matrix[newY][newX].enPessant = false; // Resets enpessant to false
         }
 
         //if promotion
         if (this.matrix[newY][newX].promotion){
             System.out.println("Promotion Working");
-            this.matrix[newY][newX].promotion = false;
         }
 
         // sets has moved for castling
-        this.matrix[newY][newX].hasMoved = true;
 
 
         Base[][] tempBoardMatrix = new Base[8][8];
@@ -207,5 +204,14 @@ public class Board {
         else this.turn = "white";
     }
 
+
+    public void updateAttributesMoveWork(int newY, int newX){
+        this.matrix[newY][newX].hasMoved = true; // Resets hasMoved
+        this.matrix[newY][newX].promotion = false; //Resets promotions
+        this.matrix[newY][newX].enPessant = false; // Resets enpessant to false
+        this.matrix[newY][newX].castle = false; //Resets castling
+
+
+    }
 
 }

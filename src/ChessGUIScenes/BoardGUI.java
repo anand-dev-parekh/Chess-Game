@@ -22,6 +22,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
+import javafx.scene.Node;
+import javafx.collections.ObservableList;
+import javafx.scene.image.ImageView;
 
 
 public class BoardGUI extends GridPane{
@@ -31,13 +34,79 @@ public class BoardGUI extends GridPane{
     public BoardGUI(Label stateOfMove){
         stateOfDaMove = stateOfMove;
         this.boardObject =  createGame();
-        updateBoard();
+        createBoardGUI();
+
+
+    }
+
+    public void updateBoardGUI(int y, int x, int newY, int newX){
+        ObservableList<Node> childrens = this.getChildren();
+        Node pieceToRemove = null;
+        Node pieceToRemoveEnPessant = null;
+        for (Node node : childrens){
+
+            if (node instanceof ImageView && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) == newX){
+                pieceToRemove = node;
+            }
+           
+            if (node instanceof ImageView && GridPane.getRowIndex(node) == y && GridPane.getColumnIndex(node) ==  x){
+                GridPane.setColumnIndex(node, newX);
+                GridPane.setRowIndex(node, newY);
+                node.setTranslateX(0);
+                node.setTranslateY(0);
+                GridPane.setHalignment(node, HPos.CENTER);
+                GridPane.setValignment(node, VPos.CENTER);
+            }
+
+
+            if (this.boardObject.matrix[newY][newX].enPessant){
+                if (this.boardObject.matrix[newY][newX].color.equals("white")){
+                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY + 1 && GridPane.getColumnIndex(node) ==  newX) pieceToRemoveEnPessant = node;
+                        
+                }
+                else{
+                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY - 1 && GridPane.getColumnIndex(node) ==  newX) pieceToRemoveEnPessant = node;
+                }
+            }
+
+            if (this.boardObject.matrix[newY][newX].castle){
+                if (newX > x){
+                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX + 1){
+                        GridPane.setColumnIndex(node, newX - 1);
+                        GridPane.setRowIndex(node, newY);
+                        node.setTranslateX(0);
+                        node.setTranslateY(0);
+                        GridPane.setHalignment(node, HPos.CENTER);
+                        GridPane.setValignment(node, VPos.CENTER);
+        
+                    }
+                }
+                else{
+                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX - 1){
+                        GridPane.setColumnIndex(node, newX + 1);
+                        GridPane.setRowIndex(node, newY);
+                        node.setTranslateX(0);
+                        node.setTranslateY(0);
+                        GridPane.setHalignment(node, HPos.CENTER);
+                        GridPane.setValignment(node, VPos.CENTER);
+                    }
+                }
+            }
+            
+        }
+
+        if (pieceToRemove != null) this.getChildren().remove(pieceToRemove);
+        if (pieceToRemoveEnPessant != null) this.getChildren().remove(pieceToRemoveEnPessant);
+
+
+        
     }
 
 
-    public void updateBoard(){
-        this.getChildren().clear();
 
+
+
+    public void createBoardGUI(){
 
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
@@ -45,7 +114,7 @@ public class BoardGUI extends GridPane{
                 Rectangle square = new Rectangle(90, 90, 90, 90);
                 if ((y + x) % 2 == 0) square.setFill(Color.TAN);
                 else square.setFill(Color.BEIGE);
-                this.add(square, x, y);
+                this.add(square, y, x);
             }
         }
 
@@ -62,7 +131,10 @@ public class BoardGUI extends GridPane{
                         
                         PieceGUI imageNode = new PieceGUI(image, this, stateOfDaMove);                        
 
-                        this.add(imageNode, x, y);
+                        GridPane.setRowIndex(imageNode, y);
+                        GridPane.setColumnIndex(imageNode, x);
+
+                        this.getChildren().addAll(imageNode);
                         
                         GridPane.setHalignment(imageNode, HPos.CENTER);
                         GridPane.setValignment(imageNode, VPos.CENTER);
@@ -80,13 +152,13 @@ public class BoardGUI extends GridPane{
 
     //For now we will just create a new instance. DOwn the road make pieces attributes, and just reinput pieces to save memory.
     public void resetBoard(){
-        for (int i = 0; i < 8; i++){
+        /*for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8;j++){
                 this.boardObject.matrix[i][j] = null;
+                
             }
-        }
+        }*/
         
-        updateBoard();
     }
 
 
