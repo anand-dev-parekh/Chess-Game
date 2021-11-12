@@ -4,7 +4,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.lang.Math;
 
 
@@ -17,6 +16,7 @@ public class PieceGUI extends ImageView{
 
     
     public PieceGUI(Image image, BoardGUI boardGUIinitial, Label stateOfMove){
+
         this.setImage(image);
         this.setFitHeight(90);
         this.setFitWidth(90);
@@ -34,6 +34,7 @@ public class PieceGUI extends ImageView{
         this.setOnMousePressed(e ->{
             startX = e.getSceneX();
             startY = e.getSceneY();
+
             this.setCursor(Cursor.CLOSED_HAND);
             this.toFront();
         });
@@ -65,6 +66,9 @@ public class PieceGUI extends ImageView{
                 
                 boardGUI.boardObject.updateBoardObjectMatrix(y, x, newY, newX);
                 boardGUI.updateBoardGUI(y, x, newY, newX);
+
+
+                
 
                 boardGUI.boardObject.updateAttributesMoveWork(newY, newX);
 

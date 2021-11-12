@@ -35,28 +35,35 @@ import javafx.scene.control.Button;
 public class BoardGUI extends GridPane{
     public Board boardObject; 
     private Label stateOfDaMove;
-    private Stage promotionAlert;
+    private Stage promotionAlertWhite;
+    private Stage promotionAlertBlack;
+    private int newXPromotion;
+    private int newYPromotion;
 
     public BoardGUI(Label stateOfMove){
         stateOfDaMove = stateOfMove;
         
+
         this.boardObject =  createGame();
         createBoardGUI();
 
-        this.promotionAlert = new Stage();
-        promotionCreate();
+        this.promotionAlertWhite = new Stage();
+        createPromotionStage("white", this.promotionAlertWhite);
+
+        this.promotionAlertBlack = new Stage();
+        createPromotionStage("black", this.promotionAlertBlack);
     }
 
 
 
-    private void promotionCreate(){
+    private void createPromotionStage(String color, Stage daStage){
         HBox holder = new HBox();
 
 
-        String[] pieces  = {"queen", "rook", "bishop", "rook"};
-        for (int i = 0; i < pieces.length; i++){
+        String[] pieces  = {"queen", "rook", "bishop", "knight"};
+        for (String piece : pieces){
             try {
-                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.turn + pieces[i] + ".png");
+                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
                 Image image = new Image(pathway);
                             
                 ImageView imageNode = new ImageView(image);  
@@ -66,9 +73,9 @@ public class BoardGUI extends GridPane{
                 buttonPiece.setGraphic(imageNode);
 
                 buttonPiece.setOnMouseClicked(e ->{
-                    //this.boardObject.updateForPromotion(pieces[i]);
-                    //this.updateForGUI(pieces[i]);
-                    this.promotionAlert.close();
+                    this.boardObject.updateForPromotion(piece, this.newYPromotion, this.newXPromotion, color);
+                    this.updateGUIForPromotion(piece, color);
+                    daStage.close();
                 });
 
                 holder.getChildren().add(buttonPiece);
@@ -78,8 +85,39 @@ public class BoardGUI extends GridPane{
 
         }  
         Scene promotionScene = new Scene(holder);
-        this.promotionAlert.setScene(promotionScene);
+        daStage.setScene(promotionScene);
     }
+
+    private void updateGUIForPromotion(String piece, String color){
+        ObservableList<Node> childrens = this.getChildren();
+
+        Node piecePromotionToRemoveInTheBoardGUI = null;
+
+        for (Node node : childrens){
+            //Elimante pawn PieceGUI
+            if (node instanceof ImageView && GridPane.getRowIndex(node) == this.newYPromotion && GridPane.getColumnIndex(node) == this.newXPromotion){
+                piecePromotionToRemoveInTheBoardGUI = node;
+            }
+        }
+        if (piecePromotionToRemoveInTheBoardGUI != null) this.getChildren().remove(piecePromotionToRemoveInTheBoardGUI);
+        try{
+            FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                                    
+            Image image = new Image(pathway);
+            PieceGUI promotionPiece = new PieceGUI(image, this, stateOfDaMove);
+
+            GridPane.setRowIndex(promotionPiece, this.newYPromotion);
+            GridPane.setColumnIndex(promotionPiece, this.newXPromotion);
+
+            this.getChildren().addAll(promotionPiece);
+        }
+        catch (IOException e){
+            System.out.println("Promotion image aint workin");
+        }
+
+
+    }
+
 
 
 
@@ -127,7 +165,7 @@ public class BoardGUI extends GridPane{
                     }
                 }
                 else{
-                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX - 1){
+                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX - 2){
                         GridPane.setColumnIndex(node, newX + 1);
                         GridPane.setRowIndex(node, newY);
                         node.setTranslateX(0);
@@ -137,18 +175,20 @@ public class BoardGUI extends GridPane{
                     }
                 }
             } 
-            if (this.boardObject.matrix[newY][newX].promotion){
-                this.promotionAlert.show();
-            }
+
         }
 
         if (pieceToRemove != null) this.getChildren().remove(pieceToRemove);
         if (pieceToRemoveEnPessant != null) this.getChildren().remove(pieceToRemoveEnPessant);
 
         if (this.boardObject.matrix[newY][newX].promotion){
-            this.promotionAlert.show();
-        }
+            this.newXPromotion = newX;
+            this.newYPromotion = newY;
 
+            if (this.boardObject.matrix[newY][newX].color.equals("white")) this.promotionAlertWhite.show();
+
+            else this.promotionAlertBlack.show();
+        }
 
         
     }

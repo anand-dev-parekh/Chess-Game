@@ -214,4 +214,25 @@ public class Board {
 
     }
 
+
+    public void updateForPromotion(String piece, int newY, int newX, String color){
+
+        if (piece.equals("rook")){
+            this.matrix[newY][newX] = new Rook(color, newY, newX, piece);
+        }
+        else if (piece.equals("bishop")){
+            this.matrix[newY][newX] = new Bishop(color, newY, newX, piece);
+        }
+        else if (piece.equals("knight")){
+            this.matrix[newY][newX] = new Knight(color, newY, newX, piece);
+        }
+        else if (piece.equals("queen")){
+            this.matrix[newY][newX] = new Queen(color, newY, newX, piece);
+        }
+    }
+
+
+    
+
+
 }
