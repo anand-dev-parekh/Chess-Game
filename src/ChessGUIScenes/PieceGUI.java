@@ -11,22 +11,22 @@ public class PieceGUI extends Rectangle {
     private double startX;
     private double startY;
 
-    private double translationX;
-    private double translationY;
+    //private double translationX;
+    //private double translationY;
 
-    private BoardGUI boardGUI;
+    public BoardGUI boardGUI;
     private Label stateOfDaLabel;
 
     
     public PieceGUI(Image image, BoardGUI boardGUIinitial, Label stateOfMove){
-
+        this.setCursor(Cursor.OPEN_HAND);
         this.setHeight(90);
         this.setWidth(90);
-        this.setFill(new ImagePattern(image, 0.0, 0.0, 90.0, 90.0, false));
+        this.setFill(new ImagePattern(image));
 
 
         
-        boardGUI = boardGUIinitial;
+        this.boardGUI = boardGUIinitial;
         stateOfDaLabel = stateOfMove;
 
         onClick();
@@ -39,17 +39,17 @@ public class PieceGUI extends Rectangle {
             startX = e.getSceneX();
             startY = e.getSceneY();
             //this.setCenter()
-            int pointX = ((int)((e.getSceneX() - 30) / 90)) * 90 + 45;
-            int pointY = ((int)((e.getSceneY() - 50) / 90)) * 90 - 45;
+            //int pointX = ((int)((e.getSceneX() - 30) / 90)) * 90 + 45;
+            //int pointY = ((int)((e.getSceneY() - 50) / 90)) * 90 - 45;
 
-            System.out.println(e.getSceneX() + " " + e.getSceneY());
+            //System.out.println(e.getSceneX() + " " + e.getSceneY());
 
             //this.setTranslateX(e.getSceneX() - pointX);
             //this.setTranslateY(e.getSceneY() - pointY);
 
-            System.out.println(pointX + " " + pointY);
-            translationX = e.getSceneX() - pointX;
-            translationY = e.getSceneY() - pointY;
+            //System.out.println(pointX + " " + pointY);
+            //translationX = e.getSceneX() - pointX;
+            //translationY = e.getSceneY() - pointY;
 
             this.setCursor(Cursor.CLOSED_HAND);
             this.toFront();
@@ -64,7 +64,7 @@ public class PieceGUI extends Rectangle {
         
         this.setOnMouseReleased(e ->{
             
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(Cursor.OPEN_HAND);
 
             int newX = (int) ((e.getSceneX() - 30) / 90.0);
             int newY = (int) ((e.getSceneY() - 50) / 90.0);
@@ -81,7 +81,7 @@ public class PieceGUI extends Rectangle {
             else if (boardGUI.boardObject.matrix[y][x].validMove(boardGUI.boardObject, newY, newX) && !boardGUI.boardObject.matrix[y][x].isCheckAfterMove(boardGUI.boardObject, newY, newX)){
                 
                 boardGUI.boardObject.updateBoardObjectMatrix(y, x, newY, newX);
-                boardGUI.updateBoardGUI(y, x, newY, newX);
+                boardGUI.updateBoardGUI(y, x, newY, newX, this);
 
 
 

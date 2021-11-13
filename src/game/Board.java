@@ -169,17 +169,25 @@ public class Board {
         this.matrix[y][x].y = newY; 
 
         //movin da piece on da board
+        if (this.matrix[newY][newX] != null && this.matrix[newY][newX].pieceGUI != null){
+            this.matrix[newY][newX].pieceGUI.boardGUI.destroyPiece(this.matrix[newY][newX].pieceGUI);
+        }
+
         this.matrix[newY][newX] = this.matrix[y][x];
         this.matrix[y][x] = null;
         
         //changes extra stuff if en pessant
         if (this.matrix[newY][newX].enPessant){
             if (this.matrix[newY][newX].color.equals("white")){
+
+                if (this.matrix[newY + 1][newX].pieceGUI != null) this.matrix[newY + 1][newX].pieceGUI.boardGUI.destroyPiece(this.matrix[newY + 1][newX].pieceGUI);
                 this.matrix[newY + 1][newX] = null;
             }
-            else{
-            
+            else{     
+                
+                if (this.matrix[newY - 1][newX].pieceGUI != null) this.matrix[newY - 1][newX].pieceGUI.boardGUI.destroyPiece(this.matrix[newY - 1][newX].pieceGUI);
                 this.matrix[newY - 1][newX] = null;
+
             }
             this.fiftyMove = 0; //Resets fifty move rule since en pessant
         }
@@ -213,26 +221,4 @@ public class Board {
 
 
     }
-
-
-    public void updateForPromotion(String piece, int newY, int newX, String color){
-
-        if (piece.equals("rook")){
-            this.matrix[newY][newX] = new Rook(color, newY, newX, piece);
-        }
-        else if (piece.equals("bishop")){
-            this.matrix[newY][newX] = new Bishop(color, newY, newX, piece);
-        }
-        else if (piece.equals("knight")){
-            this.matrix[newY][newX] = new Knight(color, newY, newX, piece);
-        }
-        else if (piece.equals("queen")){
-            this.matrix[newY][newX] = new Queen(color, newY, newX, piece);
-        }
-    }
-
-
-    
-
-
 }

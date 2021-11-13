@@ -23,8 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
-import javafx.scene.Node;
-import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -73,7 +71,6 @@ public class BoardGUI extends GridPane{
                 buttonPiece.setGraphic(imageNode);
 
                 buttonPiece.setOnMouseClicked(e ->{
-                    this.boardObject.updateForPromotion(piece, this.newYPromotion, this.newXPromotion, color);
                     this.updateGUIForPromotion(piece, color);
                     daStage.close();
                 });
@@ -89,25 +86,37 @@ public class BoardGUI extends GridPane{
     }
 
     private void updateGUIForPromotion(String piece, String color){
-        ObservableList<Node> childrens = this.getChildren();
 
-        Node piecePromotionToRemoveInTheBoardGUI = null;
 
-        for (Node node : childrens){
-            //Elimante pawn PieceGUI
-            if (node instanceof PieceGUI && GridPane.getRowIndex(node) == this.newYPromotion && GridPane.getColumnIndex(node) == this.newXPromotion){
-                piecePromotionToRemoveInTheBoardGUI = node;
-            }
+        this.destroyPiece(this.boardObject.matrix[this.newYPromotion][this.newXPromotion].pieceGUI);
+
+
+
+        if (piece.equals("rook")){
+            this.boardObject.matrix[this.newYPromotion][this.newXPromotion] = new Rook(color, this.newYPromotion, this.newXPromotion, piece);
         }
-        if (piecePromotionToRemoveInTheBoardGUI != null) this.getChildren().remove(piecePromotionToRemoveInTheBoardGUI);
+        else if (piece.equals("bishop")){
+            this.boardObject.matrix[this.newYPromotion][this.newXPromotion] = new Bishop(color, this.newYPromotion, this.newXPromotion, piece);
+        }
+        else if (piece.equals("knight")){
+            this.boardObject.matrix[this.newYPromotion][this.newXPromotion] = new Knight(color, this.newYPromotion, this.newXPromotion, piece);
+        }
+        else if (piece.equals("queen")){
+            this.boardObject.matrix[this.newYPromotion][this.newXPromotion] = new Queen(color, this.newYPromotion, this.newXPromotion, piece);
+        }
+
+
+
         try{
             FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
                                     
             Image image = new Image(pathway);
             PieceGUI promotionPiece = new PieceGUI(image, this, stateOfDaMove);
+            this.boardObject.matrix[this.newYPromotion][this.newXPromotion].pieceGUI = promotionPiece;
 
             GridPane.setRowIndex(promotionPiece, this.newYPromotion);
             GridPane.setColumnIndex(promotionPiece, this.newXPromotion);
+
 
             this.getChildren().addAll(promotionPiece);
         }
@@ -118,68 +127,46 @@ public class BoardGUI extends GridPane{
 
     }
 
+    public void destroyPiece(PieceGUI pieceGUI){
+        this.getChildren().remove(pieceGUI);
+    }
+
+
+
+    public void updateBoardGUI(int y, int x, int newY, int newX, PieceGUI pieceGUI){
+
+        GridPane.setColumnIndex(pieceGUI, newX);
+        GridPane.setRowIndex(pieceGUI, newY);
+        pieceGUI.setTranslateX(0);
+        pieceGUI.setTranslateY(0);
+        GridPane.setHalignment(pieceGUI, HPos.CENTER);
+        GridPane.setValignment(pieceGUI, VPos.CENTER);
 
 
 
 
-    public void updateBoardGUI(int y, int x, int newY, int newX){
-        ObservableList<Node> childrens = this.getChildren();
-        Node pieceToRemove = null;
-        Node pieceToRemoveEnPessant = null;
-        for (Node node : childrens){
 
-            if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) == newX){
-                pieceToRemove = node;
+
+        if (this.boardObject.matrix[newY][newX].castle){
+
+            if (newX > x){
+                GridPane.setColumnIndex(this.boardObject.matrix[newY][newX + 1].pieceGUI, newX - 1);
+                GridPane.setRowIndex(this.boardObject.matrix[newY][newX + 1].pieceGUI, newY);
+                this.boardObject.matrix[newY][newX + 1].pieceGUI.setTranslateX(0);
+                this.boardObject.matrix[newY][newX + 1].pieceGUI.setTranslateY(0);
+                GridPane.setHalignment(this.boardObject.matrix[newY][newX + 1].pieceGUI, HPos.CENTER);
+                GridPane.setValignment(this.boardObject.matrix[newY][newX + 1].pieceGUI, VPos.CENTER);
             }
-           
-            if (node instanceof PieceGUI && GridPane.getRowIndex(node) == y && GridPane.getColumnIndex(node) ==  x){
-                GridPane.setColumnIndex(node, newX);
-                GridPane.setRowIndex(node, newY);
-                node.setTranslateX(0);
-                node.setTranslateY(0);
-                GridPane.setHalignment(node, HPos.CENTER);
-                GridPane.setValignment(node, VPos.CENTER);
+            else{
+                GridPane.setColumnIndex(this.boardObject.matrix[newY][newX - 2].pieceGUI, newX + 1);
+                GridPane.setRowIndex(this.boardObject.matrix[newY][newX - 2].pieceGUI, newY);
+                this.boardObject.matrix[newY][newX - 2].pieceGUI.setTranslateX(0);
+                this.boardObject.matrix[newY][newX - 2].pieceGUI.setTranslateY(0);
+                GridPane.setHalignment(this.boardObject.matrix[newY][newX - 2].pieceGUI, HPos.CENTER);
+                GridPane.setValignment(this.boardObject.matrix[newY][newX - 2].pieceGUI, VPos.CENTER);   
             }
-
-
-            if (this.boardObject.matrix[newY][newX].enPessant){
-                if (this.boardObject.matrix[newY][newX].color.equals("white")){
-                    if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY + 1 && GridPane.getColumnIndex(node) ==  newX) pieceToRemoveEnPessant = node;
-                        
-                }
-                else{
-                    if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY - 1 && GridPane.getColumnIndex(node) ==  newX) pieceToRemoveEnPessant = node;
-                }
-            }
-
-            if (this.boardObject.matrix[newY][newX].castle){
-                if (newX > x){
-                    if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX + 1){
-                        GridPane.setColumnIndex(node, newX - 1);
-                        GridPane.setRowIndex(node, newY);
-                        node.setTranslateX(0);
-                        node.setTranslateY(0);
-                        GridPane.setHalignment(node, HPos.CENTER);
-                        GridPane.setValignment(node, VPos.CENTER);
-        
-                    }
-                }
-                else{
-                    if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX - 2){
-                        GridPane.setColumnIndex(node, newX + 1);
-                        GridPane.setRowIndex(node, newY);
-                        node.setTranslateX(0);
-                        node.setTranslateY(0);
-                        GridPane.setHalignment(node, HPos.CENTER);
-                        GridPane.setValignment(node, VPos.CENTER);
-                    }
-                }
-            } 
 
         }
-
-        if (pieceToRemove != null) this.getChildren().remove(pieceToRemove);
-        if (pieceToRemoveEnPessant != null) this.getChildren().remove(pieceToRemoveEnPessant);
 
         if (this.boardObject.matrix[newY][newX].promotion){
             this.newXPromotion = newX;
@@ -218,7 +205,7 @@ public class BoardGUI extends GridPane{
                         Image image = new Image(pathway);
                         
                         PieceGUI imageNode = new PieceGUI(image, this, stateOfDaMove);                        
-
+                        this.boardObject.matrix[y][x].pieceGUI = imageNode;
                         GridPane.setRowIndex(imageNode, y);
                         GridPane.setColumnIndex(imageNode, x);
 

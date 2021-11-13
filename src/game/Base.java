@@ -1,5 +1,6 @@
 package game;
 import java.util.ArrayList;
+import ChessGUIScenes.PieceGUI;
 
 public abstract class Base {
     //SETS the base attributes of all pieces
@@ -11,6 +12,7 @@ public abstract class Base {
     public boolean promotion;
     public boolean hasMoved;
     public boolean castle;
+    public PieceGUI pieceGUI;
 
     public Base(String color, int y, int x, String piece){
         this.color = color;
@@ -21,7 +23,23 @@ public abstract class Base {
         this.promotion = false;
         this.castle = false;
         this.hasMoved = false;
+        this.pieceGUI = null;
     }
+
+    public Base(String color, int y, int x, String piece, PieceGUI pieceGUI){
+        this.color = color;
+        this.x = x;
+        this.y = y;
+        this.piece = piece;
+        this.enPessant = false;
+        this.promotion = false;
+        this.castle = false;
+        this.hasMoved = false;
+        this.pieceGUI = pieceGUI;
+    }
+
+
+
 
 
     //Base method for all pieces 
