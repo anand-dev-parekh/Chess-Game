@@ -1,4 +1,3 @@
-
 import ChessGUIScenes.BoardGUI;
 
 import javafx.application.Application;
@@ -8,8 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 
 public class GUI extends Application {
@@ -22,7 +23,29 @@ public class GUI extends Application {
         Label stateChanging = new Label("");
 
         //Left Hbox
+
+        /*HBox leftSideContainer = new HBox();
+        VBox letterAndGridContainer = new VBox();
+        
+        
+        GridPane letters = new GridPane();
+        for (int i = 0; i < 8; i++){
+            char c = ((char) (i + 65));
+            String ayoh = c + "";
+
+            VBox charContainer = new VBox();
+            Text character = new Text(ayoh);
+            charContainer.getChildren().add(character);
+            letters.add(charContainer, i, 0);
+        }
+        letters.setHgap(90);
+        letters.setAlignment(Pos.CENTER);*/
+
+
+
+
         BoardGUI daGrid = new BoardGUI(stateChanging);
+        
 
         //Right Hbox
         Button resetGame = new Button("Reset");

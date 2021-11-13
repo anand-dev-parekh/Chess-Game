@@ -95,7 +95,7 @@ public class BoardGUI extends GridPane{
 
         for (Node node : childrens){
             //Elimante pawn PieceGUI
-            if (node instanceof ImageView && GridPane.getRowIndex(node) == this.newYPromotion && GridPane.getColumnIndex(node) == this.newXPromotion){
+            if (node instanceof PieceGUI && GridPane.getRowIndex(node) == this.newYPromotion && GridPane.getColumnIndex(node) == this.newXPromotion){
                 piecePromotionToRemoveInTheBoardGUI = node;
             }
         }
@@ -128,11 +128,11 @@ public class BoardGUI extends GridPane{
         Node pieceToRemoveEnPessant = null;
         for (Node node : childrens){
 
-            if (node instanceof ImageView && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) == newX){
+            if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) == newX){
                 pieceToRemove = node;
             }
            
-            if (node instanceof ImageView && GridPane.getRowIndex(node) == y && GridPane.getColumnIndex(node) ==  x){
+            if (node instanceof PieceGUI && GridPane.getRowIndex(node) == y && GridPane.getColumnIndex(node) ==  x){
                 GridPane.setColumnIndex(node, newX);
                 GridPane.setRowIndex(node, newY);
                 node.setTranslateX(0);
@@ -144,17 +144,17 @@ public class BoardGUI extends GridPane{
 
             if (this.boardObject.matrix[newY][newX].enPessant){
                 if (this.boardObject.matrix[newY][newX].color.equals("white")){
-                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY + 1 && GridPane.getColumnIndex(node) ==  newX) pieceToRemoveEnPessant = node;
+                    if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY + 1 && GridPane.getColumnIndex(node) ==  newX) pieceToRemoveEnPessant = node;
                         
                 }
                 else{
-                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY - 1 && GridPane.getColumnIndex(node) ==  newX) pieceToRemoveEnPessant = node;
+                    if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY - 1 && GridPane.getColumnIndex(node) ==  newX) pieceToRemoveEnPessant = node;
                 }
             }
 
             if (this.boardObject.matrix[newY][newX].castle){
                 if (newX > x){
-                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX + 1){
+                    if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX + 1){
                         GridPane.setColumnIndex(node, newX - 1);
                         GridPane.setRowIndex(node, newY);
                         node.setTranslateX(0);
@@ -165,7 +165,7 @@ public class BoardGUI extends GridPane{
                     }
                 }
                 else{
-                    if (node instanceof ImageView && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX - 2){
+                    if (node instanceof PieceGUI && GridPane.getRowIndex(node) == newY && GridPane.getColumnIndex(node) ==  newX - 2){
                         GridPane.setColumnIndex(node, newX + 1);
                         GridPane.setRowIndex(node, newY);
                         node.setTranslateX(0);
@@ -195,7 +195,7 @@ public class BoardGUI extends GridPane{
 
 
     private void createBoardGUI(){
-
+        this.getChildren().clear();
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
 
