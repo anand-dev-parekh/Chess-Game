@@ -61,7 +61,7 @@ public class BoardGUI extends GridPane{
         String[] pieces  = {"queen", "rook", "bishop", "knight"};
         for (String piece : pieces){
             try {
-                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + color + piece + ".png");
                 Image image = new Image(pathway);
                             
                 ImageView imageNode = new ImageView(image);  
@@ -108,7 +108,7 @@ public class BoardGUI extends GridPane{
 
 
         try{
-            FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+            FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
                                     
             Image image = new Image(pathway);
             PieceGUI promotionPiece = new PieceGUI(image, this, stateOfDaMove);
@@ -200,7 +200,7 @@ public class BoardGUI extends GridPane{
 
                 if (boardObject.matrix[y][x] != null){
                     try{
-                        FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
+                        FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
                                     
                         Image image = new Image(pathway);
                         

@@ -58,7 +58,7 @@ public class BoardEditorGUI extends GridPane{
             
             try{
                 //White creation
-                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/white" + pieceIterators[i] + ".png");                   
+                FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/white" + pieceIterators[i] + ".png");                   
                 Image image = new Image(pathway);
                 staticPieceWhite.setFill(new ImagePattern(image));
 
@@ -68,7 +68,7 @@ public class BoardEditorGUI extends GridPane{
 
 
                 //Black creation
-                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/black" + pieceIterators[i] + ".png");                   
+                pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/black" + pieceIterators[i] + ".png");                   
                 image = new Image(pathway);
                 staticPieceBlack.setFill(new ImagePattern(image));
 
@@ -124,48 +124,12 @@ public class BoardEditorGUI extends GridPane{
     private void startPosition(){
         this.clear();
         //Black Pieces here
-        this.add(new PieceGUIEditor(this, "king", "black"), 0, 4);
-        this.add(new PieceGUIEditor(this, "queen", "black"), 0, 3);
-        this.add(new PieceGUIEditor(this, "bishop", "black"), 0, 5);
-        this.add(new PieceGUIEditor(this, "bishop", "black"), 0, 2);
-        this.add(new PieceGUIEditor(this, "knight", "black"), 0, 6);
-        this.add(new PieceGUIEditor(this, "knight", "black"), 0, 1);
-        this.add(new PieceGUIEditor(this, "rook", "black"), 0, 7);
-        this.add(new PieceGUIEditor(this, "rook", "black"), 0, 0);
-
-        this.add(new PieceGUIEditor(this, "pawn", "black"), 1, 1);
-        this.add(new PieceGUIEditor(this, "pawn", "black"), 1, 2);
-        this.add(new PieceGUIEditor(this, "pawn", "black"), 1, 3);
-        this.add(new PieceGUIEditor(this, "pawn", "black"), 1, 4);
-        this.add(new PieceGUIEditor(this, "pawn", "black"), 1, 5);
-        this.add(new PieceGUIEditor(this, "pawn", "black"), 1, 6);
-        this.add(new PieceGUIEditor(this, "pawn", "black"), 1, 7);
-        this.add(new PieceGUIEditor(this, "pawn", "black"), 1, 0);
-
-
-        //White pieces here
-        this.add(new PieceGUIEditor(this, "king", "white"), 7, 4);
-        this.add(new PieceGUIEditor(this, "queen", "white"), 7, 3);
-        this.add(new PieceGUIEditor(this, "bishop", "white"), 7, 5);
-        this.add(new PieceGUIEditor(this, "bishop", "white"), 7, 2);
-        this.add(new PieceGUIEditor(this, "knight", "white"), 7, 6);
-        this.add(new PieceGUIEditor(this, "knight", "white"), 7, 1);
-        this.add(new PieceGUIEditor(this, "rook", "white"), 7, 7);
-        this.add(new PieceGUIEditor(this, "rook", "white"), 7, 0);
-
-        this.add(new PieceGUIEditor(this, "pawn", "white"), 6, 1);
-        this.add(new PieceGUIEditor(this, "pawn", "white"), 6, 2);
-        this.add(new PieceGUIEditor(this, "pawn", "white"), 6, 3);
-        this.add(new PieceGUIEditor(this, "pawn", "white"), 6, 4);
-        this.add(new PieceGUIEditor(this, "pawn", "white"), 6, 5);
-        this.add(new PieceGUIEditor(this, "pawn", "white"), 6, 6);
-        this.add(new PieceGUIEditor(this, "pawn", "white"), 6, 7);
-        this.add(new PieceGUIEditor(this, "pawn", "white"), 6, 0);
-
-
+        String[] order = {"rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"};
+        for (int x = 0; x < 8; x++){
+            this.add(new PieceGUIEditor(this, order[x], "black"), x, 0);
+            this.add(new PieceGUIEditor(this, order[x], "white"), x, 7);
+            this.add(new PieceGUIEditor(this, "pawn", "black"), x, 1);
+            this.add(new PieceGUIEditor(this, "pawn", "white"), x, 6);
+        }
     }
-
-
-
-
 }

@@ -77,12 +77,17 @@ public class GUI extends Application {
 
         //Starting scene
         Label intro = new Label("Wanand Chess.");
-        Button buttonWanand = new Button("Play");
-        buttonWanand.setOnAction(event -> stage.setScene(scene3));
+        Button buttonWanand = new Button("Play Wanand Chess");
+        buttonWanand.setOnAction(event -> stage.setScene(scene2));
+        Button buttonEditor = new Button("Wanand Chess Editor u know how it is");
+        buttonEditor.setOnAction(event -> stage.setScene(scene3));
 
-        VBox layout1 = new VBox(20);   
-        layout1.getChildren().addAll(intro, buttonWanand);
-        Scene scene = new Scene(layout1, 540, 540);
+
+        VBox introduction = new VBox(100);
+        HBox layout1 = new HBox(20);   
+        layout1.getChildren().addAll(buttonWanand, buttonEditor);
+        introduction.getChildren().addAll(intro, layout1);
+        Scene scene = new Scene(introduction, 540, 540);
 
 
 
