@@ -44,7 +44,7 @@ public class BattlePieceGUI extends Rectangle{
 
 
         this.setOnMouseReleased(e ->{
-
+            this.setCursor(Cursor.OPEN_HAND);
             int newX = (int) ((e.getSceneX()) / 90.0);
             int newY = (int) ((e.getSceneY()) / 90.0);
              

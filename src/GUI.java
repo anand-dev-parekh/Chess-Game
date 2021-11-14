@@ -22,28 +22,6 @@ public class GUI extends Application {
         Label stateLabel = new Label("State: ");
         Label stateChanging = new Label("");
 
-        //Left Hbox
-
-        /*HBox leftSideContainer = new HBox();
-        VBox letterAndGridContainer = new VBox();
-        
-        
-        GridPane letters = new GridPane();
-        for (int i = 0; i < 8; i++){
-            char c = ((char) (i + 65));
-            String ayoh = c + "";
-
-            VBox charContainer = new VBox();
-            Text character = new Text(ayoh);
-            charContainer.getChildren().add(character);
-            letters.add(charContainer, i, 0);
-        }
-        letters.setHgap(90);
-        letters.setAlignment(Pos.CENTER);*/
-
-
-
-
         BoardGUI daGrid = new BoardGUI(stateChanging);
         
 
