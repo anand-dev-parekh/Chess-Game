@@ -17,7 +17,7 @@ public class GUI extends Application {
     @Override
     public void start(Stage stage) {
         
-        //Chess Scene
+        //****** Scene 2: Chess Scene ******
         Label stateLabel = new Label("State: ");
         Label stateChanging = new Label("");
 
@@ -66,12 +66,33 @@ public class GUI extends Application {
         Scene scene2 = new Scene(rootBox);
 
 
-        //Scene 3: editor
+        //****** Scene 3: editor ******
         BoardEditorGUI editorBoard = new BoardEditorGUI();
 
         
 
         Scene scene3 = new Scene(editorBoard);
+
+        //****** Scene 4: Da Battle Buhtween Ayoh and TeemTeem ******
+        BoardGUI battleGrid = new BoardGUI(stateChanging);
+        
+
+        //Right Hbox
+        Button resetGame2 = new Button("Reset");
+        resetGame.setOnAction(event -> daGrid.resetBoard());
+        Button pastMoves2 = new Button("Move back");
+
+
+        VBox buttonsBox2 = new VBox(50);
+        buttonsBox2.getChildren().addAll(stateLabel, stateChanging, resetGame2, pastMoves2);
+
+        buttonsBox2.setAlignment(Pos.CENTER);
+
+        //Big boi Hbox
+        HBox rootBox2 = new HBox(battleGrid, buttonsBox2);
+        HBox.setMargin(daGrid, new Insets(50, 20, 50, 30));
+
+        Scene scene4 = new Scene(rootBox2);
 
 
 
@@ -81,11 +102,13 @@ public class GUI extends Application {
         buttonWanand.setOnAction(event -> stage.setScene(scene2));
         Button buttonEditor = new Button("Wanand Chess Editor u know how it is");
         buttonEditor.setOnAction(event -> stage.setScene(scene3));
+        Button buttonBattle = new Button("AYOHHHHH VS TEEMTEEMMMM");
+        buttonBattle.setOnAction(event -> stage.setScene(scene4));
 
 
         VBox introduction = new VBox(100);
         HBox layout1 = new HBox(20);   
-        layout1.getChildren().addAll(buttonWanand, buttonEditor);
+        layout1.getChildren().addAll(buttonWanand, buttonEditor, buttonBattle);
         introduction.getChildren().addAll(intro, layout1);
         Scene scene = new Scene(introduction, 540, 540);
 
