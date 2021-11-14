@@ -1,4 +1,5 @@
 import ChessGUIScenes.BoardGUI;
+import ChessGUIScenes.BattleGUI;
 import ChessGUIScenes.BoardEditorGUI;
 
 import javafx.application.Application;
@@ -68,30 +69,25 @@ public class GUI extends Application {
 
         //****** Scene 3: editor ******
         BoardEditorGUI editorBoard = new BoardEditorGUI();
-
-        
-
         Scene scene3 = new Scene(editorBoard);
 
         //****** Scene 4: Da Battle Buhtween Ayoh and TeemTeem ******
-        BoardGUI battleGrid = new BoardGUI(stateChanging);
-        
+        Label stateLabel2 = new Label("State: ");
+        Label stateChanging2 = new Label("");
 
-        //Right Hbox
+        BattleGUI battleGUI = new BattleGUI(stateChanging2);
         Button resetGame2 = new Button("Reset");
-        resetGame.setOnAction(event -> daGrid.resetBoard());
         Button pastMoves2 = new Button("Move back");
 
 
         VBox buttonsBox2 = new VBox(50);
-        buttonsBox2.getChildren().addAll(stateLabel, stateChanging, resetGame2, pastMoves2);
 
+
+        buttonsBox2.getChildren().addAll(stateLabel2, stateChanging2, resetGame2, pastMoves2);
         buttonsBox2.setAlignment(Pos.CENTER);
 
-        //Big boi Hbox
-        HBox rootBox2 = new HBox(battleGrid, buttonsBox2);
-        HBox.setMargin(daGrid, new Insets(50, 20, 50, 30));
-
+        HBox rootBox2 = new HBox(battleGUI, buttonsBox2);
+        
         Scene scene4 = new Scene(rootBox2);
 
 
@@ -103,7 +99,7 @@ public class GUI extends Application {
         Button buttonEditor = new Button("Wanand Chess Editor u know how it is");
         buttonEditor.setOnAction(event -> stage.setScene(scene3));
         Button buttonBattle = new Button("AYOHHHHH VS TEEMTEEMMMM");
-        buttonBattle.setOnAction(event -> stage.setScene(scene4));
+        buttonBattle.setOnAction(e -> stage.setScene(scene4));
 
 
         VBox introduction = new VBox(100);

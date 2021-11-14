@@ -169,8 +169,9 @@ public class Board {
         this.matrix[y][x].y = newY; 
 
         //movin da piece on da board
-        if (this.matrix[newY][newX] != null && this.matrix[newY][newX].pieceGUI != null){
-            this.matrix[newY][newX].pieceGUI.boardGUI.destroyPiece(this.matrix[newY][newX].pieceGUI);
+        if (this.matrix[newY][newX] != null){
+            if (this.matrix[newY][newX].pieceGUI != null) this.matrix[newY][newX].pieceGUI.boardGUI.destroyPiece(this.matrix[newY][newX].pieceGUI);
+            else if (this.matrix[newY][newX].battlePieceGUI != null) this.matrix[newY][newX].battlePieceGUI.battleGUI.destroyPiece(this.matrix[newY][newX].battlePieceGUI, this.matrix[newY][newX].color);
         }
 
         this.matrix[newY][newX] = this.matrix[y][x];

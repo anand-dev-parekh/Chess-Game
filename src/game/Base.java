@@ -1,5 +1,7 @@
 package game;
 import java.util.ArrayList;
+
+import ChessGUIScenes.BattlePieceGUI;
 import ChessGUIScenes.PieceGUI;
 
 public abstract class Base {
@@ -13,6 +15,7 @@ public abstract class Base {
     public boolean hasMoved;
     public boolean castle;
     public PieceGUI pieceGUI;
+    public BattlePieceGUI battlePieceGUI;
 
     public Base(String color, int y, int x, String piece){
         this.color = color;
@@ -24,19 +27,9 @@ public abstract class Base {
         this.castle = false;
         this.hasMoved = false;
         this.pieceGUI = null;
+        this.battlePieceGUI = null;
     }
 
-    public Base(String color, int y, int x, String piece, PieceGUI pieceGUI){
-        this.color = color;
-        this.x = x;
-        this.y = y;
-        this.piece = piece;
-        this.enPessant = false;
-        this.promotion = false;
-        this.castle = false;
-        this.hasMoved = false;
-        this.pieceGUI = pieceGUI;
-    }
 
 
 

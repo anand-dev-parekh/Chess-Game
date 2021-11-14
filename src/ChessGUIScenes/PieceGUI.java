@@ -1,5 +1,7 @@
 package ChessGUIScenes;
 
+import java.io.FileInputStream;
+
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -8,8 +10,8 @@ import javafx.scene.paint.ImagePattern;
 
 
 public class PieceGUI extends Rectangle {
-    private double startX;
-    private double startY;
+    public double startX;
+    public double startY;
 
     //private double translationX;
     //private double translationY;
@@ -18,10 +20,12 @@ public class PieceGUI extends Rectangle {
     private Label stateOfDaLabel;
 
     
-    public PieceGUI(Image image, BoardGUI boardGUIinitial, Label stateOfMove){
+    public PieceGUI(FileInputStream pathway, BoardGUI boardGUIinitial, Label stateOfMove){
         this.setCursor(Cursor.OPEN_HAND);
         this.setHeight(90);
         this.setWidth(90);
+
+        Image image = new Image(pathway);
         this.setFill(new ImagePattern(image));
 
 
@@ -35,33 +39,8 @@ public class PieceGUI extends Rectangle {
     
 
     public void onClick(){
-        this.setOnMousePressed(e ->{
-            startX = e.getSceneX();
-            startY = e.getSceneY();
-            //this.setCenter()
-            //int pointX = ((int)((e.getSceneX() - 30) / 90)) * 90 + 45;
-            //int pointY = ((int)((e.getSceneY() - 50) / 90)) * 90 - 45;
-
-            //System.out.println(e.getSceneX() + " " + e.getSceneY());
-
-            //this.setTranslateX(e.getSceneX() - pointX);
-            //this.setTranslateY(e.getSceneY() - pointY);
-
-            //System.out.println(pointX + " " + pointY);
-            //translationX = e.getSceneX() - pointX;
-            //translationY = e.getSceneY() - pointY;
-
-            this.setCursor(Cursor.CLOSED_HAND);
-            this.toFront();
-        });
-
-        this.setOnMouseDragged(e ->{
-            
-            this.setTranslateX((e.getSceneX() - startX));
-            this.setTranslateY((e.getSceneY() - startY));
-            this.setCursor(Cursor.CLOSED_HAND);
-        });
-        
+        HelperGUI.mouseMovement(this);   
+             
         this.setOnMouseReleased(e ->{
             
             this.setCursor(Cursor.OPEN_HAND);
@@ -82,9 +61,6 @@ public class PieceGUI extends Rectangle {
                 
                 boardGUI.boardObject.updateBoardObjectMatrix(y, x, newY, newX);
                 boardGUI.updateBoardGUI(y, x, newY, newX, this);
-
-
-
 
                 boardGUI.boardObject.updateAttributesMoveWork(newY, newX);
 

@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
@@ -39,18 +38,9 @@ public class BoardEditorGUI extends GridPane{
 
 
     private void createBoard(){
-        for (int y = 0; y < 8; y++){
-            for (int x = 0; x < 8; x++){
+        HelperGUI.createBackground(this);
 
-                Rectangle square = new Rectangle(90, 90, 90, 90);
-                if ((y + x) % 2 == 0) square.setFill(Color.BEIGE);
-                else square.setFill(Color.TAN);
-                this.add(square, y, x);
-            }
-        }
-
-
-        //Create white pieces
+        //Create Piece menu
         String[] pieceIterators = {"king", "queen", "rook", "bishop", "knight", "pawn"};
         for (int i = 0; i < pieceIterators.length; i++){
             Rectangle staticPieceWhite = new Rectangle(90, 90, 90, 90);
@@ -58,7 +48,7 @@ public class BoardEditorGUI extends GridPane{
             
             try{
                 //White creation
-                FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/white" + pieceIterators[i] + ".png");                   
+                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/white" + pieceIterators[i] + ".png");                   
                 Image image = new Image(pathway);
                 staticPieceWhite.setFill(new ImagePattern(image));
 
@@ -68,7 +58,7 @@ public class BoardEditorGUI extends GridPane{
 
 
                 //Black creation
-                pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/black" + pieceIterators[i] + ".png");                   
+                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/black" + pieceIterators[i] + ".png");                   
                 image = new Image(pathway);
                 staticPieceBlack.setFill(new ImagePattern(image));
 
@@ -88,7 +78,7 @@ public class BoardEditorGUI extends GridPane{
         Button clearEditorBoard = new Button("Clear");
         Button startPosition = new Button("Start Pos");
 
-        clearEditorBoard.setOnAction(e -> this.clear());
+        clearEditorBoard.setOnAction(e -> this.clearPieces());
         startPosition.setOnAction(e -> this.startPosition());
         
         GridPane.setHalignment(clearEditorBoard, HPos.CENTER);
@@ -103,7 +93,7 @@ public class BoardEditorGUI extends GridPane{
 
     }
 
-    private void clear(){
+    private void clearPieces(){
         ObservableList<Node> daNodes = this.getChildren();
 
 
@@ -122,7 +112,7 @@ public class BoardEditorGUI extends GridPane{
     }
 
     private void startPosition(){
-        this.clear();
+        this.clearPieces();
         //Black Pieces here
         String[] order = {"rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"};
         for (int x = 0; x < 8; x++){

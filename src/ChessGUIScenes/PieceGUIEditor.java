@@ -14,8 +14,8 @@ import javafx.scene.image.Image;
 
 
 public class PieceGUIEditor extends Rectangle{
-    private double startX;
-    private double startY;
+    public double startX;
+    public double startY;
 
 
     private BoardEditorGUI daBoard;
@@ -30,7 +30,7 @@ public class PieceGUIEditor extends Rectangle{
 
 
        try{ 
-           FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + color + piece + ".png");                   
+           FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");                   
             Image image = new Image(pathway);
 
             this.setFill(new ImagePattern(image));
@@ -52,22 +52,7 @@ public class PieceGUIEditor extends Rectangle{
     }
 
     private void onClick(){
-
-        this.setOnMousePressed(e ->{
-            startX = e.getSceneX();
-            startY = e.getSceneY();
-
-            this.setCursor(Cursor.CLOSED_HAND);
-            this.toFront();
-        });
-
-        this.setOnMouseDragged(e ->{
-
-            this.setTranslateX((e.getSceneX() - startX));
-            this.setTranslateY((e.getSceneY() - startY));
-            this.setCursor(Cursor.CLOSED_HAND);
-        });
-
+        HelperGUI.mouseMovement(this);
 
         this.setOnMouseReleased(e ->{
             this.setCursor(Cursor.OPEN_HAND);

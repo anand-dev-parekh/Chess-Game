@@ -20,8 +20,6 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -41,10 +39,13 @@ public class BoardGUI extends GridPane{
     public BoardGUI(Label stateOfMove){
         stateOfDaMove = stateOfMove;
         
-
+        //Inits the boardObject
         this.boardObject =  createGame();
+        //creates pieceGUIs and background
         createBoardGUI();
-
+        
+        
+        //Inits Promotion stages
         this.promotionAlertWhite = new Stage();
         createPromotionStage("white", this.promotionAlertWhite);
 
@@ -61,7 +62,7 @@ public class BoardGUI extends GridPane{
         String[] pieces  = {"queen", "rook", "bishop", "knight"};
         for (String piece : pieces){
             try {
-                FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + color + piece + ".png");
+                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
                 Image image = new Image(pathway);
                             
                 ImageView imageNode = new ImageView(image);  
@@ -108,10 +109,9 @@ public class BoardGUI extends GridPane{
 
 
         try{
-            FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+            FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
                                     
-            Image image = new Image(pathway);
-            PieceGUI promotionPiece = new PieceGUI(image, this, stateOfDaMove);
+            PieceGUI promotionPiece = new PieceGUI(pathway, this, stateOfDaMove);
             this.boardObject.matrix[this.newYPromotion][this.newXPromotion].pieceGUI = promotionPiece;
 
             GridPane.setRowIndex(promotionPiece, this.newYPromotion);
@@ -183,15 +183,8 @@ public class BoardGUI extends GridPane{
 
     private void createBoardGUI(){
         this.getChildren().clear();
-        for (int y = 0; y < 8; y++){
-            for (int x = 0; x < 8; x++){
 
-                Rectangle square = new Rectangle(90, 90, 90, 90);
-                if ((y + x) % 2 == 0) square.setFill(Color.BEIGE);
-                else square.setFill(Color.TAN);
-                this.add(square, y, x);
-            }
-        }
+        HelperGUI.createBackground(this);
 
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
@@ -200,11 +193,10 @@ public class BoardGUI extends GridPane{
 
                 if (boardObject.matrix[y][x] != null){
                     try{
-                        FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
+                        FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
                                     
-                        Image image = new Image(pathway);
                         
-                        PieceGUI imageNode = new PieceGUI(image, this, stateOfDaMove);                        
+                        PieceGUI imageNode = new PieceGUI(pathway, this, stateOfDaMove);                        
                         this.boardObject.matrix[y][x].pieceGUI = imageNode;
                         GridPane.setRowIndex(imageNode, y);
                         GridPane.setColumnIndex(imageNode, x);
@@ -233,7 +225,7 @@ public class BoardGUI extends GridPane{
     }
 
 
-    public Board createGame(){
+    private Board createGame(){
         Base blackKing = new King("black", 0, 4, "king");
         Base blackQueen = new Queen("black", 0, 3, "queen");
         Base blackBishop1 = new Bishop("black", 0, 2, "bishop");
