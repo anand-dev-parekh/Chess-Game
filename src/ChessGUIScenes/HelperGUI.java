@@ -23,18 +23,21 @@ public class HelperGUI {
 
     public static void mouseMovement(PieceGUI object){
         object.setOnMousePressed(e ->{
-            object.startX = e.getSceneX();
-            object.startY = e.getSceneY();
+            if (object.boardGUI.boardView == 1){
+                object.startX = e.getSceneX();
+                object.startY = e.getSceneY();
 
-            object.setCursor(Cursor.CLOSED_HAND);
-            object.toFront();
+                object.setCursor(Cursor.CLOSED_HAND);
+                object.toFront();
+            }
         });
 
         object.setOnMouseDragged(e ->{
-            
-            object.setTranslateX((e.getSceneX() - object.startX));
-            object.setTranslateY((e.getSceneY() - object.startY));
-            object.setCursor(Cursor.CLOSED_HAND);
+            if (object.boardGUI.boardView == 1){
+                object.setTranslateX((e.getSceneX() - object.startX));
+                object.setTranslateY((e.getSceneY() - object.startY));
+                object.setCursor(Cursor.CLOSED_HAND);
+            }
         });
 
     }

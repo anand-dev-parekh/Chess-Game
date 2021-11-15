@@ -33,6 +33,7 @@ public class BattleGUI extends GridPane{
         else blackPieceCount--;
         
         if (blackPieceCount == 0 || whitePieceCount == 0) endGame(color);
+        else stateOfDaMove.setText("Gotta give it to you, valid move");
     }   
 
     private void endGame(String color){

@@ -22,17 +22,20 @@ public class GUI extends Application {
         Label stateLabel = new Label("State: ");
         Label stateChanging = new Label("");
 
-        BoardGUI daGrid = new BoardGUI(stateChanging);
+        BoardGUI daGrid = new BoardGUI(stateChanging, false);
         
 
         //Right Hbox
         Button resetGame = new Button("Reset");
         resetGame.setOnAction(event -> daGrid.resetBoard());
         Button pastMoves = new Button("Move back");
+        pastMoves.setOnAction(e -> daGrid.moveBackOrForward(1));
+        Button moveForward = new Button("Move forward");
+        moveForward.setOnAction(e -> daGrid.moveBackOrForward(-1));
 
 
         VBox buttonsBox = new VBox(50);
-        buttonsBox.getChildren().addAll(stateLabel, stateChanging, resetGame, pastMoves);
+        buttonsBox.getChildren().addAll(stateLabel, stateChanging, resetGame, pastMoves, moveForward);
     
 
         
@@ -67,6 +70,32 @@ public class GUI extends Application {
         HBox rootBox2 = new HBox(battleGUI, buttonsBox2);
         
         Scene scene4 = new Scene(rootBox2);
+        
+        //*******Scene 5: ONly galooeh knows *****
+        Label stateLabel3 = new Label("State: ");
+        Label stateChanging3 = new Label("");
+
+        BoardGUI galooehGUI = new BoardGUI(stateChanging3, true);
+        
+
+        //Right Hbox
+        Button galooehReset = new Button("Reset");
+        galooehReset.setOnAction(event -> galooehGUI.resetBoard());
+        Button galooehPastMoves = new Button("Move back");
+
+
+        VBox buttonsBox3 = new VBox(50);
+        buttonsBox3.getChildren().addAll(stateLabel3, stateChanging3, galooehReset, galooehPastMoves);
+    
+
+        
+        buttonsBox3.setAlignment(Pos.CENTER);
+
+        //Big boi Hbox
+        HBox rootBox3 = new HBox(galooehGUI, buttonsBox3);
+        HBox.setMargin(galooehGUI, new Insets(50, 20, 50, 30));
+
+        Scene scene5 = new Scene(rootBox3);
 
 
 
@@ -76,15 +105,17 @@ public class GUI extends Application {
         buttonWanand.setOnAction(event -> stage.setScene(scene2));
         Button buttonEditor = new Button("Wanand Chess Editor u know how it is");
         buttonEditor.setOnAction(event -> stage.setScene(scene3));
-        Button buttonBattle = new Button("AYOHHHHH VS TEEMTEEMMMM");
+        Button buttonBattle = new Button("DA BATTLE BETWEEN AYOH AND TEEMTEEM");
         buttonBattle.setOnAction(e -> stage.setScene(scene4));
+        Button onlyGalooehKnows = new Button("Only Galooeh knows");
+        onlyGalooehKnows.setOnAction(e -> stage.setScene(scene5));
 
 
         VBox introduction = new VBox(100);
         HBox layout1 = new HBox(20);   
-        layout1.getChildren().addAll(buttonWanand, buttonEditor, buttonBattle);
+        layout1.getChildren().addAll(buttonWanand, buttonEditor, buttonBattle, onlyGalooehKnows);
         introduction.getChildren().addAll(intro, layout1);
-        Scene scene = new Scene(introduction, 540, 540);
+        Scene scene = new Scene(introduction);
 
 
 

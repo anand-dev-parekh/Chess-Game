@@ -27,13 +27,14 @@ public class BattlePieceGUI extends Rectangle{
         this.setWidth(90);
 
         try{ 
+
             FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + piece + ".png");                   
-             Image image = new Image(pathway);
+            Image image = new Image(pathway);
  
-             this.setFill(new ImagePattern(image));
+            this.setFill(new ImagePattern(image));
          }
          catch (IOException elephant){
-             System.out.println("AYOHOHOHOH");
+            System.out.println("AYOHOHOHOH");
          }
 
          onClick();

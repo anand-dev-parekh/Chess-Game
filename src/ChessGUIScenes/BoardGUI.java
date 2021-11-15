@@ -30,15 +30,29 @@ import javafx.scene.control.Button;
 
 public class BoardGUI extends GridPane{
     public Board boardObject; 
-    private Label stateOfDaMove;
+    
+    public Label stateOfDaMove;
+
+    public boolean isGalooeh;
+
+    public int boardView = 1;
+    
+    
     private Stage promotionAlertWhite;
     private Stage promotionAlertBlack;
+    
     private int newXPromotion;
     private int newYPromotion;
 
-    public BoardGUI(Label stateOfMove){
+
+    public BoardGUI(Label stateOfMove, boolean isGalooehKnows){
+        //Input state label
         stateOfDaMove = stateOfMove;
-        
+
+        //Should pics represent actual piece or galooeh
+        isGalooeh = isGalooehKnows;
+
+
         //Inits the boardObject
         this.boardObject =  createGame();
         //creates pieceGUIs and background
@@ -62,7 +76,14 @@ public class BoardGUI extends GridPane{
         String[] pieces  = {"queen", "rook", "bishop", "knight"};
         for (String piece : pieces){
             try {
-                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                FileInputStream pathway;
+                if (isGalooeh) { //Sets img to galooeh
+                    pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+                }
+                else { //sets img to actual piece
+                    pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                }
+                
                 Image image = new Image(pathway);
                             
                 ImageView imageNode = new ImageView(image);  
@@ -109,9 +130,15 @@ public class BoardGUI extends GridPane{
 
 
         try{
-            FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
-                                    
-            PieceGUI promotionPiece = new PieceGUI(pathway, this, stateOfDaMove);
+            FileInputStream pathway;
+            if (isGalooeh) { //Sets img to galooeh
+                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+            }
+            else { //sets img to actual piece
+                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+            }
+
+            PieceGUI promotionPiece = new PieceGUI(pathway, this);
             this.boardObject.matrix[this.newYPromotion][this.newXPromotion].pieceGUI = promotionPiece;
 
             GridPane.setRowIndex(promotionPiece, this.newYPromotion);
@@ -142,30 +169,27 @@ public class BoardGUI extends GridPane{
         GridPane.setHalignment(pieceGUI, HPos.CENTER);
         GridPane.setValignment(pieceGUI, VPos.CENTER);
 
-
-
-
-
-
         if (this.boardObject.matrix[newY][newX].castle){
 
             if (newX > x){
-                GridPane.setColumnIndex(this.boardObject.matrix[newY][newX + 1].pieceGUI, newX - 1);
+                //Updates node
+                GridPane.setColumnIndex(this.boardObject.matrix[newY][newX - 1].pieceGUI, newX - 1);
+                GridPane.setRowIndex(this.boardObject.matrix[newY][newX - 1].pieceGUI, newY);
+
+                //sets node to translate of 0
+                this.boardObject.matrix[newY][newX - 1].pieceGUI.setTranslateX(0);
+                this.boardObject.matrix[newY][newX - 1].pieceGUI.setTranslateY(0);
+                GridPane.setHalignment(this.boardObject.matrix[newY][newX - 1].pieceGUI, HPos.CENTER);
+                GridPane.setValignment(this.boardObject.matrix[newY][newX - 1].pieceGUI, VPos.CENTER);
+            }
+            else{
+                GridPane.setColumnIndex(this.boardObject.matrix[newY][newX + 1].pieceGUI, newX + 1);
                 GridPane.setRowIndex(this.boardObject.matrix[newY][newX + 1].pieceGUI, newY);
                 this.boardObject.matrix[newY][newX + 1].pieceGUI.setTranslateX(0);
                 this.boardObject.matrix[newY][newX + 1].pieceGUI.setTranslateY(0);
                 GridPane.setHalignment(this.boardObject.matrix[newY][newX + 1].pieceGUI, HPos.CENTER);
-                GridPane.setValignment(this.boardObject.matrix[newY][newX + 1].pieceGUI, VPos.CENTER);
+                GridPane.setValignment(this.boardObject.matrix[newY][newX + 1].pieceGUI, VPos.CENTER);   
             }
-            else{
-                GridPane.setColumnIndex(this.boardObject.matrix[newY][newX - 2].pieceGUI, newX + 1);
-                GridPane.setRowIndex(this.boardObject.matrix[newY][newX - 2].pieceGUI, newY);
-                this.boardObject.matrix[newY][newX - 2].pieceGUI.setTranslateX(0);
-                this.boardObject.matrix[newY][newX - 2].pieceGUI.setTranslateY(0);
-                GridPane.setHalignment(this.boardObject.matrix[newY][newX - 2].pieceGUI, HPos.CENTER);
-                GridPane.setValignment(this.boardObject.matrix[newY][newX - 2].pieceGUI, VPos.CENTER);   
-            }
-
         }
 
         if (this.boardObject.matrix[newY][newX].promotion){
@@ -193,10 +217,15 @@ public class BoardGUI extends GridPane{
 
                 if (boardObject.matrix[y][x] != null){
                     try{
-                        FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
-                                    
+                        FileInputStream pathway;
+                        if (isGalooeh) { //Sets img to galooeh
+                            pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+                        }
+                        else { //sets img to actual piece
+                            pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
+                        }                                    
                         
-                        PieceGUI imageNode = new PieceGUI(pathway, this, stateOfDaMove);                        
+                        PieceGUI imageNode = new PieceGUI(pathway, this);                        
                         this.boardObject.matrix[y][x].pieceGUI = imageNode;
                         GridPane.setRowIndex(imageNode, y);
                         GridPane.setColumnIndex(imageNode, x);
@@ -216,6 +245,33 @@ public class BoardGUI extends GridPane{
         
         return;
     }
+
+    public void moveBackOrForward(int decrement){
+        if (this.boardView + decrement > 0 && this.boardView + decrement <= this.boardObject.prevBoards.size()){
+            this.boardView += decrement;
+            this.updateBoardViewing(this.boardObject.prevBoards.get(this.boardObject.prevBoards.size() - this.boardView));
+        } 
+
+    }
+
+    private void updateBoardViewing(Base[][] displayBoard){
+        this.getChildren().clear();
+        HelperGUI.createBackground(this);
+
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                if (displayBoard[y][x] != null){
+                    this.add(displayBoard[y][x].pieceGUI, x, y);  
+                }             
+            }
+        }
+    }
+
+
+
+
+
+
 
     //For now we will just create a new instance. DOwn the road make pieces attributes, and just reinput pieces to save memory.
     public void resetBoard(){
