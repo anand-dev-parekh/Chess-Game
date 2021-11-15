@@ -84,10 +84,10 @@ public class ChessBoardGUI extends GridPane{
             try {
                 FileInputStream pathway;
                 if (isGalooeh) { //Sets img to galooeh
-                    pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+                    pathway = new FileInputStream(FilePaths.daPath + "galooeh.png");
                 }
                 else { //sets img to actual piece
-                    pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                    pathway = new FileInputStream(FilePaths.daPath + color + piece + ".png");
                 }
                 
                 Image image = new Image(pathway);
@@ -138,10 +138,10 @@ public class ChessBoardGUI extends GridPane{
         try{
             FileInputStream pathway;
             if (isGalooeh) { //Sets img to galooeh
-                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+                pathway = new FileInputStream(FilePaths.daPath + "galooeh.png");
             }
             else { //sets img to actual piece
-                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                pathway = new FileInputStream(FilePaths.daPath + color + piece + ".png");
             }
 
             ChessPieceGUI promotionPiece = new ChessPieceGUI(pathway, this);
@@ -225,10 +225,10 @@ public class ChessBoardGUI extends GridPane{
                     try{
                         FileInputStream pathway;
                         if (isGalooeh) { //Sets img to galooeh
-                            pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+                            pathway = new FileInputStream(FilePaths.daPath + "galooeh.png");
                         }
                         else { //sets img to actual piece
-                            pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
+                            pathway = new FileInputStream(FilePaths.daPath + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
                         }                                    
                         
                         ChessPieceGUI imageNode = new ChessPieceGUI(pathway, this);                        
@@ -276,7 +276,7 @@ public class ChessBoardGUI extends GridPane{
                     String piece = displayBoard[y][x].piece;
                     
                     try{
-                        FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                        FileInputStream pathway = new FileInputStream(FilePaths.daPath + color + piece + ".png");
                         
                         Image image = new Image(pathway);
                         displayBoard[y][x].chessPieceGUI.setFill(new ImagePattern(image));    
@@ -304,7 +304,7 @@ public class ChessBoardGUI extends GridPane{
                 String piece = this.boardObject.matrix[y][x].piece;
                 
                 try{
-                    FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                    FileInputStream pathway = new FileInputStream(FilePaths.daPath + color + piece + ".png");
                     
                     Image image = new Image(pathway);
                     this.boardObject.matrix[y][x].chessPieceGUI.setFill(new ImagePattern(image));    

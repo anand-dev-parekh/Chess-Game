@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
+
 public class BattlePieceGUI extends Rectangle{
 
     public double startX;
@@ -25,7 +26,7 @@ public class BattlePieceGUI extends Rectangle{
 
         try{ 
 
-            FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + piece + ".png");                   
+            FileInputStream pathway = new FileInputStream(FilePaths.daPath + piece + ".png");                   
             Image image = new Image(pathway);
  
             this.setFill(new ImagePattern(image));

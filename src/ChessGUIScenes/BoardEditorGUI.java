@@ -48,7 +48,7 @@ public class BoardEditorGUI extends GridPane{
             
             try{
                 //White creation
-                FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/white" + pieceIterators[i] + ".png");                   
+                FileInputStream pathway = new FileInputStream(FilePaths.daPath + "white" + pieceIterators[i] + ".png");                   
                 Image image = new Image(pathway);
                 staticPieceWhite.setFill(new ImagePattern(image));
 
@@ -58,7 +58,7 @@ public class BoardEditorGUI extends GridPane{
 
 
                 //Black creation
-                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/black" + pieceIterators[i] + ".png");                   
+                pathway = new FileInputStream(FilePaths.daPath + "black" +  pieceIterators[i] + ".png");                   
                 image = new Image(pathway);
                 staticPieceBlack.setFill(new ImagePattern(image));
 
