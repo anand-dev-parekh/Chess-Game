@@ -1,4 +1,4 @@
-import ChessGUIScenes.BoardGUI;
+import ChessGUIScenes.ChessBoardGUI;
 import ChessGUIScenes.BattleGUI;
 import ChessGUIScenes.BoardEditorGUI;
 
@@ -22,7 +22,7 @@ public class GUI extends Application {
         Label stateLabel = new Label("State: ");
         Label stateChanging = new Label("");
 
-        BoardGUI daGrid = new BoardGUI(stateChanging, false);
+        ChessBoardGUI daGrid = new ChessBoardGUI(stateChanging, false);
         
 
         //Right Hbox
@@ -75,7 +75,7 @@ public class GUI extends Application {
         Label stateLabel3 = new Label("State: ");
         Label stateChanging3 = new Label("");
 
-        BoardGUI galooehGUI = new BoardGUI(stateChanging3, true);
+        ChessBoardGUI galooehGUI = new ChessBoardGUI(stateChanging3, true);
         
 
         //Right Hbox

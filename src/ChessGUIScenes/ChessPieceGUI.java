@@ -3,23 +3,22 @@ package ChessGUIScenes;
 import java.io.FileInputStream;
 
 import javafx.scene.Cursor;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.ImagePattern;
 
 
-public class PieceGUI extends Rectangle {
+public class ChessPieceGUI extends Rectangle {
     public double startX;
     public double startY;
 
     //private double translationX;
     //private double translationY;
 
-    public BoardGUI boardGUI;
+    public ChessBoardGUI boardGUI;
 
     
-    public PieceGUI(FileInputStream pathway, BoardGUI boardGUIinitial){
+    public ChessPieceGUI(FileInputStream pathway, ChessBoardGUI boardGUIinitial){
         this.setCursor(Cursor.OPEN_HAND);
         this.setHeight(90);
         this.setWidth(90);

@@ -7,7 +7,6 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.control.Label;
 
 public class BattlePieceGUI extends Rectangle{
 
@@ -16,10 +15,8 @@ public class BattlePieceGUI extends Rectangle{
 
     public BattleGUI battleGUI;
 
-    private Label stateOfDaLabel;
 
-    public BattlePieceGUI(String piece, Label stateOfDaMove, BattleGUI battleGUI){
-        stateOfDaLabel = stateOfDaMove;
+    public BattlePieceGUI(String piece, BattleGUI battleGUI){
     
         this.battleGUI = battleGUI;
         this.setCursor(Cursor.OPEN_HAND);
@@ -28,7 +25,7 @@ public class BattlePieceGUI extends Rectangle{
 
         try{ 
 
-            FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + piece + ".png");                   
+            FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + piece + ".png");                   
             Image image = new Image(pathway);
  
             this.setFill(new ImagePattern(image));
@@ -56,7 +53,7 @@ public class BattlePieceGUI extends Rectangle{
             if (newY > 7 || newY < 0 || newX > 7 || newX < 0 || !battleGUI.boardObject.turn.equals(battleGUI.boardObject.matrix[y][x].color)){
                 this.setTranslateX(0);
                 this.setTranslateY(0);
-                stateOfDaLabel.setText("That aint right, choose right piece");
+                battleGUI.stateOfDaMove.setText("That aint right, choose right piece");
             }
             else if (battleGUI.boardObject.matrix[y][x].validMove(battleGUI.boardObject, newY, newX)){
                 battleGUI.boardObject.updateBoardObjectMatrix(y, x, newY, newX);
@@ -68,7 +65,7 @@ public class BattlePieceGUI extends Rectangle{
             else {
                 this.setTranslateX(0);
                 this.setTranslateY(0);
-                stateOfDaLabel.setText("Cmon now, invalid");
+                battleGUI.stateOfDaMove.setText("Cmon now, invalid");
             }
             
 

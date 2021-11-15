@@ -16,7 +16,7 @@ public class BattleGUI extends GridPane{
     public int whitePieceCount = 16;
     public int blackPieceCount = 16;
     
-    private Label stateOfDaMove;
+    public Label stateOfDaMove;
     
     public BattleGUI(Label stateOfDaMove){
 
@@ -55,21 +55,21 @@ public class BattleGUI extends GridPane{
 
     private void createBattleGUI(Label stateOfDaMove){
         for (int i = 0; i < 8; i++){
-            BattlePieceGUI topBishopNode = new BattlePieceGUI("teemteem", stateOfDaMove, this);
+            BattlePieceGUI topBishopNode = new BattlePieceGUI("teemteem", this);
             this.boardObject.matrix[0][i].battlePieceGUI = topBishopNode;
             this.add(topBishopNode, i, 0);
             
             
-            BattlePieceGUI secondBishopNode = new BattlePieceGUI("teemteem", stateOfDaMove, this);
+            BattlePieceGUI secondBishopNode = new BattlePieceGUI("teemteem", this);
             this.boardObject.matrix[1][i].battlePieceGUI = secondBishopNode;
             this.add(secondBishopNode, i, 1);
             
             
-            BattlePieceGUI knightBottomNode = new BattlePieceGUI("ayoh", stateOfDaMove, this);
+            BattlePieceGUI knightBottomNode = new BattlePieceGUI("ayoh", this);
             this.boardObject.matrix[7][i].battlePieceGUI = knightBottomNode;
             this.add(knightBottomNode, i, 7);
             
-            BattlePieceGUI secondKnightBottomNode = new BattlePieceGUI("ayoh", stateOfDaMove, this);
+            BattlePieceGUI secondKnightBottomNode = new BattlePieceGUI("ayoh", this);
             this.boardObject.matrix[6][i].battlePieceGUI = secondKnightBottomNode;
             this.add(secondKnightBottomNode, i, 6);
         }

@@ -21,7 +21,7 @@ public class HelperGUI {
     }
 
 
-    public static void mouseMovement(PieceGUI object){
+    public static void mouseMovement(ChessPieceGUI object){
         object.setOnMousePressed(e ->{
             if (object.boardGUI.boardView == 1){
                 object.startX = e.getSceneX();

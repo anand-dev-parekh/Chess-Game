@@ -170,9 +170,9 @@ public class Board {
 
         //movin da piece on da board
         if (this.matrix[newY][newX] != null){
-            if (this.matrix[newY][newX].pieceGUI != null) this.matrix[newY][newX].pieceGUI.boardGUI.destroyPiece(this.matrix[newY][newX].pieceGUI);
+            if (this.matrix[newY][newX].chessPieceGUI != null) this.matrix[newY][newX].chessPieceGUI.boardGUI.destroyPiece(this.matrix[newY][newX].chessPieceGUI);
             else if (this.matrix[newY][newX].battlePieceGUI != null) this.matrix[newY][newX].battlePieceGUI.battleGUI.destroyPiece(this.matrix[newY][newX].battlePieceGUI, this.matrix[newY][newX].color);
-            if (this.matrix[newY][newX].piece.equals("king")) this.matrix[newY][newX].pieceGUI.boardGUI.stateOfDaMove.setText("gg e z ya took king");
+            if (this.matrix[newY][newX].piece.equals("king")) this.matrix[newY][newX].chessPieceGUI.boardGUI.stateOfDaMove.setText("gg e z ya took king");
         }
 
         this.matrix[newY][newX] = this.matrix[y][x];
@@ -182,12 +182,12 @@ public class Board {
         if (this.matrix[newY][newX].enPessant){
             if (this.matrix[newY][newX].color.equals("white")){
 
-                if (this.matrix[newY + 1][newX].pieceGUI != null) this.matrix[newY + 1][newX].pieceGUI.boardGUI.destroyPiece(this.matrix[newY + 1][newX].pieceGUI);
+                if (this.matrix[newY + 1][newX].chessPieceGUI != null) this.matrix[newY + 1][newX].chessPieceGUI.boardGUI.destroyPiece(this.matrix[newY + 1][newX].chessPieceGUI);
                 this.matrix[newY + 1][newX] = null;
             }
             else{     
                 
-                if (this.matrix[newY - 1][newX].pieceGUI != null) this.matrix[newY - 1][newX].pieceGUI.boardGUI.destroyPiece(this.matrix[newY - 1][newX].pieceGUI);
+                if (this.matrix[newY - 1][newX].chessPieceGUI != null) this.matrix[newY - 1][newX].chessPieceGUI.boardGUI.destroyPiece(this.matrix[newY - 1][newX].chessPieceGUI);
                 this.matrix[newY - 1][newX] = null;
 
             }
