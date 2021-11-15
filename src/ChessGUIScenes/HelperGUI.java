@@ -13,8 +13,8 @@ public class HelperGUI {
             for (int x = 0; x < 8; x++){
 
                 Rectangle square = new Rectangle(90, 90, 90, 90);
-                if ((y + x) % 2 == 0) square.setFill(Color.BEIGE);
-                else square.setFill(Color.TAN);
+                if ((y + x) % 2 == 0) square.setFill(Color.AZURE);
+                else square.setFill(Color.POWDERBLUE);
                 chessBoard.add(square, y, x);
             }
         }

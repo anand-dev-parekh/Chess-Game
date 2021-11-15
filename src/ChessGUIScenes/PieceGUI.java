@@ -47,10 +47,15 @@ public class PieceGUI extends Rectangle {
                 int newX = (int) ((e.getSceneX() - 30) / 90.0);
                 int newY = (int) ((e.getSceneY() - 50) / 90.0);
                 
-                int x = (int) ((startX - 30)/ 90.0) ;
-                int y = (int) ((startY - 50)/ 90.0) ;
+                int x = (int) ((startX - 30)/ 90.0);
+                int y = (int) ((startY - 50)/ 90.0);
 
-                if (!boardGUI.boardObject.turn.equals(boardGUI.boardObject.matrix[y][x].color) || newY > 7 || newY < 0 || newX > 7 || newX < 0) {
+                if (newX == x && newY == y) {
+                    this.setTranslateX(0);
+                    this.setTranslateY(0);
+                    boardGUI.stateOfDaMove.setText("AYO hurry up. this is OUTRAGEOUS");
+                }
+                else if (!boardGUI.boardObject.turn.equals(boardGUI.boardObject.matrix[y][x].color) || newY > 7 || newY < 0 || newX > 7 || newX < 0) {
                     this.setTranslateX(0);
                     this.setTranslateY(0);
                     boardGUI.stateOfDaMove.setText("That aint right, choose right piece.");
@@ -62,10 +67,14 @@ public class PieceGUI extends Rectangle {
 
                     boardGUI.boardObject.updateAttributesMoveWork(newY, newX);
 
-                    if (boardGUI.stateOfDaMove.getText() != "gg e z ya took king"){
-                        if (boardGUI.boardObject.isGameOver()) boardGUI.stateOfDaMove.setText("U truly da best. Simply Put");
-                        else boardGUI.stateOfDaMove.setText("Gotta give it to you, valid Move");
+                    if (boardGUI.boardObject.isGameOver()) {
+                        boardGUI.stateOfDaMove.setText("U truly da best. Simply Put");
+                        if (boardGUI.isGalooeh){
+                            boardGUI.showRegPieces();
+                            boardGUI.showButtons();
+                        }
                     }
+                    else boardGUI.stateOfDaMove.setText("Gotta give it to you, valid Move");
                 }
 
                 else {

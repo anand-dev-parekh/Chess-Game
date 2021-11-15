@@ -28,7 +28,7 @@ public class BattlePieceGUI extends Rectangle{
 
         try{ 
 
-            FileInputStream pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + piece + ".png");                   
+            FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + piece + ".png");                   
             Image image = new Image(pathway);
  
             this.setFill(new ImagePattern(image));

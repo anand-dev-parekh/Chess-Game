@@ -25,6 +25,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.layout.VBox;
 
 
 
@@ -43,6 +45,10 @@ public class BoardGUI extends GridPane{
     
     private int newXPromotion;
     private int newYPromotion;
+
+    public Button moveBackward;
+    public Button moveForward;
+    public VBox buttonContainer;
 
 
     public BoardGUI(Label stateOfMove, boolean isGalooehKnows){
@@ -78,10 +84,10 @@ public class BoardGUI extends GridPane{
             try {
                 FileInputStream pathway;
                 if (isGalooeh) { //Sets img to galooeh
-                    pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+                    pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/galooeh.png");
                 }
                 else { //sets img to actual piece
-                    pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                    pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + color + piece + ".png");
                 }
                 
                 Image image = new Image(pathway);
@@ -132,10 +138,10 @@ public class BoardGUI extends GridPane{
         try{
             FileInputStream pathway;
             if (isGalooeh) { //Sets img to galooeh
-                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+                pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/galooeh.png");
             }
             else { //sets img to actual piece
-                pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + color + piece + ".png");
+                pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + color + piece + ".png");
             }
 
             PieceGUI promotionPiece = new PieceGUI(pathway, this);
@@ -219,10 +225,10 @@ public class BoardGUI extends GridPane{
                     try{
                         FileInputStream pathway;
                         if (isGalooeh) { //Sets img to galooeh
-                            pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/galooeh.png");
+                            pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/galooeh.png");
                         }
                         else { //sets img to actual piece
-                            pathway = new FileInputStream("/Users/anandparekh/Documents/GitHub/Chess-Game-Clone/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
+                            pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + this.boardObject.matrix[y][x].color + this.boardObject.matrix[y][x].piece + ".png");
                         }                                    
                         
                         PieceGUI imageNode = new PieceGUI(pathway, this);                        
@@ -260,11 +266,59 @@ public class BoardGUI extends GridPane{
 
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
-                if (displayBoard[y][x] != null){
-                    this.add(displayBoard[y][x].pieceGUI, x, y);  
-                }             
+                
+
+                if (displayBoard[y][x] == null) continue;
+
+                //if galooeh game, change images back to regular images
+                if (isGalooeh){
+                    String color = displayBoard[y][x].color;
+                    String piece = displayBoard[y][x].piece;
+                    
+                    try{
+                        FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + color + piece + ".png");
+                        
+                        Image image = new Image(pathway);
+                        displayBoard[y][x].pieceGUI.setFill(new ImagePattern(image));    
+                    }
+                    catch (IOException e) {
+                        System.out.println("FILE ERROR PICTURES");
+                    } 
+                }
+                
+                this.add(displayBoard[y][x].pieceGUI, x, y);  
+
+
+                       
             }
         }
+    }
+
+    //Galooeh game stuff - show pieces and back and forth buttons after checkmate
+
+    public void showRegPieces(){
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                if (boardObject.matrix[y][x] == null) continue;
+                String color = this.boardObject.matrix[y][x].color;
+                String piece = this.boardObject.matrix[y][x].piece;
+                
+                try{
+                    FileInputStream pathway = new FileInputStream("/Users/akhilb/Documents/GitHub/Chess-Game/src/pictures/" + color + piece + ".png");
+                    
+                    Image image = new Image(pathway);
+                    this.boardObject.matrix[y][x].pieceGUI.setFill(new ImagePattern(image));    
+                }
+                catch (IOException e) {
+                    System.out.println("FILE ERROR PICTURES");
+                } 
+            }    
+        }
+    }
+
+    public void showButtons(){
+        buttonContainer.getChildren().addAll(moveBackward, moveForward);
+
     }
 
 

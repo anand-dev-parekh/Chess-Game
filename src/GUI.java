@@ -82,12 +82,17 @@ public class GUI extends Application {
         Button galooehReset = new Button("Reset");
         galooehReset.setOnAction(event -> galooehGUI.resetBoard());
         Button galooehPastMoves = new Button("Move back");
+        galooehPastMoves.setOnAction(e -> galooehGUI.moveBackOrForward(1));
+        Button galooehMoveForward = new Button("Move forward");
+        galooehMoveForward.setOnAction(e -> galooehGUI.moveBackOrForward(-1));
 
 
         VBox buttonsBox3 = new VBox(50);
-        buttonsBox3.getChildren().addAll(stateLabel3, stateChanging3, galooehReset, galooehPastMoves);
+        buttonsBox3.getChildren().addAll(stateLabel3, stateChanging3, galooehReset);
     
-
+        galooehGUI.buttonContainer = buttonsBox3;
+        galooehGUI.moveForward = galooehMoveForward;
+        galooehGUI.moveBackward = galooehPastMoves;
         
         buttonsBox3.setAlignment(Pos.CENTER);
 
