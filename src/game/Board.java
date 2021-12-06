@@ -5,18 +5,24 @@ import java.util.ArrayList;
 public class Board {
 
     public Base[][] matrix;
+    
+    public String turn = "white";
+
     public ArrayList<Base[][]> prevBoards;
-    public int fiftyMove;
-    public int earliestRepeatableBoard;
-    public String turn;
+    
+    public int fiftyMove = 0;
+    public int earliestRepeatableBoard = 1;
+   
+    public int whitePieceCount = 16;
+    public int blackPieceCount = 16;
+
+    public Base[] pieceInstances = new Base[32];
+
 
 
     public Board(Base[][] matrix, ArrayList<Base[][]> prevBoards){
         this.matrix = matrix;
         this.prevBoards = prevBoards;
-        this.fiftyMove = 0;
-        this.earliestRepeatableBoard = 1;
-        this.turn = "white";
     }
 
 
@@ -170,9 +176,14 @@ public class Board {
 
         //movin da piece on da board
         if (this.matrix[newY][newX] != null){
-            if (this.matrix[newY][newX].chessPieceGUI != null) this.matrix[newY][newX].chessPieceGUI.boardGUI.destroyPiece(this.matrix[newY][newX].chessPieceGUI);
-            else if (this.matrix[newY][newX].battlePieceGUI != null) this.matrix[newY][newX].battlePieceGUI.battleGUI.destroyPiece(this.matrix[newY][newX].battlePieceGUI, this.matrix[newY][newX].color);
-            if (this.matrix[newY][newX].piece.equals("king")) this.matrix[newY][newX].chessPieceGUI.boardGUI.stateOfDaMove.setText("gg e z ya took king");
+            if (this.matrix[newY][newX].basePieceGUI != null) this.matrix[newY][newX].basePieceGUI.boardGUI.destroyPiece(this.matrix[newY][newX].basePieceGUI);
+
+            if (this.turn.equals("white")){
+                blackPieceCount--;
+            }
+            else{
+                whitePieceCount--;
+            }
         }
 
         this.matrix[newY][newX] = this.matrix[y][x];
@@ -182,12 +193,11 @@ public class Board {
         if (this.matrix[newY][newX].enPessant){
             if (this.matrix[newY][newX].color.equals("white")){
 
-                if (this.matrix[newY + 1][newX].chessPieceGUI != null) this.matrix[newY + 1][newX].chessPieceGUI.boardGUI.destroyPiece(this.matrix[newY + 1][newX].chessPieceGUI);
+                if (this.matrix[newY + 1][newX].basePieceGUI != null) this.matrix[newY + 1][newX].basePieceGUI.boardGUI.destroyPiece(this.matrix[newY + 1][newX].basePieceGUI);
                 this.matrix[newY + 1][newX] = null;
             }
             else{     
-                
-                if (this.matrix[newY - 1][newX].chessPieceGUI != null) this.matrix[newY - 1][newX].chessPieceGUI.boardGUI.destroyPiece(this.matrix[newY - 1][newX].chessPieceGUI);
+                if (this.matrix[newY - 1][newX].basePieceGUI != null) this.matrix[newY - 1][newX].basePieceGUI.boardGUI.destroyPiece(this.matrix[newY - 1][newX].basePieceGUI);
                 this.matrix[newY - 1][newX] = null;
 
             }
@@ -223,4 +233,36 @@ public class Board {
 
 
     }
+
+    public int isBattleOver(){
+        if (whitePieceCount == 0) return 1;
+        else if (blackPieceCount == 0) return 2;
+        else return 0;
+    }
+
+
+    public void resetBoardObject(){
+        this.fiftyMove = 0;
+        this.earliestRepeatableBoard = 1;
+        this.turn = "white";
+        this.prevBoards = new ArrayList<Base[][]>();
+
+        int arrayListY = 0;
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                if (y == 0 || y == 1 || y == 6 || y == 7){
+                    this.matrix[y][x] = this.pieceInstances[(arrayListY * 8) + x];
+                }
+                else{
+                    this.matrix[y][x] = null;
+                }
+            }
+            if (y == 0 || y == 1 || y == 6 || y == 7){
+                arrayListY++;
+            }
+        }
+    }
+
+
+
 }

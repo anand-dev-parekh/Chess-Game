@@ -1,4 +1,7 @@
-package ChessGUIScenes;
+package ChessGUIObjects.editorChess;
+
+import ChessGUIObjects.FilePaths;
+import ChessGUIObjects.HelperGUI;
 
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Cursor;
@@ -13,17 +16,17 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 
 
-public class PieceGUIEditor extends Rectangle{
+public class ChessPieceEditorGUI extends Rectangle{
     public double startX;
     public double startY;
 
 
-    private BoardEditorGUI daBoard;
+    private ChessBoardEditorGUI daBoard;
     private String color;
     private String piece;
 
 
-    public PieceGUIEditor(BoardEditorGUI daBoard, String piece, String color){
+    public ChessPieceEditorGUI(ChessBoardEditorGUI daBoard, String piece, String color){
         this.setCursor(Cursor.OPEN_HAND);
         this.setHeight(90);
         this.setWidth(90);
@@ -81,7 +84,7 @@ public class PieceGUIEditor extends Rectangle{
 
                 //replace node to old place
                 if (x > 7){
-                    PieceGUIEditor replacement = new PieceGUIEditor(this.daBoard, this.piece, this.color);
+                    ChessPieceEditorGUI replacement = new ChessPieceEditorGUI(this.daBoard, this.piece, this.color);
 
 
                     this.daBoard.add(replacement, x, y);

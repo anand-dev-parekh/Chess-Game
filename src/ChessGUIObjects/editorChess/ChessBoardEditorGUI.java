@@ -1,4 +1,7 @@
-package ChessGUIScenes;
+package ChessGUIObjects.editorChess;
+
+import ChessGUIObjects.HelperGUI;
+import ChessGUIObjects.FilePaths;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,9 +19,8 @@ import javafx.scene.control.Button;
 import java.util.ArrayList;
 
 
-
-public class BoardEditorGUI extends GridPane{
-    public BoardEditorGUI(){
+public class ChessBoardEditorGUI extends GridPane{
+    public ChessBoardEditorGUI(){
         createBoard();
     }
 
@@ -28,7 +30,7 @@ public class BoardEditorGUI extends GridPane{
 
         Node pieceToRemove = null;
         for (Node node : daNodes){
-            if (node instanceof PieceGUIEditor && GridPane.getColumnIndex(node) == newX && GridPane.getRowIndex(node) == newY) pieceToRemove = node;
+            if (node instanceof ChessPieceEditorGUI && GridPane.getColumnIndex(node) == newX && GridPane.getRowIndex(node) == newY) pieceToRemove = node;
         }
 
         if (pieceToRemove != null) this.getChildren().remove(pieceToRemove);
@@ -52,7 +54,7 @@ public class BoardEditorGUI extends GridPane{
                 Image image = new Image(pathway);
                 staticPieceWhite.setFill(new ImagePattern(image));
 
-                PieceGUIEditor whitePieceNode = new PieceGUIEditor(this, pieceIterators[i], "white");
+                ChessPieceEditorGUI whitePieceNode = new ChessPieceEditorGUI(this, pieceIterators[i], "white");
 
 
 
@@ -62,7 +64,7 @@ public class BoardEditorGUI extends GridPane{
                 image = new Image(pathway);
                 staticPieceBlack.setFill(new ImagePattern(image));
 
-                PieceGUIEditor blackPieceNode = new PieceGUIEditor(this, pieceIterators[i], "black");
+                ChessPieceEditorGUI blackPieceNode = new ChessPieceEditorGUI(this, pieceIterators[i], "black");
 
                 this.add(staticPieceBlack, 9, i);
                 this.add(staticPieceWhite, 8, i);
@@ -102,7 +104,7 @@ public class BoardEditorGUI extends GridPane{
 
         //Iterater thru da board nodes
         for (Node node : daNodes){
-            if (node instanceof PieceGUIEditor && GridPane.getColumnIndex(node) <= 7) nodesToRemove.add(node);
+            if (node instanceof ChessPieceEditorGUI && GridPane.getColumnIndex(node) <= 7) nodesToRemove.add(node);
         }
 
         //Remove da board nodes
@@ -116,10 +118,10 @@ public class BoardEditorGUI extends GridPane{
         //Black Pieces here
         String[] order = {"rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"};
         for (int x = 0; x < 8; x++){
-            this.add(new PieceGUIEditor(this, order[x], "black"), x, 0);
-            this.add(new PieceGUIEditor(this, order[x], "white"), x, 7);
-            this.add(new PieceGUIEditor(this, "pawn", "black"), x, 1);
-            this.add(new PieceGUIEditor(this, "pawn", "white"), x, 6);
+            this.add(new ChessPieceEditorGUI(this, order[x], "black"), x, 0);
+            this.add(new ChessPieceEditorGUI(this, order[x], "white"), x, 7);
+            this.add(new ChessPieceEditorGUI(this, "pawn", "black"), x, 1);
+            this.add(new ChessPieceEditorGUI(this, "pawn", "white"), x, 6);
         }
     }
 }

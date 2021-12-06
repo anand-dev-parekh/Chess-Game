@@ -1,38 +1,29 @@
 package game;
 import java.util.ArrayList;
 
-import ChessGUIScenes.BattlePieceGUI;
-import ChessGUIScenes.ChessPieceGUI;
+import ChessGUIObjects.BasePieceGUI;
 
 public abstract class Base {
-    //SETS the base attributes of all pieces
+
+    //declares the base attributes of all pieces
     final public String color;              
     public int x;
     public int y;
     final public String piece;
-    public boolean enPessant;
-    public boolean promotion;
-    public boolean hasMoved;
-    public boolean castle;
-    public ChessPieceGUI chessPieceGUI;
-    public BattlePieceGUI battlePieceGUI;
+
+    public boolean enPessant = false;
+    public boolean promotion = false;
+    public boolean hasMoved = false;
+    public boolean castle = false;
+
+    public BasePieceGUI basePieceGUI = null;
 
     public Base(String color, int y, int x, String piece){
         this.color = color;
         this.x = x;
         this.y = y;
         this.piece = piece;
-        this.enPessant = false;
-        this.promotion = false;
-        this.castle = false;
-        this.hasMoved = false;
-        this.chessPieceGUI = null;
-        this.battlePieceGUI = null;
     }
-
-
-
-
 
 
     //Base method for all pieces 
@@ -69,7 +60,7 @@ public abstract class Base {
         int y = this.y;
 
         //If EnPessant remove piece that was enpessanted on temporary board
-        Base tempEnPessant = new Pawn("white", 0, 0, "pawn");
+        Base tempEnPessant = null;
         if (this.enPessant){ 
             if (this.color.equals("white")){
                 tempEnPessant = boardObject.matrix[newY + 1][newX];
@@ -77,7 +68,7 @@ public abstract class Base {
 
             }
             else{
-                tempEnPessant = boardObject.matrix[newY + 1][newX];
+                tempEnPessant = boardObject.matrix[newY - 1][newX];
                 boardObject.matrix[newY - 1][newX] = null;
             }
         }

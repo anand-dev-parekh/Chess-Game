@@ -1,6 +1,6 @@
-import ChessGUIScenes.ChessBoardGUI;
-import ChessGUIScenes.BattleGUI;
-import ChessGUIScenes.BoardEditorGUI;
+import ChessGUIObjects.battleChess.BattleGUI;
+import ChessGUIObjects.editorChess.ChessBoardEditorGUI;
+import ChessGUIObjects.normalChess.ChessBoardGUI;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -28,6 +28,7 @@ public class GUI extends Application {
         //Right Hbox
         Button resetGame = new Button("Reset");
         resetGame.setOnAction(event -> daGrid.resetBoard());
+
         Button pastMoves = new Button("Move back");
         pastMoves.setOnAction(e -> daGrid.moveBackOrForward(1));
         Button moveForward = new Button("Move forward");
@@ -49,7 +50,7 @@ public class GUI extends Application {
 
 
         //****** Scene 3: editor ******
-        BoardEditorGUI editorBoard = new BoardEditorGUI();
+        ChessBoardEditorGUI editorBoard = new ChessBoardEditorGUI();
         Scene scene3 = new Scene(editorBoard);
 
         //****** Scene 4: Da Battle Buhtween Ayoh and TeemTeem ******
@@ -58,13 +59,18 @@ public class GUI extends Application {
 
         BattleGUI battleGUI = new BattleGUI(stateChanging2);
         Button resetGame2 = new Button("Reset");
+
         Button pastMoves2 = new Button("Move back");
+        pastMoves2.setOnAction( e -> battleGUI.moveBackOrForward(1));
+        Button moveForward2 = new Button("Move forward");
+        moveForward2.setOnAction(e -> battleGUI.moveBackOrForward(-1));
+
 
 
         VBox buttonsBox2 = new VBox(50);
 
-
-        buttonsBox2.getChildren().addAll(stateLabel2, stateChanging2, resetGame2, pastMoves2);
+ 
+        buttonsBox2.getChildren().addAll(stateLabel2, stateChanging2, resetGame2, pastMoves2, moveForward2);
         buttonsBox2.setAlignment(Pos.CENTER);
 
         HBox rootBox2 = new HBox(battleGUI, buttonsBox2);
