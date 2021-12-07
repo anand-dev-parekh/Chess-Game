@@ -51,7 +51,7 @@ public class ChessPieceGUI extends BasePieceGUI {
                     this.setTranslateX(0);
                     this.setTranslateY(0);
 
-                    changeBackgroundBack(x, y);
+                    changeBackgroundBack(y, x);
 
                     boardGUI.stateOfDaMove.setText("AYO hurry up. this is OUTRAGEOUS");
                 }
@@ -59,7 +59,7 @@ public class ChessPieceGUI extends BasePieceGUI {
                     this.setTranslateX(0);
                     this.setTranslateY(0);
 
-                    changeBackgroundBack(x, y);
+                    changeBackgroundBack(y, x);
 
                     boardGUI.stateOfDaMove.setText("That aint right, choose right piece.");
                 }
@@ -73,7 +73,7 @@ public class ChessPieceGUI extends BasePieceGUI {
                     boardGUI.boardObject.updateAttributesMoveWork(newY, newX);
 
                     if (boardGUI.boardObject.isGameOver()) {
-                        boardGUI.stateOfDaMove.setText("U truly da best. Simply Put");
+                        boardGUI.stateOfDaMove.setText("U truly da best. Simply Put DA GAME IS OVER.");
                         if (boardGUI.isGalooeh){
                             boardGUI.showRegPieces();
                             boardGUI.showButtons();

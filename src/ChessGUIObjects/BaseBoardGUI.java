@@ -59,13 +59,13 @@ public abstract class BaseBoardGUI extends GridPane{
 
     public abstract void updateBoardGUI(int y, int x, int newY, int newX, BasePieceGUI pieceGUI);
 
-    protected void movePiece(Rectangle battleGUI, int newY, int newX){
-        GridPane.setColumnIndex(battleGUI, newX);
-        GridPane.setRowIndex(battleGUI, newY);
-        battleGUI.setTranslateX(0);
-        battleGUI.setTranslateY(0);
-        GridPane.setHalignment(battleGUI, HPos.CENTER);
-        GridPane.setValignment(battleGUI, VPos.CENTER);
+    protected void movePiece(BasePieceGUI basePieceGUI, int newY, int newX){
+        GridPane.setColumnIndex(basePieceGUI, newX);
+        GridPane.setRowIndex(basePieceGUI, newY);
+        basePieceGUI.setTranslateX(0);
+        basePieceGUI.setTranslateY(0);
+        GridPane.setHalignment(basePieceGUI, HPos.CENTER);
+        GridPane.setValignment(basePieceGUI, VPos.CENTER);
     }
 
 
@@ -74,9 +74,9 @@ public abstract class BaseBoardGUI extends GridPane{
     }
     
     public void moveBackOrForward(int decrement){
-        if (this.boardView + decrement > 0 && this.boardView + decrement <= this.boardObject.prevBoards.size()){
+        if (this.boardView + decrement > 0 && this.boardView + decrement <= this.boardObject.currMove){
             this.boardView += decrement;
-            this.updateBoardViewing(this.boardObject.prevBoards.get(this.boardObject.prevBoards.size() - this.boardView));
+            this.updateBoardViewing(this.boardObject.prevBoards.get(this.boardObject.currMove - this.boardView));
         } 
     }
 

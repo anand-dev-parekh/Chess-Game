@@ -12,7 +12,6 @@ import java.util.Scanner;
 class TerminalChess{
     public static void main(String[] args)
     {
-
         Base blackKing = new King("black", 0, 4, "king");
         Base blackQueen = new Queen("black", 0, 3, "queen");
         Base blackBishop1 = new Bishop("black", 0, 2, "bishop");
@@ -72,6 +71,7 @@ class TerminalChess{
         }
         boardObject.prevBoards.add(tempBoardMatrix); 
 
+
         Scanner input = new Scanner(System.in);
         int x, y, newX, newY;
 
@@ -94,6 +94,7 @@ class TerminalChess{
                 boardObject.updateAttributesMoveWork(newY, newX);
 
                 printt(boardObject.matrix);
+
             }
             else 
             {

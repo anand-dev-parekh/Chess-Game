@@ -47,23 +47,26 @@ public class BasePieceGUI extends Rectangle{
 
     public void mouseMovementOn(){
         this.setOnMousePressed(e ->{
-            this.startX = e.getSceneX();
-            this.startY = e.getSceneY();
+            if (boardGUI.boardView == 1){
+                this.startX = e.getSceneX();
+                this.startY = e.getSceneY();
 
-            int curX = (int)(e.getSceneX() - paddingX) / 90;
-            int curY = (int)(e.getSceneY() - paddingY) / 90;
+                int curX = (int)(e.getSceneX() - paddingX) / 90;
+                int curY = (int)(e.getSceneY() - paddingY) / 90;
 
-            this.boardGUI.backgrounds[curX][curY].setFill(Color.LIGHTYELLOW);
+                this.boardGUI.backgrounds[curX][curY].setFill(Color.LIGHTYELLOW);
 
-            this.setCursor(Cursor.CLOSED_HAND);
-            this.toFront();
+                this.setCursor(Cursor.CLOSED_HAND);
+                this.toFront();
+            }
         });
 
         this.setOnMouseDragged(e ->{
-            
-            this.setTranslateX((e.getSceneX() - this.startX));
-            this.setTranslateY((e.getSceneY() - this.startY));
-            this.setCursor(Cursor.CLOSED_HAND);
+            if (boardGUI.boardView == 1){
+                this.setTranslateX((e.getSceneX() - this.startX));
+                this.setTranslateY((e.getSceneY() - this.startY));
+                this.setCursor(Cursor.CLOSED_HAND);
+            }
         });
 
     }

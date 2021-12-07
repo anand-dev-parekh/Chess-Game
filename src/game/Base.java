@@ -49,7 +49,6 @@ public abstract class Base {
             }
         }
         return false;
-
     }
 
 
@@ -196,7 +195,7 @@ public abstract class Base {
     //Gets squares pieces can move to to block checkmate
     public ArrayList<ArrayList<int[]>> getBlockableSquares(Base[][] boardMatrix){
         ArrayList<ArrayList<int[]>> ayoh = new ArrayList<ArrayList<int[]>>(); //Blockable Squares
-        
+
         int[][] lineIterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
         for (int i = 0; i < lineIterators.length; i++){ 
             ayoh.add(this.addLines(boardMatrix, lineIterators[i][0], lineIterators[i][1])); //Add all lines for bishop queen and rook
@@ -206,7 +205,6 @@ public abstract class Base {
         for (int i = 0; i < knightChecks.length; i++){
             ayoh.add(this.addKnightCheck(boardMatrix, knightChecks[i][0], knightChecks[i][1]));// Add all lines for knight
         }
-        
         
         // Add pawn lines
         ayoh.add(addPawnRightCheck(boardMatrix)); 
@@ -231,6 +229,7 @@ public abstract class Base {
                 return knightPos;
             }
         }     
+
         return null;
     }
 
@@ -245,7 +244,7 @@ public abstract class Base {
 
         //Makes sure to skip checking the king for piece
         int x = this.x + decrementX; 
-        int y = this. y + decrementY; 
+        int y = this.y + decrementY; 
 
         while (inBounds(y, x)){ // While in bounds of chess board
 
@@ -262,6 +261,7 @@ public abstract class Base {
             x += decrementX;
             y += decrementY;
         }
+
         return null;
     }
 
@@ -294,14 +294,16 @@ public abstract class Base {
         
         //King can only be checked by pond in front of it
         if (color.equals("white")) possibleY = this.y - 1;            
-        else possibleY = this.x + 1; 
+        else possibleY = this.y + 1; 
         
         //Check if there is pawn of opposite color checking on right
         if (inBounds(possibleY, possibleX2) && boardMatrix[possibleY][possibleX2] != null && boardMatrix[possibleY][possibleX2].piece.equals("pawn") && !boardMatrix[possibleY][possibleX2].color.equals(this.color)){
             int[] coords2 = {possibleY, possibleX2};
             output.add(coords2);
+
             return output;
         }
+
         return null;        
     }
 

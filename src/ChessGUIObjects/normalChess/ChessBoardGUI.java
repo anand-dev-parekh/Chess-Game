@@ -43,9 +43,8 @@ public class ChessBoardGUI extends BaseBoardGUI{
 
 
         //Inits the boardObject
-        String[] topPieces  = {"rook", "knight", "bishop", "king", "queen", "bishop", "knight", "rook"};
+        String[] topPieces  = {"rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"};
         String[] botPieces  = {"pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn"};
-
         this.boardObject =  intializeBoardObject(topPieces, botPieces, botPieces, topPieces);
         //creates pieceGUIs and background
         createBoardGUI();
@@ -192,7 +191,6 @@ public class ChessBoardGUI extends BaseBoardGUI{
 
         this.boardObject.resetBoardObject();
         createBoardGUI();
-
     }
 
 
