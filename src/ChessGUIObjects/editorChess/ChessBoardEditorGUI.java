@@ -1,6 +1,5 @@
 package ChessGUIObjects.editorChess;
 
-import ChessGUIObjects.HelperGUI;
 import ChessGUIObjects.FilePaths;
 
 import java.io.FileInputStream;
@@ -9,6 +8,7 @@ import java.io.IOException;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -40,7 +40,7 @@ public class ChessBoardEditorGUI extends GridPane{
 
 
     private void createBoard(){
-        HelperGUI.createBackground(this);
+        createBackground();
 
         //Create Piece menu
         String[] pieceIterators = {"king", "queen", "rook", "bishop", "knight", "pawn"};
@@ -92,8 +92,8 @@ public class ChessBoardEditorGUI extends GridPane{
 
         this.add(clearEditorBoard, 8, 6);
         this.add(startPosition, 9, 6);
-
     }
+
 
     private void clearPieces(){
         ObservableList<Node> daNodes = this.getChildren();
@@ -113,6 +113,7 @@ public class ChessBoardEditorGUI extends GridPane{
         }
     }
 
+    
     private void startPosition(){
         this.clearPieces();
         //Black Pieces here
@@ -122,6 +123,18 @@ public class ChessBoardEditorGUI extends GridPane{
             this.add(new ChessPieceEditorGUI(this, order[x], "white"), x, 7);
             this.add(new ChessPieceEditorGUI(this, "pawn", "black"), x, 1);
             this.add(new ChessPieceEditorGUI(this, "pawn", "white"), x, 6);
+        }
+    }
+
+    public void createBackground(){
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+
+                Rectangle square = new Rectangle(90, 90, 90, 90);
+                if ((y + x) % 2 == 0) square.setFill(Color.AZURE);
+                else square.setFill(Color.POWDERBLUE);
+                this.add(square, y, x);
+            }
         }
     }
 }

@@ -11,13 +11,14 @@ import javafx.scene.paint.ImagePattern;
 public class ChessPieceGUI extends BasePieceGUI {
 
 
+    int paddingX = 30;
+    int paddingY = 50;
+
     public ChessPieceGUI(FileInputStream pathway, ChessBoardGUI boardGUIinitial){
         this.setCursor(Cursor.OPEN_HAND);
         this.setHeight(90);
         this.setWidth(90);
 
-        this.paddingX = 30;
-        this.paddingY = 50;
 
         Image image = new Image(pathway);
         this.setFill(new ImagePattern(image));
@@ -80,6 +81,7 @@ public class ChessPieceGUI extends BasePieceGUI {
                         }
                     }
                     else boardGUI.stateOfDaMove.setText("Gotta give it to you, valid Move");
+                    
                 }
 
                 else {

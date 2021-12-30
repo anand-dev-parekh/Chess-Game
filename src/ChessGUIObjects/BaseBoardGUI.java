@@ -250,6 +250,4 @@ public abstract class BaseBoardGUI extends GridPane{
         }
         return basePiece;
     }
-
-
 }

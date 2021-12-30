@@ -12,15 +12,15 @@ import javafx.scene.paint.ImagePattern;
 
 public class BattlePieceGUI extends BasePieceGUI{
 
+    int paddingX = 0;
+    int paddingY = 0;
+
     public BattlePieceGUI(String piece, BattleGUI battleGUI){
     
         this.boardGUI = battleGUI;
         this.setCursor(Cursor.OPEN_HAND);
         this.setHeight(90);
         this.setWidth(90);
-
-        this.paddingX = 0;
-        this.paddingY = 0;
 
         try{ 
 

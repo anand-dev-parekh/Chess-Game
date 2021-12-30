@@ -226,11 +226,10 @@ public class Board {
         }
         
         else{
-            Base[][] ye = this.prevBoards.get(this.currMove);
 
             for (int i = 0; y < 8; y++){
                 for (int j = 0; x < 8; x++){
-                    ye[i][j] = this.matrix[i][j];
+                    this.prevBoards.get(this.currMove)[i][j] = this.matrix[i][j];
                 }
             }
         }
@@ -251,6 +250,7 @@ public class Board {
 
     }
 
+    
     public int isBattleOver(){
         if (whitePieceCount == 0) return 1;
         else if (blackPieceCount == 0) return 2;
@@ -288,7 +288,7 @@ public class Board {
         }
     }
 
-    
+    /*
     private String MatrixToFen(Base[][] matrix){
         String fen = "";
         int empty = 0;
@@ -323,5 +323,6 @@ public class Board {
         }
         return fen;
     }
+    */
 
 }

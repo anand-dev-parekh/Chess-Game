@@ -1,19 +1,19 @@
 package ChessGUIObjects.editorChess;
 
 import ChessGUIObjects.FilePaths;
-import ChessGUIObjects.HelperGUI;
 
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Cursor;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.image.Image;
+
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.image.Image;
 
 
 public class ChessPieceEditorGUI extends Rectangle{
@@ -54,8 +54,26 @@ public class ChessPieceEditorGUI extends Rectangle{
         onClick();
     }
 
+    private void mouseMovement(){
+        this.setOnMousePressed(e ->{
+            this.startX = e.getSceneX();
+            this.startY = e.getSceneY();
+
+            this.setCursor(Cursor.CLOSED_HAND);
+            this.toFront();
+        });
+
+        this.setOnMouseDragged(e ->{
+            
+            this.setTranslateX((e.getSceneX() - this.startX));
+            this.setTranslateY((e.getSceneY() - this.startY));
+            this.setCursor(Cursor.CLOSED_HAND);
+        });
+    }
+
+
     private void onClick(){
-        HelperGUI.mouseMovement(this);
+        mouseMovement();
 
         this.setOnMouseReleased(e ->{
             this.setCursor(Cursor.OPEN_HAND);

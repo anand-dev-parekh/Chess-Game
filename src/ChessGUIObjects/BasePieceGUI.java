@@ -41,7 +41,6 @@ public class BasePieceGUI extends Rectangle{
 
         boardGUI.backgrounds[x][y].setFill(Color.LIGHTYELLOW);
         boardGUI.backgrounds[newX][newY].setFill(Color.LIGHTYELLOW);
-
     }
 
 
@@ -79,7 +78,4 @@ public class BasePieceGUI extends Rectangle{
             boardGUI.backgrounds[x][y].setFill(Color.POWDERBLUE);
         }
     }
-
-
-    
 }
