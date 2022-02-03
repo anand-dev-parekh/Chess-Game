@@ -9,7 +9,6 @@ public class Board {
     public String turn = "white";
 
     public ArrayList<Base[][]> prevBoards;
-    public int currMove = 1;
     
     private int fiftyMove = 0;
     private int earliestRepeatableBoard = 1;
@@ -18,7 +17,7 @@ public class Board {
     public int blackPieceCount = 16;
 
     public Base[] pieceInstances = new Base[32];
-
+    public boolean gameOver = false;
 
 
     public Board(Base[][] matrix, ArrayList<Base[][]> prevBoards){
@@ -27,6 +26,8 @@ public class Board {
     }
 
 
+
+    //If stalemate or checkmate game is over.
     public boolean isGameOver(){
 
         int[] daKing = this.findKing(this.turn); // Finds king of said colorz
@@ -41,7 +42,7 @@ public class Board {
         return false;
     }
 
-
+    //Is there checkmate
     private boolean isCheckmate (String color, int kingY, int kingX, boolean isCheck){
 
         if (!isCheck) return false;
@@ -71,7 +72,7 @@ public class Board {
         return true;
     }   
 
-
+    //Is there stalemate
     private boolean isStalemate (String color, int kingY, int kingX, boolean isCheck){
         
         if (isCheck) return false; // If in check return false since it CANNOT be stalemate
@@ -81,7 +82,9 @@ public class Board {
             for (int x = 0; x < this.matrix[y].length; x++) //Iterates all x values for each column/y value
             {
                 // If Piece of same color can move return false
-                if (this.matrix[y][x] != null && this.matrix[y][x].color.equals(color) && this.matrix[y][x].canMove(this)) return false; 
+                if (this.matrix[y][x] != null && this.matrix[y][x].color.equals(color)) {
+                    if (this.matrix[y][x].canMove(this)) return false;
+                } 
             }
         }
 
@@ -92,7 +95,7 @@ public class Board {
     private boolean isRepetition(){
         int count = 0;
 
-        for (int i = this.earliestRepeatableBoard; i < this.currMove - 1; i++){
+        for (int i = this.earliestRepeatableBoard; i < this.prevBoards.size() - 1; i++){
             if (arraysAreEqual(this.matrix, this.prevBoards.get(i))) count++;
             if (count == 2) return true;
         }
@@ -112,9 +115,8 @@ public class Board {
         return true;
     }
     
-
+     //Checks 50 move rule
     private boolean isFiftyMove(){
-        //Checks 50 move rule
         if (this.fiftyMove > 50) return true; //i think this is supposed to be = 50 - akhil
         return false;
     }
@@ -125,7 +127,7 @@ public class Board {
         return false;
     }
 
-
+    //Finds king
     public int[] findKing(String color){
         for (int i = 0; i < this.matrix.length; i++){ //Iterates all the colums/y value of board
 
@@ -139,8 +141,8 @@ public class Board {
         return new int[] {0, 0};
     }
 
-
-    private boolean moreThanTwo(ArrayList<ArrayList<int[]>> checkSquares){ //Checks if there are more than two ways king is being checked
+    //Checks if there are more than two ways king is being checked
+    private boolean moreThanTwo(ArrayList<ArrayList<int[]>> checkSquares){ 
         int count = 0;
         for (int i = 0; i < checkSquares.size(); i++){
             if (checkSquares.get(i) != null) {
@@ -151,7 +153,7 @@ public class Board {
     }
 
 
-
+    //Updates boardObject matrix after valid Move
     public void updateBoardObjectMatrix(int y, int x, int newY, int newX){
         if (this.matrix[newY][newX] == null && !this.matrix[y][x].piece.equals("pawn")) this.fiftyMove++; //Checks if no taking was done
         else {
@@ -164,23 +166,24 @@ public class Board {
             if (newX > x){ //if castling kingside
                 this.matrix[y][x + 1] = this.matrix[y][x + 3]; //moves rook 2 square
                 this.matrix[y][x + 3] = null; //sets prev rook square to null
-                this.matrix[y][x + 1].x = x + 1; //updates x attribute for rook
+                this.matrix[y][x + 1].setX(x); //updates x attribute for rook
             }
             else{ //if queenside - basically same thing happens but opposite side
                 this.matrix[y][x - 1] = this.matrix[y][x - 4];
                 this.matrix[y][x - 4] = null; 
-                this.matrix[y][x - 1].x = x - 1;
+                this.matrix[y][x - 1].setX(x);
             }
         }
 
         //update the attributes of da piece you moved
-        this.matrix[y][x].x = newX; 
-        this.matrix[y][x].y = newY; 
+        this.matrix[y][x].setX(newX);; 
+        this.matrix[y][x].setY(newY);; 
 
-        //movin da piece on da board
+        //Deleting piece from GUI
         if (this.matrix[newY][newX] != null){
             if (this.matrix[newY][newX].basePieceGUI != null) this.matrix[newY][newX].basePieceGUI.boardGUI.destroyPiece(this.matrix[newY][newX].basePieceGUI);
-
+            
+            //Updates battleGUI logic
             if (this.turn.equals("white")){
                 blackPieceCount--;
             }
@@ -189,13 +192,14 @@ public class Board {
             }
         }
 
+        //Moves piece on boardObject
         this.matrix[newY][newX] = this.matrix[y][x];
         this.matrix[y][x] = null;
         
-        //changes extra stuff if en pessant
+        //Changes extra stuff if en pessant
         if (this.matrix[newY][newX].enPessant){
             if (this.matrix[newY][newX].color.equals("white")){
-
+                
                 if (this.matrix[newY + 1][newX].basePieceGUI != null) this.matrix[newY + 1][newX].basePieceGUI.boardGUI.destroyPiece(this.matrix[newY + 1][newX].basePieceGUI);
                 this.matrix[newY + 1][newX] = null;
             }
@@ -207,50 +211,29 @@ public class Board {
             this.fiftyMove = 0; //Resets fifty move rule since en pessant
         }
 
-        //if promotion
-        if (this.matrix[newY][newX].promotion){
-            System.out.println("Promotion Working");
-        }
-
-        // sets has moved for castling
-
-        if (this.currMove == this.prevBoards.size()){
-            Base[][] tempBoardMatrix = new Base[8][8];
-            for (int i = 0; i < this.matrix.length; i++){
-                for (int j = 0; j < this.matrix[i].length; j++){
-                    tempBoardMatrix[i][j] = this.matrix[i][j]; 
-                }
-            }
-            this.prevBoards.add(tempBoardMatrix); 
-
-        }
-        
-        else{
-
-            for (int i = 0; y < 8; y++){
-                for (int j = 0; x < 8; x++){
-                    this.prevBoards.get(this.currMove)[i][j] = this.matrix[i][j];
-                }
+        //Adds board to previous board object
+        Base[][] tempBoardMatrix = new Base[8][8];
+        for (int i = 0; i < this.matrix.length; i++){
+            for (int j = 0; j < this.matrix[i].length; j++){
+                tempBoardMatrix[i][j] = this.matrix[i][j]; 
             }
         }
-        
-        this.currMove++;            
+        this.prevBoards.add(tempBoardMatrix); 
+
         if (this.turn.equals("white")) this.turn = "black";
         else this.turn = "white";
-
     }
 
-
+    //Updates boolean attributes of pieces after valid move
     public void updateAttributesMoveWork(int newY, int newX){
         this.matrix[newY][newX].hasMoved = true; // Resets hasMoved
         this.matrix[newY][newX].promotion = false; //Resets promotions
         this.matrix[newY][newX].enPessant = false; // Resets enpessant to false
         this.matrix[newY][newX].castle = false; //Resets castling
-
-
     }
 
     
+    //is battle game over
     public int isBattleOver(){
         if (whitePieceCount == 0) return 1;
         else if (blackPieceCount == 0) return 2;
@@ -258,12 +241,13 @@ public class Board {
     }
 
 
+    //Resets board Object
     public void resetBoardObject(){
         this.fiftyMove = 0;
-        this.currMove = 1;
         this.earliestRepeatableBoard = 1;
         this.turn = "white";
-        //this.prevBoards = new ArrayList<Base[][]>();
+        this.prevBoards = new ArrayList<Base[][]>();
+        this.gameOver = false;
 
         int arrayListY = 0;
         for (int y = 0; y < 8; y++){
@@ -271,8 +255,8 @@ public class Board {
                 if (y == 0 || y == 1 || y == 6 || y == 7){
                     this.matrix[y][x] = this.pieceInstances[(arrayListY * 8) + x];
 
-                    this.matrix[y][x].x = x;
-                    this.matrix[y][x].y = y;
+                    this.matrix[y][x].setX(x);;
+                    this.matrix[y][x].setY(y);;
                     this.matrix[y][x].castle = false;
                     this.matrix[y][x].hasMoved = false;
                     this.matrix[y][x].promotion = false;
@@ -282,9 +266,7 @@ public class Board {
                     this.matrix[y][x] = null;
                 }
             }
-            if (y == 0 || y == 1 || y == 6 || y == 7){
-                arrayListY++;
-            }
+            if (y == 0 || y == 1 || y == 6 || y == 7) arrayListY++;
         }
     }
 

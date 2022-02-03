@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -22,7 +23,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
 
 
 public class ChessBoardGUI extends BaseBoardGUI{
@@ -43,9 +43,9 @@ public class ChessBoardGUI extends BaseBoardGUI{
 
 
         //Inits the boardObject
-        String[] topPieces  = {"rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"};
-        String[] botPieces  = {"pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn"};
-        this.boardObject =  intializeBoardObject(topPieces, botPieces, botPieces, topPieces);
+        String[] top  = {"rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"};
+        String[] bot  = {"pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn", "pawn"};
+        this.boardObject =  intializeBoardObject(top, bot, bot, top);
         //creates pieceGUIs and background
         createBoardGUI();
         
@@ -144,6 +144,7 @@ public class ChessBoardGUI extends BaseBoardGUI{
     }
 
     //Moves the acutal piece
+    @Override
     public void updateBoardGUI(int y, int x, int newY, int newX, BasePieceGUI pieceGUI){
         this.movePiece(pieceGUI, newY, newX);
 
@@ -181,19 +182,7 @@ public class ChessBoardGUI extends BaseBoardGUI{
     }
 
 
-    //For now we will just create a new instance. DOwn the road make pieces attributes, and just reinput pieces to save memory.
-    public void resetBoard(){
-        if (isGalooeh){
-            this.buttonContainer.getChildren().remove(this.moveBackward);
-            this.buttonContainer.getChildren().remove(this.moveForward);
-        }
-        this.boardView = 1;
-
-        this.boardObject.resetBoardObject();
-        createBoardGUI();
-    }
-
-
+    //Creates boardGUI
     private void createBoardGUI(){
         this.getChildren().clear();
 
@@ -233,6 +222,4 @@ public class ChessBoardGUI extends BaseBoardGUI{
         
         return;
     }
-
-
 }

@@ -11,8 +11,6 @@ import javafx.scene.paint.ImagePattern;
 public class ChessPieceGUI extends BasePieceGUI {
 
 
-    int paddingX = 30;
-    int paddingY = 50;
 
     public ChessPieceGUI(FileInputStream pathway, ChessBoardGUI boardGUIinitial){
         this.setCursor(Cursor.OPEN_HAND);
@@ -23,6 +21,8 @@ public class ChessPieceGUI extends BasePieceGUI {
         Image image = new Image(pathway);
         this.setFill(new ImagePattern(image));
 
+        paddingX = 30;
+        paddingY = 50;
 
         
         this.boardGUI = boardGUIinitial;
@@ -31,12 +31,12 @@ public class ChessPieceGUI extends BasePieceGUI {
     }   
     
     
-
+    
     public void onClick(){
         mouseMovementOn();
              
         this.setOnMouseReleased(e ->{
-            if (this.boardGUI.boardView == 1){
+            if (this.boardGUI.boardView == 1 && !boardGUI.boardObject.gameOver){
 
                 this.setCursor(Cursor.OPEN_HAND);
 
@@ -74,6 +74,7 @@ public class ChessPieceGUI extends BasePieceGUI {
                     boardGUI.boardObject.updateAttributesMoveWork(newY, newX);
 
                     if (boardGUI.boardObject.isGameOver()) {
+                        boardGUI.boardObject.gameOver = true;
                         boardGUI.stateOfDaMove.setText("U truly da best. Simply Put DA GAME IS OVER.");
                         if (boardGUI.isGalooeh){
                             boardGUI.showRegPieces();

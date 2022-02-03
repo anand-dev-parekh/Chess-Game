@@ -20,11 +20,10 @@ public class BattleGUI extends BaseBoardGUI{
         String[] bot = {"knight", "knight", "knight", "knight", "knight", "knight", "knight", "knight"};
 
         this.boardObject = intializeBoardObject(top, top, bot, bot);
-        createBattleGUI(stateOfDaMove);
+        createBoardGUI(stateOfDaMove);
     }
 
-
-    private void createBattleGUI(Label stateOfDaMove){
+    private void createBoardGUI(Label stateOfDaMove){
         for (int i = 0; i < 8; i++){
             BattlePieceGUI topBishopNode = new BattlePieceGUI("teemteem", this);
             this.boardObject.matrix[0][i].basePieceGUI = topBishopNode;

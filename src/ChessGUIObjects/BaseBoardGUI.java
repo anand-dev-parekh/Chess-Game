@@ -43,7 +43,7 @@ public abstract class BaseBoardGUI extends GridPane{
 
     public boolean isGalooeh;
 
-
+    //Creates chess square background
     public void createBackground(){
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
@@ -57,8 +57,53 @@ public abstract class BaseBoardGUI extends GridPane{
         }
     }
 
+    
+    //For now we will just create a new instance. DOwn the road make pieces attributes, and just reinput pieces to save memory.
+    public void resetGame(){
+        if (isGalooeh){
+            this.buttonContainer.getChildren().remove(this.moveBackward);
+            this.buttonContainer.getChildren().remove(this.moveForward);
+        }
+        this.boardView = 1;
+
+        this.boardObject.resetBoardObject();
+        resetBoardGUI();
+    }
+
+    //Resets boardGUI
+    private void resetBoardGUI(){
+        this.destroyAllPieceNodes();
+         
+        //Deletes old highlights
+        if ((prevMoveNewBackground[0] + prevMoveNewBackground[1]) % 2 == 0){
+            backgrounds[prevMoveNewBackground[0]][prevMoveNewBackground[1]].setFill(Color.AZURE);
+        }
+        else {
+            backgrounds[prevMoveNewBackground[0]][prevMoveNewBackground[1]].setFill(Color.POWDERBLUE);
+        }
+
+        if ((prevMoveOldBackground[0] + prevMoveOldBackground[1]) % 2 == 0){
+            backgrounds[prevMoveOldBackground[0]][prevMoveOldBackground[1]].setFill(Color.AZURE);
+        }
+        else {
+            backgrounds[prevMoveOldBackground[0]][prevMoveOldBackground[1]].setFill(Color.POWDERBLUE);
+        }
+
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                if (boardObject.matrix[y][x] != null){
+                this.add(boardObject.matrix[y][x].basePieceGUI, x, y);
+                }
+            }
+        }
+    }
+
+
+    //Updates boardGUI
     public abstract void updateBoardGUI(int y, int x, int newY, int newX, BasePieceGUI pieceGUI);
 
+
+    //Moves pieceGUI object
     protected void movePiece(BasePieceGUI basePieceGUI, int newY, int newX){
         GridPane.setColumnIndex(basePieceGUI, newX);
         GridPane.setRowIndex(basePieceGUI, newY);
@@ -68,19 +113,21 @@ public abstract class BaseBoardGUI extends GridPane{
         GridPane.setValignment(basePieceGUI, VPos.CENTER);
     }
 
-
+    //Destroys pieceGUI
     public void destroyPiece(BasePieceGUI pieceGUI){
         this.getChildren().remove(pieceGUI);
     }
     
+    //Move back and forth chess.
     public void moveBackOrForward(int decrement){
-        if (this.boardView + decrement > 0 && this.boardView + decrement <= this.boardObject.currMove){
+        if (this.boardView + decrement > 0 && this.boardView + decrement <= this.boardObject.prevBoards.size()){
             this.boardView += decrement;
-            this.updateBoardViewing(this.boardObject.prevBoards.get(this.boardObject.currMove - this.boardView));
+            this.updateBackwardsMovement(this.boardObject.prevBoards.get(this.boardObject.prevBoards.size() - this.boardView));
         } 
     }
 
-    private void updateBoardViewing(Base[][] displayBoard){
+    //Helper function to moving back and forth
+    private void updateBackwardsMovement(Base[][] displayBoard){
         this.destroyAllPieceNodes();
 
         if (boardView == 1){
@@ -130,8 +177,8 @@ public abstract class BaseBoardGUI extends GridPane{
         }
     }
 
-
-    private void destroyAllPieceNodes(){
+    //Destroys all piece GUIS
+    protected void destroyAllPieceNodes(){
         ObservableList<Node> nodes = this.getChildren();
         ArrayList<Node> nodesToRemove = new ArrayList<Node>();
 
@@ -146,7 +193,7 @@ public abstract class BaseBoardGUI extends GridPane{
         }
     }
 
-    //Galooeh game stuff - show pieces and back and forth buttons after checkmate
+    //Galooeh game stuff - show pieces and back and forth buttons after game over
     public void showRegPieces(){
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
@@ -167,12 +214,12 @@ public abstract class BaseBoardGUI extends GridPane{
         }
     }
 
-
+    //Shows move forward and backwards buttons
     public void showButtons(){
         buttonContainer.getChildren().addAll(moveBackward, moveForward);
     }
 
-
+    //Creates board Object
     protected Board intializeBoardObject(String[] rowZero, String[] rowOne, String[] rowSix, String[] rowSeven){
         Base[][] matrix = createMatrix(rowZero, rowOne, rowSix, rowSeven);
 
@@ -193,6 +240,7 @@ public abstract class BaseBoardGUI extends GridPane{
         return boardObject;
     } 
 
+    //Helper function to intialize boardObject
     private Base[][] createMatrix(String[] rowZero, String[] rowOne, String[] rowSix, String[] rowSeven){
         Base[][] matrix = new Base[8][8];
 
@@ -213,6 +261,7 @@ public abstract class BaseBoardGUI extends GridPane{
         return matrix;
     }
 
+    //Helper function to intialize boardObject
     private Base[] addPieceInstances(Base[][] boardMatrix){
         Base[] pieceInstances = new Base[32];
         for (int x = 0; x < 8; x++){
@@ -227,6 +276,7 @@ public abstract class BaseBoardGUI extends GridPane{
         return pieceInstances;
     }
 
+     //Helper function to intialize boardObject
     private Base createBasePiece(String piece, String color, int y, int x){
         Base basePiece;
 

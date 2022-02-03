@@ -10,15 +10,17 @@ public class Bishop extends Base{
     
     @Override
     public boolean canMove(Board boardObject){
+        int y = getY(), x = getX();
+
 
         //Directions to check for making move
-        int[][] iterators = {{this.y + 1, this.x + 1}, {this.y + 1, this.x - 1}, {this.y - 1, this.x - 1}, {this.y - 1, this.x + 1}};
+        int[][] iterators = {{y + 1, x + 1}, {y + 1, x - 1}, {y - 1, x - 1}, {y - 1, x + 1}};
 
         for (int i = 0; i < iterators.length; i++){
 
             if (inBounds(iterators[i][0], iterators[i][1])){
                 //If bishop can make move return true
-                if ((boardObject.matrix[iterators[i][0]][iterators[i][1]] == null || !boardObject.matrix[iterators[i][0]][iterators[i][1]].color.equals(this.color)) && boardObject.matrix[this.y][this.x].isCheckAfterMove(boardObject, iterators[i][0], iterators[i][1])) return true;
+                if ((boardObject.matrix[iterators[i][0]][iterators[i][1]] == null || !boardObject.matrix[iterators[i][0]][iterators[i][1]].color.equals(this.color)) && !boardObject.matrix[y][x].isCheckAfterMove(boardObject, iterators[i][0], iterators[i][1])) return true;
             }        
         }
 
@@ -28,7 +30,9 @@ public class Bishop extends Base{
 
     @Override
     public boolean validMove(Board boardObject, int newY, int newX){
-        if (this.x == newX && this.y == newY) return false; //Cant move to same spot
+        int y = getY(), x = getX();
+
+        if (x == newX && y == newY) return false; //Cant move to same spot
         
         int xOffset = newX - x, yOffset = newY - y;
         
@@ -37,8 +41,6 @@ public class Bishop extends Base{
         
         // Checks to make sure new position isnt occupied by piece of same color
         if (boardObject.matrix[newY][newX] != null && boardObject.matrix[newY][newX].color == this.color) return false; 
-
-        int x = this.x, y = this.y;                                     
 
         for (int i = 1; i < Math.abs(xOffset); i++)
         {

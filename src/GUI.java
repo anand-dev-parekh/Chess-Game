@@ -29,7 +29,7 @@ public class GUI extends Application {
         
         //Right Hbox
         Button resetGame = new Button("Reset");
-        resetGame.setOnAction(event -> daGrid.resetBoard());
+        resetGame.setOnAction(event -> daGrid.resetGame());
 
         Button pastMoves = new Button("Move back");
         pastMoves.setOnAction(e -> daGrid.moveBackOrForward(1));
@@ -61,7 +61,9 @@ public class GUI extends Application {
         Label stateChanging2 = new Label("");
 
         BattleGUI battleGUI = new BattleGUI(stateChanging2);
+
         Button resetGame2 = new Button("Reset");
+        resetGame2.setOnAction(e -> battleGUI.resetGame());
 
         Button pastMoves2 = new Button("Move back");
         pastMoves2.setOnAction( e -> battleGUI.moveBackOrForward(1));
@@ -88,7 +90,7 @@ public class GUI extends Application {
 
         //Right Hbox
         Button galooehReset = new Button("Reset");
-        galooehReset.setOnAction(event -> galooehGUI.resetBoard());
+        galooehReset.setOnAction(event -> galooehGUI.resetGame());
 
         Button galooehPastMoves = new Button("Move back");
         galooehPastMoves.setOnAction(e -> galooehGUI.moveBackOrForward(1));

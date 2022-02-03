@@ -7,8 +7,8 @@ public abstract class Base {
 
     //declares the base attributes of all pieces
     final public String color;              
-    public int x;
-    public int y;
+    private int x;
+    private int y;
     final public String piece;
 
     public boolean enPessant = false;
@@ -30,6 +30,20 @@ public abstract class Base {
     public abstract boolean validMove(Board boardObject, int y, int x);
     public abstract boolean canMove(Board boardObject);
 
+    //Getters and setters of coordanites
+    public int getX(){
+        return this.x;
+    }
+    public void setX(int x){
+        this.x = x;
+    }
+    public int getY(){
+        return this.y;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
+
 
     //Checks if coordanites are in bounds of the board
     protected boolean inBounds(int y, int x){
@@ -40,11 +54,13 @@ public abstract class Base {
 
     //If piece can block squares
     public boolean canBlock(ArrayList<ArrayList<int[]>> blockSquares, Board board){
+        int y = getY(), x = getX();
+
         for (int i = 0; i < blockSquares.size();i++){ //Iterates through Blockable Squares
             if (blockSquares.get(i) != null){
                 for (int j = 0; j < blockSquares.get(i).size(); j++){
                     // If piece can make a valid and non check move to block squares return true
-                    if (board.matrix[this.y][this.x].validMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1]) && !board.matrix[y][x].isCheckAfterMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1])) return true;
+                    if (board.matrix[y][x].validMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1]) && !board.matrix[y][x].isCheckAfterMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1])) return true;
                 }
             }
         }
@@ -55,8 +71,7 @@ public abstract class Base {
 
     //Will check if king is in check after move has been played
     public boolean isCheckAfterMove(Board boardObject, int newY, int newX){
-        int x = this.x;
-        int y = this.y;
+        int y = getY(), x = getX();
 
         //If EnPessant remove piece that was enpessanted on temporary board
         Base tempEnPessant = null;
@@ -75,8 +90,8 @@ public abstract class Base {
         // If move was castle, We check three positions king could have been checked from.
         if (this.castle){ 
             int decrement = 1;
-            if (newX < this.x) decrement = -1;
-            return (this.isCheck(boardObject.matrix, this.y, this.x) || this.isCheck(boardObject.matrix, this.y, this.x + decrement) || this.isCheck(boardObject.matrix, this.y, this.x + decrement * 2));
+            if (newX < x) decrement = -1;
+            return (this.isCheck(boardObject.matrix, y, x) || this.isCheck(boardObject.matrix, y, x + decrement) || this.isCheck(boardObject.matrix, y, x + decrement * 2));
         }
 
 
@@ -194,6 +209,8 @@ public abstract class Base {
 
     //Gets squares pieces can move to to block checkmate
     public ArrayList<ArrayList<int[]>> getBlockableSquares(Base[][] boardMatrix){
+        int y = getY(), x = getX();
+
         ArrayList<ArrayList<int[]>> ayoh = new ArrayList<ArrayList<int[]>>(); //Blockable Squares
 
         int[][] lineIterators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
@@ -201,7 +218,7 @@ public abstract class Base {
             ayoh.add(this.addLines(boardMatrix, lineIterators[i][0], lineIterators[i][1])); //Add all lines for bishop queen and rook
         }
 
-        int[][] knightChecks = {{this.y - 2, this.x + 1},{this.y + 2, this.x + 1}, {this.y - 1, this.x + 2}, {this.y + 1, this.x + 2}, {this.y - 2, this.x - 1},{this.y + 2, this.x - 1}, {this.y - 1, this.x - 2}, {this.y + 1, this.x - 2}};
+        int[][] knightChecks = {{y - 2, x + 1},{y + 2, x + 1}, {y - 1, x + 2}, {y + 1, x + 2}, {y - 2, x - 1},{y + 2, x - 1}, {y - 1, x - 2}, {y + 1, x - 2}};
         for (int i = 0; i < knightChecks.length; i++){
             ayoh.add(this.addKnightCheck(boardMatrix, knightChecks[i][0], knightChecks[i][1]));// Add all lines for knight
         }
@@ -243,8 +260,8 @@ public abstract class Base {
         if (Math.abs(decrementX) == 1 && Math.abs(decrementY) == 1) piece = "bishop"; 
 
         //Makes sure to skip checking the king for piece
-        int x = this.x + decrementX; 
-        int y = this.y + decrementY; 
+        int x = getX() + decrementX; 
+        int y = getY() + decrementY; 
 
         while (inBounds(y, x)){ // While in bounds of chess board
 
@@ -269,11 +286,11 @@ public abstract class Base {
     //Adds Pawn Left check in ArrayList<int[]> Form
     private ArrayList<int[]> addPawnLeftCheck(Base[][] boardMatrix){ 
         ArrayList<int[]> output = new ArrayList<int[]>();
-        int possibleX1 = this.x - 1, possibleY;
+        int possibleX1 = getY() - 1, possibleY;
 
         //King can only be checked by pond in front of it
-        if (color.equals("white")) possibleY = this.y - 1;           
-        else possibleY = this.y + 1;                                 
+        if (color.equals("white")) possibleY = getY() - 1;           
+        else possibleY = getY() + 1;                                 
 
         //Check if there is pawn of opposite color checking on left
         if (inBounds(possibleY, possibleX1) && boardMatrix[possibleY][possibleX1] != null && boardMatrix[possibleY][possibleX1].piece.equals("pawn") && !boardMatrix[possibleY][possibleX1].color.equals(this.color)){
@@ -289,12 +306,12 @@ public abstract class Base {
     //Adds Pawn Right check in ArrayList<int[]> Form
     private ArrayList<int[]> addPawnRightCheck(Base[][] boardMatrix){
         ArrayList<int[]> output = new ArrayList<int[]>();
-        int possibleX2 = this.x + 1, possibleY;
+        int possibleX2 = getX() + 1, possibleY;
 
         
         //King can only be checked by pond in front of it
-        if (color.equals("white")) possibleY = this.y - 1;            
-        else possibleY = this.y + 1; 
+        if (color.equals("white")) possibleY = getY() - 1;            
+        else possibleY = getY()+ 1; 
         
         //Check if there is pawn of opposite color checking on right
         if (inBounds(possibleY, possibleX2) && boardMatrix[possibleY][possibleX2] != null && boardMatrix[possibleY][possibleX2].piece.equals("pawn") && !boardMatrix[possibleY][possibleX2].color.equals(this.color)){

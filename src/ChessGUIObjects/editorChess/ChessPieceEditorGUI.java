@@ -42,11 +42,8 @@ public class ChessPieceEditorGUI extends Rectangle{
             System.out.println("AYOHOHOHOH");
         }
 
-
         this.color = color;
         this.piece = piece;
-
-
 
         this.daBoard = daBoard;
 

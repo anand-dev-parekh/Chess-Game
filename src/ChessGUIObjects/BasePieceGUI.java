@@ -12,9 +12,10 @@ public class BasePieceGUI extends Rectangle{
     protected int paddingY;
 
     public BaseBoardGUI boardGUI;
-
+    
+    //Updates highlighting of squares
     protected void updateBackgrounds(int y, int x, int newY, int newX){
-        //resets
+        //resets highlighted yellow moves
         if (boardGUI.prevMoveNewBackground != null){
 
             if ((boardGUI.prevMoveNewBackground[0] + boardGUI.prevMoveNewBackground[1]) % 2 == 0){
@@ -32,7 +33,7 @@ public class BasePieceGUI extends Rectangle{
             }
         }
 
-        //Changes if valid move
+        //Changes new move to highlighted yellow
         boardGUI.prevMoveOldBackground[0] = x;
         boardGUI.prevMoveOldBackground[1] = y;
 
@@ -46,7 +47,7 @@ public class BasePieceGUI extends Rectangle{
 
     public void mouseMovementOn(){
         this.setOnMousePressed(e ->{
-            if (boardGUI.boardView == 1){
+            if (boardGUI.boardView == 1 && !boardGUI.boardObject.gameOver){
                 this.startX = e.getSceneX();
                 this.startY = e.getSceneY();
 
@@ -61,7 +62,7 @@ public class BasePieceGUI extends Rectangle{
         });
 
         this.setOnMouseDragged(e ->{
-            if (boardGUI.boardView == 1){
+            if (boardGUI.boardView == 1 && !boardGUI.boardObject.gameOver){
                 this.setTranslateX((e.getSceneX() - this.startX));
                 this.setTranslateY((e.getSceneY() - this.startY));
                 this.setCursor(Cursor.CLOSED_HAND);

@@ -67,9 +67,11 @@ public class BattlePieceGUI extends BasePieceGUI{
                 boardGUI.stateOfDaMove.setText("Gotta Give it to you, Valid Move");
 
                 if (boardGUI.boardObject.isBattleOver() == 1){
+                    boardGUI.boardObject.gameOver = true;
                     boardGUI.stateOfDaMove.setText("LEZ GOO teemteem ez win");
                 }
                 else if (boardGUI.boardObject.isBattleOver() == 2){
+                    boardGUI.boardObject.gameOver = false;
                     boardGUI.stateOfDaMove.setText("AYOH FO DA WIN ");
                 }
             }
