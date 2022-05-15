@@ -55,10 +55,11 @@ public abstract class Base {
     //If piece can block squares
     public boolean canBlock(ArrayList<ArrayList<int[]>> blockSquares, Board board){
         int y = getY(), x = getX();
-
         for (int i = 0; i < blockSquares.size();i++){ //Iterates through Blockable Squares
             if (blockSquares.get(i) != null){
                 for (int j = 0; j < blockSquares.get(i).size(); j++){
+
+                    //System.out.println(y + " " + x);
                     // If piece can make a valid and non check move to block squares return true
                     if (board.matrix[y][x].validMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1]) && !board.matrix[y][x].isCheckAfterMove(board, blockSquares.get(i).get(j)[0], blockSquares.get(i).get(j)[1])) return true;
                 }

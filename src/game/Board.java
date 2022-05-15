@@ -64,6 +64,7 @@ public class Board {
             for (int x = 0; x < this.matrix[y].length; x++) //Iterates all x values for each column/y value
             {
                 if (this.matrix[y][x] != null && this.matrix[y][x].color.equals(color) && !this.matrix[y][x].piece.equals("king")){ // Any piece of same color
+                    System.out.println(y + " " + x);
                     if (this.matrix[y][x].canBlock(blockableCheckSquares, this)) return false; // Checks if the piece can block the check
                 }   
             }
@@ -166,12 +167,12 @@ public class Board {
             if (newX > x){ //if castling kingside
                 this.matrix[y][x + 1] = this.matrix[y][x + 3]; //moves rook 2 square
                 this.matrix[y][x + 3] = null; //sets prev rook square to null
-                this.matrix[y][x + 1].setX(x); //updates x attribute for rook
+                this.matrix[y][x + 1].setX(x + 1); //updates x attribute for rook
             }
             else{ //if queenside - basically same thing happens but opposite side
                 this.matrix[y][x - 1] = this.matrix[y][x - 4];
                 this.matrix[y][x - 4] = null; 
-                this.matrix[y][x - 1].setX(x);
+                this.matrix[y][x - 1].setX(x - 1);
             }
         }
 
