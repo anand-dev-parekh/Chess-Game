@@ -12,4 +12,4 @@ This one of my first every projects I made! I built a Chess GUI but with differe
 
 
 ## Test Locally
-I built and ran the game using vsCode launch.json to make it simple. If you would like to do so also, update to launch.json and settings.json with your paths to javafx module.
+I built and ran the game using vsCode launch.json to make it simple. If you would like to do so also, update launch.json and settings.json with your paths to your javafx module (you must download this yourself).
