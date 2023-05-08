@@ -6,44 +6,24 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch TerminalChess",
-            "request": "launch",
-            "mainClass": "TerminalChess",
-            "projectName": "src_3217b131"
-        },
-        {
-            "type": "java",
-            "name": "Launch TerminalChess",
-            "request": "launch",
-            "mainClass": "TerminalChess",
-            "projectName": "src_e0fd1f1f"
-        },
-        {
-            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
         },
         {
             "type": "java",
-            "name": "Launch Chess",
-            "request": "launch",
-            "mainClass": "Chess",
-            "projectName": "src_e0fd1f1f"
-        },
-        {
-            "type": "java",
             "name": "Launch GUI",
             "request": "launch",
             "mainClass": "GUI",
-            "projectName": "src_e0fd1f1f",
+            "projectName": "Chess-Game-Clone_144378ca",
             "vmArgs": "--module-path /Users/anandparekh/Downloads/javafx-sdk-17.0.1/lib/ --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
-            "name": "Launch Main",
+            "name": "Launch TerminalChess",
             "request": "launch",
-            "mainClass": "Main"
+            "mainClass": "TerminalChess",
+            "projectName": "Chess-Game-Clone_144378ca"
         }
     ]
 }

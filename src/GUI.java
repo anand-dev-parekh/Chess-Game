@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+	
 
 public class GUI extends Application {
 
@@ -37,7 +37,7 @@ public class GUI extends Application {
         Button moveForward = new Button("Move forward");
         moveForward.setOnAction(e -> daGrid.moveBackOrForward(-1));
 
-
+	
         VBox buttonsBox = new VBox(50);
         buttonsBox.getChildren().addAll(stateLabel, stateChanging, resetGame, pastMoves, moveForward);
     
@@ -144,6 +144,7 @@ public class GUI extends Application {
         stage.show();
     }
     
+    //Main Thread, launches app
     public static void main(String[] args) {
         launch();
     }
