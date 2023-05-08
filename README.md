@@ -2,7 +2,7 @@
 
 
 ## Background
-This one of my first every projects I made! I built a Chess GUI but with different game modes and terminal chess.
+This one of my first every projects I made! I built a Chess GUI but with different game modes and terminal chess. There are alot of flaws with this program such as the design of the Object Oriented Patterns I used that could be fixed. Currently I am more interested on working on different things, so I probably won't ever update it.
 
 #### Game Modes:
 1) Standard Chess (Wanand Chess) -- Chess with Fide rules
